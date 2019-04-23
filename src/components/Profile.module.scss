@@ -1,11 +1,36 @@
 $test-color : red;
 
 
-.testCase{
-  background-color: $test-color;
-  width: 10px;
-  height: 10px;
-  h1{
-    color:blue;
+body{
+  //background-image:linear-gradient(to right top, #ecd944, #efc238, #f0ab32, #ed9531, #e87e34, #e67837, #e4723a, #e16c3d, #e47540, #e67e44, #e98648, #eb8f4c);
+  //background-repeat: initial ;
+  background-color: antiquewhite;
+}
+
+.self{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.ratings{
+  display: flex;
+  flex-direction: row;
+}
+
+.description{
+
+}
+
+.imgContainer{
+  vertical-align: middle;
+  width:200px;
+  height: 200px;
+
+
+  img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
   }
 }

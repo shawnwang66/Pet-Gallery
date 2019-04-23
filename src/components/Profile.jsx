@@ -4,6 +4,9 @@ import styles from './Profile.module.scss'
 import axios from "axios";
 import {Image} from 'semantic-ui-react'
 import ReactStars from 'react-stars'
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+
 
 class Profile extends Component{
 
@@ -78,23 +81,33 @@ class Profile extends Component{
 
         return(
             <div>
-                <div>
-                    <div>
+
+                <div className={styles.self}>
+                    <div className={styles.description}>
                         <h1>{this.state.name}</h1>
                         <h2>{this.state.location}</h2>
-                        <ReactStars
-                            value={this.state.ratings}
-                            size={"35"}
-                            edit={false}
-                        />
-                        <p>{this.state.ratings}</p>
+                        <div className={styles.ratings}>
+                            <ReactStars
+                                value={this.state.ratings}
+                                size={35}
+                                edit={false}
+                            />
+                            <p>{this.state.ratings}</p>
+                        </div>
+
                     </div>
 
-                    <div>
-                        <img src={this.state.image}></img>
+                    <div className={styles.imgContainer}>
+                        <img src={this.state.image} />
                     </div>
-
                 </div>
+
+                <div>
+                    <Button variant="contained" color="primary" >
+                        Primary
+                    </Button>
+                </div>
+
             </div>
         );
     }
