@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import {BrowserRouter as Router, Route, Switch,HashRouter} from 'react-router-dom'
-import './App.css';
+import './App.scss';
+import Profile from './components/Profile'
 
 class App extends Component {
   render() {
     return(
         <HashRouter basename={"/"}>
           <Switch>
-            <Route exact path="/profile" component={}/>
+            <Route exact path="/" component={Profile}/>
           </Switch>
         </HashRouter>
     )
