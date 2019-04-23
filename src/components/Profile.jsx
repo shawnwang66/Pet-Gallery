@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import styles from './Profile.module.scss'
 import axios from "axios";
 import {Image} from 'semantic-ui-react'
+import ReactStars from 'react-stars'
 
 class Profile extends Component{
 
@@ -81,6 +82,11 @@ class Profile extends Component{
                     <div>
                         <h1>{this.state.name}</h1>
                         <h2>{this.state.location}</h2>
+                        <ReactStars
+                            value={this.state.ratings}
+                            size={"35"}
+                            edit={false}
+                        />
                         <p>{this.state.ratings}</p>
                     </div>
 
