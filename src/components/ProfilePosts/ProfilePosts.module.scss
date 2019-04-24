@@ -14,6 +14,12 @@
   }
 }
 
+.gridItemContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .submitForm{
   display: flex;
   flex-direction: row;
@@ -28,4 +34,8 @@
 
 .icon{
   margin-left: 5px;
+}
+
+.grid{
+  padding: 50px;
 }

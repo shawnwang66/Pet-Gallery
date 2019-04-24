@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {Grid} from 'semantic-ui-react'
+// import {Grid} from 'semantic-ui-react'
+import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
@@ -7,6 +8,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import styled from 'styled-components'
 
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -22,6 +24,17 @@ import Button from '@material-ui/core/Button/index';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 
+const Image = styled.img`
+
+  max-width: 100%;
+  height: auto;
+  width: auto;
+  &:hover{
+    opacity: 0.7;
+     transform: scale(1.2);
+     transition: 0.2s;
+
+`;
 class ProfilePosts extends Component{
     constructor(props){
         super(props);
@@ -43,11 +56,13 @@ class ProfilePosts extends Component{
             inputAge: '',
             inputGender : '',
             inputDescription: '',
-            inputPrice: ''
+            inputPrice: '',
+
+            postGrid: []
         }
 
         this.submitForm = this.submitForm.bind(this);
-
+        this.generatePostsGrid = this.generatePostsGrid.bind(this);
     }
 
     handleClickOpen = name => event => {
@@ -108,21 +123,48 @@ class ProfilePosts extends Component{
         this.handleClose('diagOpen')
     }
 
+    generatePostsGrid(){
+        // get all pets info
+        const url = window.localStorage.getItem('baseURL');
+        const postsId = this.props.posts;
+
+        if (this.props.userId !== null){
+            // get all pets
+            axios.get(`${url}pets?where={"owner":"${encodeURIComponent(this.props.userId)}"}`)
+                .then((res)=>{
+                    let data = res.data.data;
+                    // console.log(data)
+
+                    let girdGroups = data.map((pet)=>
+                        <Grid item xs={3} key={pet._id} id={pet._id} className={styles.gridItemContainer} >
+                            <Image  src={pet.imageURLs[0]} id={pet._id} />
+                        </Grid>
+                    )
+
+                    this.setState(()=>{
+                        return {gridItems: girdGroups}
+                    })
+                })
+        }
+
+
+    }
 
 
     render() {
-
+        this.generatePostsGrid();
 
         return(
             <div>
-                <Grid container columns={3}>
-                    <Grid.Column >
+                <Grid container spacing={24} className={styles.grid}>
+                    <Grid item xs={3} className={styles.gridItemContainer}>
                         <div className={styles.potsNew}>
                             <Fab color="primary" aria-label="Add">
                                 <AddIcon onClick={this.handleClickOpen('diagOpen')}/>
                             </Fab>
                         </div>
-                    </Grid.Column>
+                    </Grid>
+                    {this.state.gridItems}
                 </Grid>
 
                 <Dialog

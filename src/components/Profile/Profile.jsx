@@ -130,6 +130,7 @@ class Profile extends Component{
 
                 < ProfilePosts
                     userId = {this.state.id}
+                    posts = {this.state.posts}
                 >
 
                 </ProfilePosts>
