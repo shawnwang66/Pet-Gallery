@@ -28,6 +28,8 @@ class ProfilePosts extends Component{
 
         this.state = {
             diagOpen: false,
+            submittedSuccess: false,
+            submittedFailed: false,
             gridItems:[],
             categories: ['Cat','Dog','Bird','Others'],
             size: [ 'small', 'medium', 'large' ],
@@ -48,12 +50,18 @@ class ProfilePosts extends Component{
 
     }
 
-    handleClickOpen = () => {
-        this.setState({ diagOpen: true });
+    handleClickOpen = name => event => {
+        this.setState({ [name]: true });
     };
 
-    handleClose = () => {
-        this.setState({ diagOpen: false });
+    handleClose = name => event =>{
+        if (name === 'submittedSuccess'){
+            this.setState({ [name]: false ,diagOpen: false});
+        }
+        else
+            this.setState({
+                [name]: false,
+            });
     };
 
     handleChange = name => event => {
@@ -86,12 +94,18 @@ class ProfilePosts extends Component{
                 price: this.state.inputPrice
         }
 
+
         axios.post(url+'pets',data)
             .then((response)=>{
                 console.log(response)
-            })
+                if (response.status === 200) {
+                    this.setState({submittedSuccess: true});
+                }
+            }).catch((e)=>{
+            this.setState({submittedFailed:true});
+        });
 
-        this.handleClose()
+        this.handleClose('diagOpen')
     }
 
 
@@ -105,15 +119,57 @@ class ProfilePosts extends Component{
                     <Grid.Column >
                         <div className={styles.potsNew}>
                             <Fab color="primary" aria-label="Add">
-                                <AddIcon onClick={this.handleClickOpen}/>
+                                <AddIcon onClick={this.handleClickOpen('diagOpen')}/>
                             </Fab>
                         </div>
                     </Grid.Column>
                 </Grid>
 
                 <Dialog
+                    open={this.state.submittedSuccess}
+                    onClose={this.handleClose('submittedSuccess')}
+                    fullWidth={true}
+                    maxWidth={"sm"}
+                    aria-labelledby="form-dialog-submit"
+                >
+                    <DialogTitle id="form-dialog-submit">Submission Result</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText >
+                            You have successfully created a new post about your pet!
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose('submittedSuccess')} color="secondary">
+                            OK
+                        </Button>
+                    </DialogActions>
+
+                </Dialog>
+
+                <Dialog
+                    open={this.state.submittedFailed}
+                    onClose={this.handleClose('submittedFailed')}
+                    fullWidth={true}
+                    maxWidth={"sm"}
+                    aria-labelledby="form-dialog-submit"
+                >
+                    <DialogTitle id="form-dialog-submit">Submission Result</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText >
+                            Your last submission is not successful. Please try again!
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose('submittedFailed')} color="secondary">
+                            OK
+                        </Button>
+                    </DialogActions>
+
+                </Dialog>
+
+                <Dialog
                     open={this.state.diagOpen}
-                    onClose={this.handleClose}
+                    onClose={this.handleClose('diagOpen')}
                     fullWidth={true}
                     maxWidth={"md"}
                     aria-labelledby="form-dialog-title"
@@ -267,7 +323,7 @@ class ProfilePosts extends Component{
                         <Button onClick={this.submitForm} color="secondary">
                             Submit
                         </Button>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.handleClose('diagOpen')} color="primary">
                             Cancel
                         </Button>
                     </DialogActions>
