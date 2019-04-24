@@ -23,11 +23,11 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 
 class ProfilePosts extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
 
         this.state = {
-            diagOpen: true,
+            diagOpen: false,
             gridItems:[],
             categories: ['Cat','Dog','Bird','Others'],
             size: [ 'small', 'medium', 'large' ],
@@ -44,7 +44,7 @@ class ProfilePosts extends Component{
             inputPrice: ''
         }
 
-        this.addNewPost = this.addNewPost.bind(this);
+        this.submitForm = this.submitForm.bind(this);
 
     }
 
@@ -62,8 +62,36 @@ class ProfilePosts extends Component{
         });
     };
 
-    addNewPost(){
+    submitForm(){
+        const userId = this.props.userId;
+        const url = window.localStorage.getItem('baseURL');
+        const testImgs = ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-sg_Zy3KvCPLENEg6B5tsRS3K5vgPAM56V1tqZg5QdnNdEkpq4g','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTR-_So1YvOntltgcJIOm3TSRAa_OjNwi0Axy6Fn-qrNefWiAjJA']
+        // post pet
+        const config = {
 
+        };
+
+        const data = {
+                user_id: userId,
+                name: this.state.inputName,
+                category: this.state.selectedCate,
+                breed: this.state.inputBreed,
+                age: this.state.inputAge,
+                gender: this.state.inputGender,
+                owner: userId,
+                imageURLs: testImgs,
+                size: this.state.selectedSize,
+                energyLevel: this.state.selectedEnergyLevel,
+                description: this.state.inputDescription,
+                price: this.state.inputPrice
+        }
+
+        axios.post(url+'pets',data)
+            .then((response)=>{
+                console.log(response)
+            })
+
+        this.handleClose()
     }
 
 
@@ -90,7 +118,7 @@ class ProfilePosts extends Component{
                     maxWidth={"md"}
                     aria-labelledby="form-dialog-title"
                 >
-                    <DialogTitle id="form-dialog-title">Post A New Pet!</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Create a new post for pets !</DialogTitle>
                     <DialogContent className={styles.submitForm}>
                         <TextField
                             required
@@ -228,8 +256,6 @@ class ProfilePosts extends Component{
                             fullWidth
                             value={this.state.inputDescription}
                             onChange={this.handleChange('inputDescription')}
-
-
                         />
 
                     </DialogContent>
@@ -238,7 +264,7 @@ class ProfilePosts extends Component{
                             UPLOAD
                             <CloudUploadIcon  className={styles.icon} />
                         </Button>
-                        <Button onClick={this.handleClose} color="secondary">
+                        <Button onClick={this.submitForm} color="secondary">
                             Submit
                         </Button>
                         <Button onClick={this.handleClose} color="primary">

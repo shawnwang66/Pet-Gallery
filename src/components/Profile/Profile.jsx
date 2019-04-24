@@ -15,6 +15,7 @@ class Profile extends Component{
     constructor(){
         super();
         this.state = {
+            id: '',
             name: "",
             location: "",
             ratings: 0,
@@ -60,7 +61,7 @@ class Profile extends Component{
                 sum /= ratings.length;
 
                 // update state
-                this.setState({name:resData.name, location: resData.location, ratings: sum, image: resData.imageURL, posts:resData.petsCreated})
+                this.setState({id: resData._id, name:resData.name, location: resData.location, ratings: sum, image: resData.imageURL, posts:resData.petsCreated})
             })
     }
 
@@ -70,6 +71,8 @@ class Profile extends Component{
 
     async componentWillMount() {
         const baseURL = 'http://localhost:4000/api/';
+        window.localStorage.setItem('baseURL',baseURL);
+
         let token;
         // login adn get token
         await this.login(baseURL);
@@ -125,7 +128,9 @@ class Profile extends Component{
                     </Button>
                 </div>
 
-                < ProfilePosts>
+                < ProfilePosts
+                    userId = {this.state.id}
+                >
 
                 </ProfilePosts>
 
