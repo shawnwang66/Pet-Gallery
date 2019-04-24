@@ -9,6 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import styled from 'styled-components'
+import InfoIcon from '@material-ui/icons/Info';
 
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -23,6 +24,10 @@ import ReactStars from 'react-stars'
 import Button from '@material-ui/core/Button/index';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
+import GridListTileBar from "@material-ui/core/GridListTileBar";
+import IconButton from "@material-ui/core/IconButton";
+import GridListTile from "@material-ui/core/GridListTile";
+import {Card, CardMedia} from "@material-ui/core";
 
 const Image = styled.img`
 
@@ -138,6 +143,20 @@ class ProfilePosts extends Component{
                     let girdGroups = data.map((pet)=>
                         <Grid item xs={3} key={pet._id} id={pet._id} className={styles.gridItemContainer} >
                             <Image  src={pet.imageURLs[0]} id={pet._id} />
+                            {/*<GridListTile >*/}
+                            {/*    <Image  src={pet.imageURLs[0]} id={pet._id} />*/}
+                            {/*    <GridListTileBar*/}
+                            {/*        className={styles.titleBar}*/}
+                            {/*        title={pet.name}*/}
+                            {/*        subtitle={<span>Price: {pet.price}</span>}*/}
+                            {/*        actionIcon={*/}
+                            {/*            <IconButton>*/}
+                            {/*                <InfoIcon color={"action"} />*/}
+                            {/*            </IconButton>*/}
+                            {/*        }*/}
+                            {/*    />*/}
+                            {/*</GridListTile>*/}
+
                         </Grid>
                     )
 
@@ -152,6 +171,8 @@ class ProfilePosts extends Component{
 
 
     render() {
+
+        // Build grid for posts
         this.generatePostsGrid();
 
         return(
