@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Profile.module.scss'
-import axios from "axios";
-import {Image} from 'semantic-ui-react'
+import axios from "axios/index";
+// import {Image} from 'semantic-ui-react/index'
 import ReactStars from 'react-stars'
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button/index';
+import ProfilePosts from '../ProfilePosts/ProfilePosts'
+import { withStyles } from '@material-ui/core/styles/index';
+
 
 
 class Profile extends Component{
@@ -16,12 +18,13 @@ class Profile extends Component{
             name: "",
             location: "",
             ratings: 0,
-            image: ""
+            image: "",
+            posts:[]
         }
 
         this.login = this.login.bind(this);
         this.getUserInfo = this.getUserInfo.bind(this);
-
+        this.getPosts = this.getPosts.bind(this);
     }
 
     login(baseURL){
@@ -57,8 +60,12 @@ class Profile extends Component{
                 sum /= ratings.length;
 
                 // update state
-                this.setState({name:resData.name, location: resData.location, ratings: sum, image: resData.imageURL})
+                this.setState({name:resData.name, location: resData.location, ratings: sum, image: resData.imageURL, posts:resData.petsCreated})
             })
+    }
+
+    getPosts(){
+
     }
 
     async componentWillMount() {
@@ -70,14 +77,18 @@ class Profile extends Component{
 
         // get user info
         await this.getUserInfo(baseURL, token)
-
-
-
-
+        console.log(this.state.posts)
     }
 
 
     render(){
+
+        const Avatar = {
+            backgroundImage: `url(${this.state.image})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center"
+        }
 
         return(
             <div>
@@ -98,15 +109,25 @@ class Profile extends Component{
                     </div>
 
                     <div className={styles.imgContainer}>
-                        <img src={this.state.image} />
+                        <img style={Avatar} />
                     </div>
                 </div>
 
-                <div>
-                    <Button variant="contained" color="primary" >
-                        Primary
+                <div className={styles.buttonGroup}>
+                    <Button variant="outlined" color="primary" >
+                        Featured
+                    </Button>
+                    <Button variant="outlined" color="primary" >
+                        Posts
+                    </Button>
+                    <Button variant="outlined" color="primary" >
+                        Discussion
                     </Button>
                 </div>
+
+                < ProfilePosts>
+
+                </ProfilePosts>
 
             </div>
         );
