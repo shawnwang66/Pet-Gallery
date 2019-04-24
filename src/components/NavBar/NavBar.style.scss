@@ -1,0 +1,34 @@
+@import "../../variables";
+
+.nav-expanded{
+  background-image: $main-background;
+  width: 100%;
+  height: 600px;
+}
+
+.nav-minimized{
+  background-image: $main-background;
+  width: 100%;
+  height: 600px;
+  position: fixed;
+  top: -540px;
+}
+
+.title{
+  position: absolute;
+  top: 280px;
+  width: 100%;
+  text-align: center;
+  margin:0 auto;
+  color: #F0EADD;
+  font-size: 140px;
+}
+
+
+.search{
+  width: 500px;
+  position: fixed;
+  margin:0 auto;
+}
+
+
