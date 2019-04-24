@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import {BrowserRouter as Router, Route, Switch,HashRouter} from 'react-router-dom'
 import './App.scss';
-import Profile from './components/Profile'
+import Profile from './components/Profile/Profile'
 
 class App extends Component {
   render() {

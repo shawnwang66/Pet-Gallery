@@ -1,0 +1,31 @@
+
+.potsNew{
+  border: gray dotted;
+  width: 150px;
+  height: 200px;
+  border-radius: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.7;
+  //box-shadow:2px 2px 2px ;
+  &:hover{
+      opacity: 1;
+  }
+}
+
+.submitForm{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.inputFiled{
+  width: 200px;
+}
+
+.icon{
+  margin-left: 5px;
+}
