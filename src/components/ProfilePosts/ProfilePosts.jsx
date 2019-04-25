@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // import {Grid} from 'semantic-ui-react'
-import Grid from '@material-ui/core/Grid';
+// import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +8,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { Card, Image } from 'semantic-ui-react'
+import { Card, Image , Grid} from 'semantic-ui-react'
 
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -129,17 +129,18 @@ class ProfilePosts extends Component{
                     }
                     let girdGroups = data.map((pet)=>{
                         let imgConfig = {
+                            display: "flex",
                             backgroundImage: `url(${pet.imageURLs[0]})`,
                             backgroundRepeat: "no-repeat",
                             backgroundSize: "cover",
                             backgroundPosition: "center",
                             width: "100%",
-                            height: "70%",
+                            height: "100%",
                         }
 
                         return(
-                            <Grid item xs={3} key={pet._id} id={pet._id}  >
                                 <Card
+                                    key={pet._id}
                                     color={"red"}
                                     className={styles.gridCard}
                                 >
@@ -150,7 +151,6 @@ class ProfilePosts extends Component{
                                         <Card.Description>{"Price: $"+pet.price}</Card.Description>
                                     </Card.Content>
                                 </Card>
-                            </Grid>
                         );
 
                     }
@@ -194,18 +194,16 @@ class ProfilePosts extends Component{
 
         return(
             <div>
-                <Grid container spacing={24} className={styles.grid}>
-                    <Grid item xs={3} className={styles.gridItemContainer}>
+                <div className={styles.grid}>
                         <div className={styles.potsNew}>
-                            <Fab color="primary" aria-label="Add">
-                                <AddIcon onClick={this.handleClickOpen('diagOpen')}/>
+                            <Fab size="large" color="primary" aria-label="Add" onClick={this.handleClickOpen('diagOpen')}>
+                                <AddIcon/>
                             </Fab>
                         </div>
-                    </Grid>
                     {this.state.gridItems}
                     {/*{this.state.gridTest}*/}
 
-                </Grid>
+                </div>
 
                 <Dialog
                     open={this.state.submittedSuccess}

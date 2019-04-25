@@ -117,13 +117,13 @@ class Profile extends Component{
                 </div>
 
                 <div className={styles.buttonGroup}>
-                    <Button variant="outlined" color="primary" >
+                    <Button size="large" variant="outlined" color="primary" >
                         Featured
                     </Button>
-                    <Button variant="outlined" color="primary" >
+                    <Button size="large" variant="outlined" color="primary" >
                         Posts
                     </Button>
-                    <Button variant="outlined" color="primary" >
+                    <Button size="large" variant="outlined" color="primary" >
                         Discussion
                     </Button>
                 </div>

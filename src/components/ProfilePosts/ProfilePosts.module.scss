@@ -1,8 +1,8 @@
 
 .potsNew{
   border: gray dotted;
-  width: 200px;
-  height: 280px;
+  width: 290px;
+  height: 340px;
   border-radius: 15%;
   display: flex;
   justify-content: center;
@@ -12,13 +12,14 @@
   &:hover{
       opacity: 1;
   }
+  margin: 20px 10px;
 }
 
 .gridItemContainer{
   display: flex;
   justify-content: center;
   align-items: center;
-
+  ;
 }
 
 .submitForm{
@@ -38,8 +39,13 @@
 }
 
 .grid {
-  padding: 50px;
+  display: flex;
+  padding: 50px 150px;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
 }
 
 .gridImage{
@@ -48,6 +54,7 @@
 
 .gridCard{
   height: 340px;
+  margin: 20px 10px !important;
 }
 
 .gridCardImage{
