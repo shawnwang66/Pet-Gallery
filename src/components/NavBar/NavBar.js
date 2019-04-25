@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import "./NavBar.style.scss";
 import { Input } from 'semantic-ui-react'
+import dog from '../../assets/dog.png';
+import cat from '../../assets/cat.png';
+import * as Scroll from 'react-scroll';
+import {animateScroll as scroll } from 'react-scroll'
+
 
 export default class NavBar extends Component{
     constructor(props){
@@ -11,6 +16,7 @@ export default class NavBar extends Component{
         };
 
         this.handleScroll = this.handleScroll.bind(this);
+        this.focusHandler = this.focusHandler.bind(this);
     }
 
     componentDidMount() {
@@ -27,14 +33,15 @@ export default class NavBar extends Component{
 
     }
 
+    focusHandler(){
+        scroll.scrollTo(550);
+    }
+
     render() {
         const position = this.state.scroll;
-        console.log(position);
         const top = 500+position/11;
         const topStr = (position<=550)?(top+'px'):'550px';
         const opacity = (500-position)/500;
-
-
 
         const search = (<Input
             className='search'
@@ -42,12 +49,16 @@ export default class NavBar extends Component{
             fluid={true}
             icon='search'
             placeholder='Search...'
+            onFocus={this.focusHandler}
         />);
         if (this.state.expanded){
             return (
                 <div className={position<=540?'nav-expanded':'nav-minimized'}>
+
                     <div className='title' style={{opacity:opacity}}>
+                        <img className='icon-cat' src={cat}/>
                         Pet Gallery
+                        <img className='icon-dog' src={dog}/>
                     </div>
                     {search}
 

@@ -1,6 +1,8 @@
 import React, { Component,ScrollView } from 'react';
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
+import { library } from '@fortawesome/fontawesome-svg-core'
+
 
 class App extends Component {
   render() {

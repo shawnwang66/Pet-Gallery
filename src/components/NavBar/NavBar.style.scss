@@ -20,10 +20,28 @@
   width: 100%;
   text-align: center;
   margin:0 auto;
-  color: #F0EADD;
+  color: #faf3e7;
   font-size: 140px;
+  text-shadow: 3px 3px 3px #A8AAA0;
 }
 
+.icon-dog{
+  height: 50px;
+  width: 50px;
+  position: relative;
+  top: -66px;
+  right: 193px;
+  transform: rotate(0deg);
+}
+
+.icon-cat{
+  height: 50px;
+  width: 50px;
+  position: relative;
+  top:-72px;
+  left:145px;
+  transform: rotate(0deg);
+}
 
 .search{
   width: 500px;
