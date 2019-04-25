@@ -108,6 +108,7 @@ class ProfilePosts extends Component{
             this.setState({submittedFailed:true});
         });
 
+        // this.setState(this.state)
         this.handleClose('diagOpen')
     }
 
