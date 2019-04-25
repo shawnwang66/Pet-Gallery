@@ -16,6 +16,12 @@ body{
 .ratings{
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  p{
+    margin-left: 10px;
+    font-size: 20px;
+  }
 }
 
 .description{

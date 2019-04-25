@@ -103,7 +103,7 @@ class Profile extends Component{
                         <div className={styles.ratings}>
                             <ReactStars
                                 value={this.state.ratings}
-                                size={35}
+                                size={25}
                                 edit={false}
                             />
                             <p>{this.state.ratings}</p>

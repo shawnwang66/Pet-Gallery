@@ -158,7 +158,7 @@ class ProfilePosts extends Component{
                             <Card
                                 color={"red"}
                             >
-                                <Image src={pet.imageURLs[1]} fluid></Image>
+                                <Image src={pet.imageURLs[0]} fluid></Image>
                                 <Card.Content>
                                     <Card.Header>{pet.name}</Card.Header>
                                     <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
@@ -172,26 +172,26 @@ class ProfilePosts extends Component{
                         return {gridItems: girdGroups}
                     })
 
-                    // TODO used for test
-                    let gridtest = data.map((pet)=>
-                        <Grid item xs={3} key={pet._id} id={pet._id} className={styles.gridItemContainer} >
-                            <Card
-                                color={"red"}
-                            >
-                                <Image src={pet.imageURLs[0]} fluid></Image>
-                                <Card.Content>
-                                    <Card.Header>{pet.name}</Card.Header>
-                                    <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
-                                    <Card.Description>{"Price: $"+pet.price}</Card.Description>
-                                </Card.Content>
-                            </Card>
-                        </Grid>
-                    )
-
-                    this.setState(()=>{
-                        return {gridTest: gridtest}
-                    })
-                    // above test
+                    // // TODO used for test
+                    // let gridtest = data.map((pet)=>
+                    //     <Grid item xs={3} key={pet._id} id={pet._id} className={styles.gridItemContainer} >
+                    //         <Card
+                    //             color={"red"}
+                    //         >
+                    //             <Image src={pet.imageURLs[0]} fluid></Image>
+                    //             <Card.Content>
+                    //                 <Card.Header>{pet.name}</Card.Header>
+                    //                 <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
+                    //                 <Card.Description>{"Price: $"+pet.price}</Card.Description>
+                    //             </Card.Content>
+                    //         </Card>
+                    //     </Grid>
+                    // )
+                    //
+                    // this.setState(()=>{
+                    //     return {gridTest: gridtest}
+                    // })
+                    // // above test
                 })
         }
 
@@ -215,7 +215,7 @@ class ProfilePosts extends Component{
                         </div>
                     </Grid>
                     {this.state.gridItems}
-                    {this.state.gridTest}
+                    {/*{this.state.gridTest}*/}
 
                 </Grid>
 
