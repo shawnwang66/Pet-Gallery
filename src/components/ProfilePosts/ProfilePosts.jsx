@@ -8,34 +8,18 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import styled from 'styled-components'
 import { Card, Image } from 'semantic-ui-react'
-import InfoIcon from '@material-ui/icons/Info';
 
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 import { Link } from 'react-router-dom'
 import styles from './ProfilePosts.module.scss'
 import axios from "axios/index";
-import ReactStars from 'react-stars'
 import Button from '@material-ui/core/Button/index';
 import InputAdornment from "@material-ui/core/InputAdornment";
 
-const Images = styled.img`
-
-  max-width: 100%;
-  height: auto;
-  width: auto;
-  &:hover{
-    opacity: 0.7;
-     transform: scale(1.2);
-     transition: 0.2s;
-
-`;
 class ProfilePosts extends Component{
     constructor(props){
         super(props);
@@ -137,36 +121,40 @@ class ProfilePosts extends Component{
                 .then((res)=>{
                     let data = res.data.data;
                     // console.log(data)
+                    const Avatar = {
+                        backgroundImage: `url(${this.state.image})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center"
+                    }
+                    let girdGroups = data.map((pet)=>{
+                        let imgConfig = {
+                            backgroundImage: `url(${pet.imageURLs[0]})`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            width: "100%",
+                            height: "70%",
+                        }
 
-                    let girdGroups = data.map((pet)=>
-                        <Grid item xs={3} key={pet._id} id={pet._id} className={styles.gridItemContainer} >
-                            {/*<Images  src={pet.imageURLs[0]} id={pet._id} />*/}
-                            {/*<GridListTile >*/}
-                            {/*    <Image  src={pet.imageURLs[0]} id={pet._id} />*/}
-                            {/*    <GridListTileBar*/}
-                            {/*        className={styles.titleBar}*/}
-                            {/*        title={pet.name}*/}
-                            {/*        subtitle={<span>Price: {pet.price}</span>}*/}
-                            {/*        actionIcon={*/}
-                            {/*            <IconButton>*/}
-                            {/*                <InfoIcon color={"action"} />*/}
-                            {/*            </IconButton>*/}
-                            {/*        }*/}
-                            {/*    />*/}
-                            {/*</GridListTile>*/}
+                        return(
+                            <Grid item xs={3} key={pet._id} id={pet._id}  >
+                                <Card
+                                    color={"red"}
+                                    className={styles.gridCard}
+                                >
+                                    <div style={imgConfig}></div>
+                                    <Card.Content>
+                                        <Card.Header>{pet.name}</Card.Header>
+                                        <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
+                                        <Card.Description>{"Price: $"+pet.price}</Card.Description>
+                                    </Card.Content>
+                                </Card>
+                            </Grid>
+                        );
 
-                            <Card
-                                color={"red"}
-                            >
-                                <Image src={pet.imageURLs[0]} fluid></Image>
-                                <Card.Content>
-                                    <Card.Header>{pet.name}</Card.Header>
-                                    <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
-                                    <Card.Description>{"Price: $"+pet.price}</Card.Description>
-                                </Card.Content>
-                            </Card>
-                        </Grid>
-                    )
+                    }
+                    );
 
                     this.setState(()=>{
                         return {gridItems: girdGroups}
