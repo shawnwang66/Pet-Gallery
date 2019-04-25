@@ -20,6 +20,7 @@ import axios from "axios/index";
 import Button from '@material-ui/core/Button/index';
 import InputAdornment from "@material-ui/core/InputAdornment";
 
+
 class ProfilePosts extends Component{
     constructor(props){
         super(props);
@@ -195,11 +196,12 @@ class ProfilePosts extends Component{
         return(
             <div>
                 <div className={styles.grid}>
+                    {this.props.isFeatured ? [] :
                         <div className={styles.potsNew}>
                             <Fab size="large" color="primary" aria-label="Add" onClick={this.handleClickOpen('diagOpen')}>
                                 <AddIcon/>
                             </Fab>
-                        </div>
+                        </div>}
                     {this.state.gridItems}
                     {/*{this.state.gridTest}*/}
 

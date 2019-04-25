@@ -20,12 +20,17 @@ class Profile extends Component{
             location: "",
             ratings: 0,
             image: "",
-            posts:[]
+            posts:[],
+            featured: [],
+            currentPanel: 'posts'
         }
 
         this.login = this.login.bind(this);
         this.getUserInfo = this.getUserInfo.bind(this);
         this.getPosts = this.getPosts.bind(this);
+        this.showFeatured = this.showFeatured.bind(this);
+        this.showDiscussions = this.showDiscussions.bind(this);
+        this.showPosts = this.showPosts.bind(this);
     }
 
     login(baseURL){
@@ -61,12 +66,32 @@ class Profile extends Component{
                 sum /= ratings.length;
 
                 // update state
-                this.setState({id: resData._id, name:resData.name, location: resData.location, ratings: sum, image: resData.imageURL, posts:resData.petsCreated})
+                this.setState({
+                    id: resData._id, 
+                    name:resData.name, 
+                    location: resData.location, 
+                    ratings: sum, 
+                    image: resData.imageURL, 
+                    posts: resData.petsCreated,
+                    featured: resData.petsFeatured
+                });
             })
     }
 
     getPosts(){
 
+    }
+
+    showFeatured() {
+        this.setState({ currentPanel: 'featured' });
+    }
+
+    showPosts() {
+        this.setState({ currentPanel: 'posts' });
+    }
+
+    showDiscussions() {
+        this.setState({ currentPanel: 'discuss' });
     }
 
     async componentWillMount() {
@@ -117,24 +142,31 @@ class Profile extends Component{
                 </div>
 
                 <div className={styles.buttonGroup}>
-                    <Button size="large" variant="outlined" color="primary" >
+
+                    <Button size="large" variant="outlined" color="primary" onClick={this.showFeatured} >
                         Featured
                     </Button>
-                    <Button size="large" variant="outlined" color="primary" >
+                    <Button size="large" variant="outlined" color="primary" onClick={this.showPosts}>
                         Posts
                     </Button>
-                    <Button size="large" variant="outlined" color="primary" >
+                    <Button size="large" variant="outlined" color="primary" onClick={this.showDiscussions}>
                         Discussion
                     </Button>
                 </div>
 
-                < ProfilePosts
-                    userId = {this.state.id}
-                    posts = {this.state.posts}
-                >
-
-                </ProfilePosts>
-
+                {this.state.currentPanel === 'posts' ?
+                    <ProfilePosts
+                        userId = {this.state.id}
+                        posts = {this.state.posts}
+                        isFeatured={false}>
+                    </ProfilePosts>
+                : this.state.currentPanel === 'featured' ? 
+                    <ProfilePosts
+                        userId = {this.state.id}
+                        posts = {this.state.featured}
+                        isFeatured={true}>
+                    </ProfilePosts>
+                : <div></div>}
             </div>
         );
     }
