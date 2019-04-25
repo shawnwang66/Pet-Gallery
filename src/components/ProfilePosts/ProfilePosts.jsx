@@ -9,6 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import styled from 'styled-components'
+import { Card, Image } from 'semantic-ui-react'
 import InfoIcon from '@material-ui/icons/Info';
 
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -27,9 +28,8 @@ import Icon from "@material-ui/core/Icon";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import IconButton from "@material-ui/core/IconButton";
 import GridListTile from "@material-ui/core/GridListTile";
-import {Card, CardMedia} from "@material-ui/core";
 
-const Image = styled.img`
+const Images = styled.img`
 
   max-width: 100%;
   height: auto;
@@ -142,7 +142,7 @@ class ProfilePosts extends Component{
 
                     let girdGroups = data.map((pet)=>
                         <Grid item xs={3} key={pet._id} id={pet._id} className={styles.gridItemContainer} >
-                            <Image  src={pet.imageURLs[0]} id={pet._id} />
+                            {/*<Images  src={pet.imageURLs[0]} id={pet._id} />*/}
                             {/*<GridListTile >*/}
                             {/*    <Image  src={pet.imageURLs[0]} id={pet._id} />*/}
                             {/*    <GridListTileBar*/}
@@ -156,6 +156,17 @@ class ProfilePosts extends Component{
                             {/*        }*/}
                             {/*    />*/}
                             {/*</GridListTile>*/}
+
+                            <Card
+                                color={"red"}
+                            >
+                                <Image src={pet.imageURLs[1]} fluid></Image>
+                                <Card.Content>
+                                    <Card.Header>{pet.name}</Card.Header>
+                                    <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
+                                    <Card.Description>{"Price: $"+pet.price}</Card.Description>
+                                </Card.Content>
+                            </Card>
 
                         </Grid>
                     )
