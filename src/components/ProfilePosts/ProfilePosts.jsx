@@ -24,10 +24,6 @@ import axios from "axios/index";
 import ReactStars from 'react-stars'
 import Button from '@material-ui/core/Button/index';
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Icon from "@material-ui/core/Icon";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
-import IconButton from "@material-ui/core/IconButton";
-import GridListTile from "@material-ui/core/GridListTile";
 
 const Images = styled.img`
 
