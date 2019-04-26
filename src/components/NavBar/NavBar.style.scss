@@ -1,0 +1,83 @@
+@import "../../variables";
+@import url('https://fonts.googleapis.com/css?family=Handlee|Concert+One');
+
+
+.nav-expanded{
+  background-image: $main-background;
+  width: 100%;
+  height: 600px;
+  z-index: 2;
+}
+
+.nav-minimized{
+  background-image: $main-background;
+  width: 100%;
+  height: 600px;
+  position: fixed;
+  top: -540px;
+  z-index: 2;
+
+}
+
+.nav-item-left{
+  color: $main-font-color;
+  float: left;
+  margin-left:30px;
+  height: 60px;
+  font-weight: lighter;
+  cursor: pointer;
+  font-size: 30px;
+  position: absolute;
+  top:560px;
+  font-family: 'Concert One', sans-serif;
+}
+
+.nav-item-right{
+  color: $main-font-color;
+  margin-right:30px;
+  height: 60px;
+  font-weight: lighter;
+  cursor: pointer;
+  font-size: 30px;
+  position: absolute;
+  top:560px;
+  right: 0;
+  font-family: 'Handlee', sans-serif;
+}
+
+.title{
+  position: absolute;
+  top: 280px;
+  width: 100%;
+  text-align: center;
+  margin:0 auto;
+  color: $main-font-color;
+  font-size: 140px;
+  text-shadow: 3px 3px 3px #A8AAA0;
+}
+
+.icon-dog{
+  height: 50px;
+  width: 50px;
+  position: relative;
+  top: -66px;
+  right: 193px;
+  transform: rotate(0deg);
+}
+
+.icon-cat{
+  height: 50px;
+  width: 50px;
+  position: relative;
+  top:-72px;
+  left:145px;
+  transform: rotate(0deg);
+}
+
+.search{
+  width: 500px;
+  position: fixed;
+  margin:0 auto;
+}
+
+

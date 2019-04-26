@@ -7,7 +7,7 @@ import ReactStars from 'react-stars'
 import Button from '@material-ui/core/Button/index';
 import ProfilePosts from '../ProfilePosts/ProfilePosts'
 import { withStyles } from '@material-ui/core/styles/index';
-
+import NavBar from '../NavBar/NavBar'
 
 
 class Profile extends Component{
@@ -120,7 +120,7 @@ class Profile extends Component{
 
         return(
             <div>
-
+                <NavBar expanded={true}/>
                 <div className={styles.self}>
                     <div className={styles.description}>
                         <h1>{this.state.name}</h1>
