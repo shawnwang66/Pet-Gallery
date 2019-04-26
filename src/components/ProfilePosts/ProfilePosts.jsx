@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-// import {Grid} from 'semantic-ui-react'
-// import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
@@ -128,7 +126,8 @@ class ProfilePosts extends Component{
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "cover",
                         backgroundPosition: "center"
-                    }
+                    };
+
                     let girdGroups = data.map((pet)=>{
                         let imgConfig = {
                             display: "flex",
@@ -138,12 +137,12 @@ class ProfilePosts extends Component{
                             backgroundPosition: "center",
                             width: "100%",
                             height: "100%",
-                        }
+                        };
 
                         return(
                                 <Card
                                     key={pet._id}
-                                    color={"red"}
+                                    color={'orange'}
                                     className={styles.gridCard}
                                 >
                                     <div style={imgConfig}></div>
@@ -162,26 +161,6 @@ class ProfilePosts extends Component{
                         return {gridItems: girdGroups}
                     })
 
-                    // // TODO used for test
-                    // let gridtest = data.map((pet)=>
-                    //     <Grid item xs={3} key={pet._id} id={pet._id} className={styles.gridItemContainer} >
-                    //         <Card
-                    //             color={"red"}
-                    //         >
-                    //             <Image src={pet.imageURLs[0]} fluid></Image>
-                    //             <Card.Content>
-                    //                 <Card.Header>{pet.name}</Card.Header>
-                    //                 <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
-                    //                 <Card.Description>{"Price: $"+pet.price}</Card.Description>
-                    //             </Card.Content>
-                    //         </Card>
-                    //     </Grid>
-                    // )
-                    //
-                    // this.setState(()=>{
-                    //     return {gridTest: gridtest}
-                    // })
-                    // // above test
                 })
         }
 
