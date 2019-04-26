@@ -42,6 +42,8 @@ export default class NavBar extends Component{
         const top = 500+position/11;
         const topStr = (position<=550)?(top+'px'):'550px';
         const opacity = (500-position)/500;
+        const navOpacity = (400-position>=0)?0:(position-400)/100;
+        console.log(navOpacity);
 
         const search = (<Input
             className='search'
@@ -54,12 +56,13 @@ export default class NavBar extends Component{
         if (this.state.expanded){
             return (
                 <div className={position<=540?'nav-expanded':'nav-minimized'}>
-
+                    <div className='nav-item-left' style={{opacity:navOpacity}}>Pet Gallery</div>
                     <div className='title' style={{opacity:opacity}}>
                         <img className='icon-cat' src={cat}/>
                         Pet Gallery
                         <img className='icon-dog' src={dog}/>
                     </div>
+                    <div className='nav-item-right' style={{opacity:navOpacity}}>Log in</div>
                     {search}
 
                 </div>
@@ -68,6 +71,7 @@ export default class NavBar extends Component{
         else{
             return (
                 <div className={'nav-minimized'}>
+                    <div className='nav-item-left' style={{opacity:1}}>Pet Gallery</div>
                     <Input
                         className='search'
                         style={{top:'550px'}}
@@ -75,6 +79,7 @@ export default class NavBar extends Component{
                         icon='search'
                         placeholder='Search...'
                     />
+                    <div className='nav-item-right' style={{opacity:1}}>Log in</div>
                 </div>
             )
         }

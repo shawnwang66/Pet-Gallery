@@ -1,9 +1,12 @@
 @import "../../variables";
+@import url('https://fonts.googleapis.com/css?family=Handlee|Concert+One');
+
 
 .nav-expanded{
   background-image: $main-background;
   width: 100%;
   height: 600px;
+
 }
 
 .nav-minimized{
@@ -14,13 +17,39 @@
   top: -540px;
 }
 
+.nav-item-left{
+  color: $main-font-color;
+  float: left;
+  margin-left:30px;
+  height: 60px;
+  font-weight: lighter;
+  cursor: pointer;
+  font-size: 30px;
+  position: absolute;
+  top:560px;
+  font-family: 'Concert One', sans-serif;
+}
+
+.nav-item-right{
+  color: $main-font-color;
+  margin-right:30px;
+  height: 60px;
+  font-weight: lighter;
+  cursor: pointer;
+  font-size: 30px;
+  position: absolute;
+  top:560px;
+  right: 0;
+  font-family: 'Handlee', sans-serif;
+}
+
 .title{
   position: absolute;
   top: 280px;
   width: 100%;
   text-align: center;
   margin:0 auto;
-  color: #faf3e7;
+  color: $main-font-color;
   font-size: 140px;
   text-shadow: 3px 3px 3px #A8AAA0;
 }
