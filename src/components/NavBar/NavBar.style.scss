@@ -6,7 +6,7 @@
   background-image: $main-background;
   width: 100%;
   height: 600px;
-
+  z-index: 2;
 }
 
 .nav-minimized{
@@ -15,6 +15,8 @@
   height: 600px;
   position: fixed;
   top: -540px;
+  z-index: 2;
+
 }
 
 .nav-item-left{

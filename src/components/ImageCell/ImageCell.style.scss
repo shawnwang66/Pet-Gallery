@@ -1,0 +1,64 @@
+@import "../../variables";
+
+.image-cell-container {
+  width: 360px;
+  padding: 12px;
+
+}
+
+.round-image {
+  width: 100%;
+  border-radius: 18px;
+  cursor: pointer;
+  transition-duration: 0.14s;
+
+}
+
+
+.round-image:hover {
+  filter: brightness(0.7);
+  -webkit-filter: brightness(0.7);
+}
+
+.detail-flex-container {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.button-container {
+  width: 25%;
+}
+
+
+.name-location-container {
+  width: 75%;
+  padding-left: 19px;
+
+}
+
+.name-container {
+  font-size: 23px;
+  color: #556070;
+}
+
+.location-container {
+  font-size: 15px;
+  color: #556070;
+  padding-top: 5px;
+
+}
+
+.heart-icon {
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.info-icon {
+  padding-left: 25px;
+  cursor: pointer;
+}
+
+
+
