@@ -3,10 +3,13 @@ import "./NavBar.style.scss";
 import { Input } from 'semantic-ui-react'
 import dog from '../../assets/dog.png';
 import cat from '../../assets/cat.png';
-import * as Scroll from 'react-scroll';
 import {animateScroll as scroll } from 'react-scroll'
 
-
+/**
+ * Navigation bar for the whole site with complex scroll effect.
+ * Use expanded = {true} for the main page
+ * Use expanded = {false} for sub pages.
+ */
 export default class NavBar extends Component{
     constructor(props){
         super(props);
@@ -43,16 +46,6 @@ export default class NavBar extends Component{
         const topStr = (position<=550)?(top+'px'):'550px';
         const opacity = (500-position)/500;
         const navOpacity = (400-position>=0)?0:(position-400)/100;
-        console.log(navOpacity);
-
-        const search = (<Input
-            className='search'
-            style={{top:topStr}}
-            fluid={true}
-            icon='search'
-            placeholder='Search...'
-            onFocus={this.focusHandler}
-        />);
         if (this.state.expanded){
             return (
                 <div className={position<=540?'nav-expanded':'nav-minimized'}>
@@ -63,8 +56,14 @@ export default class NavBar extends Component{
                         <img className='icon-dog' src={dog}/>
                     </div>
                     <div className='nav-item-right' style={{opacity:navOpacity}}>Log in</div>
-                    {search}
-
+                    <Input
+                        className='search'
+                        style={{top:topStr}}
+                        fluid={true}
+                        icon='search'
+                        placeholder='Search...'
+                        onFocus={this.focusHandler}
+                    />
                 </div>
             )
         }
