@@ -45,4 +45,5 @@ export async function removePetFromFavorite(id) {
       console.log(response);
     })
     .catch();
+
 }
