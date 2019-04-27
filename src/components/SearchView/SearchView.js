@@ -82,9 +82,12 @@ export default class SearchView extends Component {
       searchMode: false,
       displayBreedPicker: false,
       searchQuery: '',
+      selectedCategory: '',
+      selectedBreed: '',
     };
 
     this.setCategory = this.setCategory.bind(this);
+    this.setBreed = this.setBreed.bind(this);
   }
 
   componentDidMount() {
@@ -127,7 +130,18 @@ export default class SearchView extends Component {
   }
 
   setCategory(e, {value}) {
-    console.log(value);
+    if (value !== this.state.selectedCategory) {
+      this.setState({selectedCategory: value});
+      this.setState({selectedBreed: ''});
+
+    }
+    this.setState({selectedCategory: value})
+  }
+
+  setBreed(e, {value}) {
+    if (value !== this.state.selectedBreed) {
+      this.setState({selectedBreed: value});
+    }
   }
 
   render() {
@@ -164,13 +178,19 @@ export default class SearchView extends Component {
                   clearable
                   selection
                   onChange={this.setCategory}
+                  value={this.state.selectedCategory}
+
                 />
                 <Dropdown
-                  placeholder={'Category'}
+                  placeholder={'Breed'}
                   floating
-                  options={categoryOptions}
+                  options={this.state.selectedCategory===1?catBreedOptions:
+                    (this.state.selectedCategory===2?dogBreedOptions:birdBreedOptions)}
                   clearable
-                  selection/>
+                  selection
+                  onChange={this.setBreed}
+                  value={this.state.selectedBreed}
+                />
 
               </div> :
               <div className={'filter-container closed'}/>
