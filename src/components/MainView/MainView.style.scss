@@ -1,20 +1,5 @@
 @import "../../variables";
 
-.filter-container {
-  margin: 0 auto;
-  background-color: #61dafb;
-  transition: all 0.3s ease-out;
-  height: 300px;
-}
-
-.expanded {
-  height: 200px;
-}
-
-.closed {
-  height: 0px;
-}
-
 .main-view-container {
   padding-top: 600px;
   background-color: #fffaed;

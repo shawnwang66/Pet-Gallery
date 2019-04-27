@@ -9,6 +9,7 @@ import SearchView from './components/SearchView/SearchView'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 
+// Reference: https://github.com/ReactTraining/react-router/issues/2019
 
 class App extends Component {
   render() {
@@ -17,7 +18,7 @@ class App extends Component {
           <Switch>
               <Route exact path="/" component={MainView}/>
               <Route exact path="/profile" component={Profile}/>
-              <Route exact path='/search' component = {SearchView}/>
+              <Route exact path='/search' onUpate = {() => window.scrollTo(0,0)} component = {SearchView}/>
               <Route/>
           </Switch>
         </HashRouter>

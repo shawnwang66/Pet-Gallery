@@ -5,6 +5,7 @@ import dog from '../../assets/dog.png';
 import cat from '../../assets/cat.png';
 import {animateScroll as scroll } from 'react-scroll';
 import {Redirect} from 'react-router-dom'
+import queryString from "querystring";
 
 
 /**
@@ -30,6 +31,27 @@ export default class NavBar extends Component{
 
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll);
+        try {
+            let thisQuery = this.props.searchQuery;
+            if (thisQuery !== undefined) {
+                this.setState({searchQuery: thisQuery});
+            }
+        } catch {}
+
+    }
+
+
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        console.log('here!!!!!!!!');
+        try {
+            let thisQuery = nextProps.searchQuery;
+            if (thisQuery !== undefined) {
+                this.setState({searchQuery: thisQuery});
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     componentWillUnmount() {
@@ -56,8 +78,10 @@ export default class NavBar extends Component{
 
     render() {
         if (this.state.isSearching) {
-            const newRoute = '/search?text=' + this.state.searchQuery;
-            console.log(newRoute, this.state.searchQuery, 'is searching called');
+            let newRoute = '/search?text=' + this.state.searchQuery;
+            if (this.state.searchQuery==='') {
+                newRoute = '';
+            }
             this.setState({isSearching: false});
             return <Redirect to={newRoute}/>
         }
@@ -85,6 +109,8 @@ export default class NavBar extends Component{
                             placeholder='Search...'
                             onFocus={this.focusHandler}
                             onChange={this.searchFieldOnChange}
+                            value={this.state.searchQuery}
+
                         />
                     </form>
                 </div>
@@ -102,6 +128,7 @@ export default class NavBar extends Component{
                             icon='search'
                             placeholder='Search...'
                             onChange={this.searchFieldOnChange}
+                            value={this.state.searchQuery}
                         />
                     </form>
                     <div className='nav-item-right' style={{opacity:1}}>Log in</div>

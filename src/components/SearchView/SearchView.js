@@ -6,12 +6,14 @@ import {Dropdown, Transition} from "semantic-ui-react";
 import ImageCell from '../ImageCell/ImageCell';
 import axios from 'axios';
 import {getUserInfo} from "../../utils/APIHelpers";
+import queryString from 'querystring';
 
 /**
  * Renders a our MainView in a printerest-like layout
  * We are request a list of pet from our backend and displaying it using the Masonry component
  * We are using react-masonry-component to handle this layout
  * reference: https://www.npmjs.com/package/react-masonry-component
+ * https://stackoverflow.com/questions/36904185/react-router-scroll-to-top-on-every-transition
  */
 const API_URL = 'http://pet-gallery.herokuapp.com/api';
 let LOGIN_TOKEN = undefined;
@@ -79,13 +81,21 @@ export default class SearchView extends Component {
       data: [],
       searchMode: false,
       displayBreedPicker: false,
-    }
+      searchQuery: '',
+    };
+
+    this.setCategory = this.setCategory.bind(this);
   }
 
   componentDidMount() {
+    window.scrollTo(0,0);
+    let thisQuery = queryString.parse(this.props.location.search)['?text'];
+    if (thisQuery !== this.state.searchQuery) {
+      this.setState({searchQuery: thisQuery});
+    }
     setTimeout(function() {
       this.setState({searchMode: true})
-    }.bind(this), 1000);
+    }.bind(this), 1200);
     setTimeout(function() {
       this.setState({displayBreedPicker: true})
     }.bind(this), 2000);
@@ -106,6 +116,18 @@ export default class SearchView extends Component {
         }
       })
       .catch( e => {})
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    window.scrollTo(0, 0);
+    let thisQuery = queryString.parse(this.props.location.search)['?text'];
+    if (thisQuery !== this.state.searchQuery) {
+      this.setState({searchQuery: thisQuery});
+    }
+  }
+
+  setCategory(e, {value}) {
+    console.log(value);
   }
 
   render() {
@@ -130,17 +152,19 @@ export default class SearchView extends Component {
     }
     return(
       <div>
-        <NavBar expanded={false}/>
-        <div className={'main-view-container'}>
+        <NavBar expanded={false} searchQuery={this.state.searchQuery}/>
+        <div className={'search-view-container'}>
           {
             this.state.searchMode?
               <div className={'filter-container expanded'}>
                 <Dropdown
-                  placeholder={'Size'}
+                  placeholder={'Category'}
                   floating
-                  options={birdBreedOptions}
+                  options={categoryOptions}
                   clearable
-                  selection/>
+                  selection
+                  onChange={this.setCategory}
+                />
                 <Dropdown
                   placeholder={'Category'}
                   floating
