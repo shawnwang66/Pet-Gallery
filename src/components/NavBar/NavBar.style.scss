@@ -43,6 +43,11 @@
   font-family: 'Handlee', sans-serif;
 }
 
+.disable-select{
+  user-select: none;
+  -moz-user-select: none;
+}
+
 .title{
   position: absolute;
   top: 280px;

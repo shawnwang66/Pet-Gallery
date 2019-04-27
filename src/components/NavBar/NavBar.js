@@ -49,13 +49,13 @@ export default class NavBar extends Component{
         if (this.state.expanded){
             return (
                 <div className={position<=540?'nav-expanded':'nav-minimized'}>
-                    <div className='nav-item-left' style={{opacity:navOpacity}}>Pet Gallery</div>
-                    <div className='title' style={{opacity:opacity}}>
+                    <div className='nav-item-left disable-select' style={{opacity:navOpacity}}>Pet Gallery</div>
+                    <div className='title disable-select' style={{opacity:opacity}}>
                         <img className='icon-cat' src={cat}/>
                         Pet Gallery
                         <img className='icon-dog' src={dog}/>
                     </div>
-                    <div className='nav-item-right' style={{opacity:navOpacity}}>Log in</div>
+                    <div className='nav-item-right disable-select' style={{opacity:navOpacity}}>Log in</div>
                     <Input
                         className='search'
                         style={{top:topStr}}
