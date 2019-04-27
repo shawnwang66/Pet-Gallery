@@ -26,6 +26,7 @@ class Register extends Component {
         this.userLoc = "";
 
         this.onInputChanged = this.onInputChanged.bind(this);
+        this.login = this.login.bind(this);
         this.submitRegisterInfo = this.submitRegisterInfo.bind(this);
     }
 
@@ -66,7 +67,6 @@ class Register extends Component {
         const inputs = Object.values(document.getElementById('input-wrapper').childNodes);
 
         inputs.some((element, _) => {
-            console.log(requireAllFilled);
             if (element.className === 'required' && 
                 (!element.value || element.value === '')) {
                 requireAllFilled = false;
@@ -83,7 +83,6 @@ class Register extends Component {
     }
 
     submitRegisterInfo() {
-        // "raymondlx" "123456"
         axios.post(API_URL + 'user', {
             username: this.userName,
             password: this.password,
@@ -93,6 +92,7 @@ class Register extends Component {
         })
         .then((res) => {
             console.log(`User Created: ${res}`);
+            this.login();
         })
         .catch((err) => {
             console.log(`Cannot create user: ${err}`);
@@ -102,22 +102,41 @@ class Register extends Component {
         });
     }
 
+    login() {
+        axios.post(API_URL + 'login',{
+            username : this.userName,
+            password : this.password
+        })
+        .then((res) => {
+            const token = res.data.token;
+            console.log('Login succeed');
+            window.localStorage.setItem('token', token);
+            window.localStorage.setItem('username', this.userName);
+            this.setState({
+                redirect: true
+            });
+        })
+        .catch((err) => {
+            console.log(`Error during login: ${err}`);
+        });
+    }
+
     render() {
         return(
             <div className='cp-root'>
                 {this.state.redirect ? <Redirect to='/'/> : []}
                 <p className='slogan'>
-                    <span class="font-icon"><FontAwesomeIcon icon="cat" /></span>
-                    <span class="font-icon"><FontAwesomeIcon icon="dove" /></span>
-                    <span class="font-icon"><FontAwesomeIcon icon="dog" /></span>
+                    <span className="font-icon"><FontAwesomeIcon icon="cat" /></span>
+                    <span className="font-icon"><FontAwesomeIcon icon="dove" /></span>
+                    <span className="font-icon"><FontAwesomeIcon icon="dog" /></span>
                 </p>
                 <div className='wrapper form'>
                     <p className='app-title'>{TITLE}</p>
                     <div id='input-wrapper' className='input-wrapper'>
-                        <input id="usr_box" class="required" placeholder="Username *" name="username" type="text" onChange={this.onInputChanged}></input>
-                        <input id="pwd_box" class="required" placeholder="Password *" name="pwd" type="password" onChange={this.onInputChanged}></input>
-                        <input id="email_box" class="required" placeholder="Email *" name="email" type="text" onChange={this.onInputChanged}></input>
-                        <input id="name_box" class="required" placeholder="Fullname *" name="fullname" type="text" onChange={this.onInputChanged}></input>
+                        <input id="usr_box" className="required" placeholder="Username *" name="username" type="text" onChange={this.onInputChanged}></input>
+                        <input id="pwd_box" className="required" placeholder="Password *" name="pwd" type="password" onChange={this.onInputChanged}></input>
+                        <input id="email_box" className="required" placeholder="Email *" name="email" type="text" onChange={this.onInputChanged}></input>
+                        <input id="name_box" className="required" placeholder="Fullname *" name="fullname" type="text" onChange={this.onInputChanged}></input>
                         <input id="loc_box" placeholder="Location" name="loc" type="text" onChange={this.onInputChanged}></input>
                     </div>
                     <button className='submit-bt' disabled={this.state.disableSubmit} onClick={this.submitRegisterInfo}>
