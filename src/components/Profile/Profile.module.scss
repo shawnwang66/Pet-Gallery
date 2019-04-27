@@ -1,0 +1,63 @@
+@import "../../variables";
+@import url('https://fonts.googleapis.com/css?family=Handlee|Concert+One');
+
+body{
+  //background-image:linear-gradient(to right top, #ecd944, #efc238, #f0ab32, #ed9531, #e87e34, #e67837, #e4723a, #e16c3d, #e47540, #e67e44, #e98648, #eb8f4c);
+  //background-repeat: no-repeat ;
+  //background-size: cover;
+  //background-attachment: fixed;
+  //background-color: wheat;
+}
+
+.self{
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.ratings{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+
+  p{
+    margin-left: 10px;
+    font-size: 20px;
+  }
+}
+
+.description{
+  font-size: 50px;
+  h1{
+    font-size: 50px;
+  }
+  h2{
+    font-size: 30px;
+  }
+}
+
+.imgContainer{
+  vertical-align: middle;
+  width:300px;
+  height: 300px;
+
+
+  img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+  }
+}
+
+.buttonGroup{
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  margin-left: 10%;
+  margin-bottom: 50px;
+  Button{
+    margin: 10px;
+  }
+}

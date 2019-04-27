@@ -1,0 +1,62 @@
+
+.potsNew{
+  border: gray dotted;
+  width: 290px;
+  height: 340px;
+  border-radius: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.7;
+  //box-shadow:2px 2px 2px ;
+  &:hover{
+      opacity: 1;
+  }
+  margin: 20px 10px;
+}
+
+.gridItemContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ;
+}
+
+.submitForm{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.inputFiled{
+  width: 200px;
+}
+
+.icon{
+  margin-left: 5px;
+}
+
+.grid {
+  display: flex;
+  padding: 50px 150px;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+}
+
+.gridImage{
+  height: 500px;
+}
+
+.gridCard{
+  height: 340px;
+  margin: 20px 10px !important;
+}
+
+.gridCardImage{
+  background-position: center;
+}
