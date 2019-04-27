@@ -12,6 +12,7 @@ import axios from 'axios';
  * reference: https://www.npmjs.com/package/react-masonry-component
  */
 const API_URL = 'http://pet-gallery.herokuapp.com/api';
+let LOGIN_TOKEN = 'undefined';
 
 export default class MainView extends Component {
   constructor(props) {
@@ -27,6 +28,8 @@ export default class MainView extends Component {
         this.setState({
           data: res.data.data
         });
+        LOGIN_TOKEN = window.localStorage.getItem('token');
+        console.log(LOGIN_TOKEN);
       })
       .catch( e => {})
   }
