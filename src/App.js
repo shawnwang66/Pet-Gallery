@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, Switch,HashRouter} from 'react-router-dom'
+import { Route, Switch,HashRouter} from 'react-router-dom'
 import './App.scss';
-import Profile from './components/Profile/Profile'
-import MainView from './components/MainView/MainView'
+
+import Profile from './components/Profile/Profile';
+import Login from './components/Login/Login';
+import PetDetail from './components/PetDetail/PetDetail'
+import MainView from './components/MainView/MainView';
 
 
 class App extends Component {
@@ -12,6 +15,8 @@ class App extends Component {
           <Switch>
               <Route exact path="/" component={MainView}/>
               <Route exact path="/profile" component={Profile}/>
+              <Route exact path="/pet/:id" component={PetDetail}/>
+              <Route exact path="/login" component={Login}/>
           </Switch>
         </HashRouter>
     )
