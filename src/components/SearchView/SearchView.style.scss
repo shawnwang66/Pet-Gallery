@@ -1,8 +1,21 @@
 @import "../../variables";
 
-.main-view-container {
-  padding-top: 600px;
+.filter-container {
+  margin: 0 auto;
+  transition: all 0.3s ease-out;
+}
+
+.expanded {
+  height: 100px;
+}
+
+.closed {
+  height: 0px;
+}
+
+.search-view-container {
   background-color: #fffaed;
+  margin-top: 60px;
 }
 
 .masonry-container {
