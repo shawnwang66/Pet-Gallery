@@ -12,8 +12,8 @@ import NavBar from '../NavBar/NavBar'
 const API_URL = "http://pet-gallery.herokuapp.com/api/";
 class Profile extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             id: '',
             name: "",
@@ -73,7 +73,7 @@ class Profile extends Component{
                     ratings: sum, 
                     image: resData.imageURL, 
                     posts: resData.petsCreated,
-                    featured: resData.petsFeatured
+                    featured: resData.favoritedPets
                 });
             })
     }
@@ -94,22 +94,21 @@ class Profile extends Component{
         this.setState({ currentPanel: 'discuss' });
     }
 
-    async componentWillMount() {
+    componentDidMount() {
         window.localStorage.setItem('baseURL', API_URL);
 
         let token;
         // login adn get token
-        await this.login(API_URL);
+         this.login(API_URL);
         token = window.localStorage.getItem('token');
 
         // get user info
-        await this.getUserInfo(API_URL, token)
-        console.log(this.state.posts)
+         this.getUserInfo(API_URL, token)
+        // console.log(this.state.posts)
     }
 
 
     render(){
-
         const Avatar = {
             backgroundImage: `url(${this.state.image})`,
             backgroundRepeat: "no-repeat",
