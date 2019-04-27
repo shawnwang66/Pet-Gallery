@@ -34,7 +34,6 @@ export default class MainView extends Component {
         if (LOGIN_TOKEN !== undefined) {
           getUserInfo(LOGIN_TOKEN).then(
             resData => {
-              console.log(resData);
               this.setState({
                 favoritedPets: resData.favoritedPets
               });
@@ -56,7 +55,7 @@ export default class MainView extends Component {
           imageURL={item.imageURLs[0]}
           location={'Champaign, IL'}
           id={item._id}
-          isFavorite={false}
+          isFavorite={this.state.favoritedPets.includes(item._id)}
           isLoggedIn={LOGIN_TOKEN!==undefined}
         />);
       }

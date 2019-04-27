@@ -16,16 +16,48 @@ export function getUserInfo(token) {
     });
 }
 
-export function addPetToFavorite(token, id) {
-  if (token === undefined) {
-    return;
-  }
-  const config ={
+export async function addPetToFavorite(id) {
+  let token = await window.localStorage.getItem('token');
+  let config = {
     headers: {'Authorization': "bearer " + token}
   };
 
   return axios.get(API_URL + 'user', config)
     .then((response)=>{
       const favoritedPets = response.data.data.favoritedPets;
-      console.log(favoritedPets, id);
-    });}
+      if (favoritedPets.includes(id)) {
+        return;
+      } else {
+        favoritedPets.push(id);
+
+        let data = {
+          'favoritedPets': favoritedPets
+        };
+        axios.put(API_URL + 'user', data, config)
+          .then( res => {});
+
+      }
+    });
+}
+
+export async function removePetFromFavorite(id) {
+  let token = await window.localStorage.getItem('token');
+  let config = {
+    headers: {'Authorization': "bearer " + token}
+  };
+
+  return axios.get(API_URL + 'user', config)
+    .then((response)=>{
+      let favoritedPets = response.data.data.favoritedPets;
+      if (favoritedPets.includes(id)) {
+        favoritedPets.splice(favoritedPets.indexOf(id),1);
+        let data = {
+          'favoritedPets': favoritedPets
+        };
+        axios.put(API_URL + 'user', data, config)
+          .then( res => {});
+      } else {
+        return;
+      }
+    });
+}
