@@ -7,6 +7,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { Card, Image , Grid} from 'semantic-ui-react'
+import Masonry from 'react-masonry-component';
 
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -31,7 +32,7 @@ class ProfilePosts extends Component{
             categories: ['Cat','Dog','Bird','Others'],
             size: [ 'small', 'medium', 'large' ],
             energyLevel : [ 'low', 'medium', 'high' ],
-
+            userId : this.props.userId,
             selectedCate: '',
             selectedSize: '',
             selectedEnergyLevel: '',
@@ -110,23 +111,15 @@ class ProfilePosts extends Component{
         this.handleClose('diagOpen')
     }
 
-    generatePostsGrid(){
+    generatePostsGrid(inputProps){
         // get all pets info
         const url = window.localStorage.getItem('baseURL');
-        const postsId = this.props.posts;
-
-        if (this.props.userId !== null){
+        if (inputProps.userId !== "" && inputProps.userId !== null && !inputProps.isFeatured){
             // get all pets
-            axios.get(`${url}pets?where={"owner":"${encodeURIComponent(this.props.userId)}"}`)
+            axios.get(`${url}pets?where={"owner":"${encodeURIComponent(inputProps.userId)}"}`)
                 .then((res)=>{
                     let data = res.data.data;
-                    // console.log(data)
-                    const Avatar = {
-                        backgroundImage: `url(${this.state.image})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center"
-                    };
+
 
                     let girdGroups = data.map((pet)=>{
                         let imgConfig = {
@@ -140,9 +133,10 @@ class ProfilePosts extends Component{
                         };
 
                         return(
+                            <div className={styles.gridCardContainer}>
                                 <Card
                                     key={pet._id}
-                                    color={'orange'}
+                                    color={'grey'}
                                     className={styles.gridCard}
                                 >
                                     <div style={imgConfig}></div>
@@ -152,14 +146,72 @@ class ProfilePosts extends Component{
                                         <Card.Description>{"Price: $"+pet.price}</Card.Description>
                                     </Card.Content>
                                 </Card>
+                            </div>
                         );
 
                     }
                     );
+                    this.setState({gridItems:girdGroups})
 
-                    this.setState(()=>{
-                        return {gridItems: girdGroups}
-                    })
+                })
+        }
+        else if (inputProps.userId !== "" && inputProps.userId !== null && inputProps.isFeatured){
+
+            if (inputProps.posts === undefined || inputProps.posts === null || inputProps.posts.length === 0) {
+                const grid =
+                    <div className={styles.potsNew}>
+                        <Fab size="large" color="primary" aria-label="Add">
+                            Empty
+                        </Fab>
+                    </div>
+                this.setState({gridItems:grid})
+                return;
+            }
+
+        // get featured pets
+
+            const param = {
+                "_id":{
+                    "$in": inputProps.posts
+                }
+            }
+            // console.log(`${url}pets?where=${JSON.stringify(param)}`)
+            axios.get(`${url}pets?where=${JSON.stringify(param)}`)
+                .then((res)=>{
+                    let data = res.data.data;
+
+
+                    let girdGroups = data.map((pet)=>{
+                            let imgConfig = {
+                                display: "flex",
+                                backgroundImage: `url(${pet.imageURLs[0]})`,
+                                backgroundRepeat: "no-repeat",
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                                width: "100%",
+                                height: "100%",
+                            };
+
+                            return(
+                                <div className={styles.gridCardContainer}>
+                                    <Card
+                                        key={pet._id}
+                                        color={'grey'}
+                                        className={styles.gridCard}
+                                    >
+                                        <div style={imgConfig}></div>
+                                        <Card.Content>
+                                            <Card.Header>{pet.name}</Card.Header>
+                                            <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
+                                            <Card.Description>{"Price: $"+pet.price}</Card.Description>
+                                        </Card.Content>
+                                    </Card>
+                                </div>
+                            );
+
+                        }
+                    );
+                    this.setState({gridItems:girdGroups})
 
                 })
         }
@@ -167,24 +219,33 @@ class ProfilePosts extends Component{
 
     }
 
+    componentDidMount() {
+        // Build grid for posts
+        this.generatePostsGrid(this.props);
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.generatePostsGrid(nextProps);
+    }
+
 
     render() {
-
-        // Build grid for posts
-        this.generatePostsGrid();
 
         return(
             <div>
                 <div className={styles.grid}>
-                    {this.props.isFeatured ? [] :
-                        <div className={styles.potsNew}>
-                            <Fab size="large" color="primary" aria-label="Add" onClick={this.handleClickOpen('diagOpen')}>
-                                <AddIcon/>
-                            </Fab>
-                        </div>}
-                    {this.state.gridItems}
-                    {/*{this.state.gridTest}*/}
-
+                    <Masonry
+                        options={{isFitWidth: true}}
+                        className={styles.masoryContainer}
+                    >
+                        {this.props.isFeatured ? [] :
+                            <div className={styles.potsNew}>
+                                <Fab size="large" color="primary" aria-label="Add" onClick={this.handleClickOpen('diagOpen')}>
+                                    <AddIcon/>
+                                </Fab>
+                            </div>}
+                        {this.state.gridItems}
+                    </Masonry>
                 </div>
 
                 <Dialog
