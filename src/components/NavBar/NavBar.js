@@ -24,6 +24,10 @@ export default class NavBar extends Component{
 
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll);
+        const home = document.getElementsByClassName('nav-item-left')[0];
+        home.addEventListener('click',function(){
+            window.location.replace('/');
+        })
     }
 
     componentWillUnmount() {
@@ -49,7 +53,11 @@ export default class NavBar extends Component{
         if (this.state.expanded){
             return (
                 <div className={position<=540?'nav-expanded':'nav-minimized'}>
-                    <div className='nav-item-left disable-select' style={{opacity:navOpacity}}>Pet Gallery</div>
+                    <div
+                        className='nav-item-left disable-select'
+                        style={{opacity:navOpacity}}>
+                        Pet Gallery
+                    </div>
                     <div className='title disable-select' style={{opacity:opacity}}>
                         <img className='icon-cat' src={cat}/>
                         Pet Gallery
