@@ -14,7 +14,7 @@ $time: 0.3s;
     justify-content: center;
     width: 100%;
     height: 100%;
-    background: $main-background-match;
+    background: $main-background;
 }
 
 .wrapper {
@@ -63,7 +63,7 @@ $time: 0.3s;
             transition: $time;
 
             &:focus {
-                border-color: #00a1ba; 
+                border-color: #ff7e71; 
                 transition: $time;
             }
         }
