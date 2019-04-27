@@ -5,7 +5,6 @@ import dog from '../../assets/dog.png';
 import cat from '../../assets/cat.png';
 import {animateScroll as scroll } from 'react-scroll';
 import {Redirect} from 'react-router-dom'
-import queryString from "querystring";
 
 
 /**
