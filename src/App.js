@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Switch,HashRouter} from 'react-router-do
 import './App.scss';
 import Profile from './components/Profile/Profile'
 import NavBar from './components/NavBar/NavBar';
+import MainView from './components/MainView/MainView'
 import { library } from '@fortawesome/fontawesome-svg-core'
 
 
@@ -12,7 +13,8 @@ class App extends Component {
     return(
         <HashRouter basename={"/"}>
           <Switch>
-            <Route exact path="/" component={Profile}/>
+              <Route exact path="/" component={MainView}/>
+              <Route exact path="/profile" component={Profile}/>
           </Switch>
         </HashRouter>
     )
