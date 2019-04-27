@@ -9,7 +9,7 @@ import ProfilePosts from '../ProfilePosts/ProfilePosts'
 import { withStyles } from '@material-ui/core/styles/index';
 import NavBar from '../NavBar/NavBar'
 
-
+const API_URL = "http://pet-gallery.herokuapp.com/api/";
 class Profile extends Component{
 
     constructor(){
@@ -95,16 +95,15 @@ class Profile extends Component{
     }
 
     async componentWillMount() {
-        const baseURL = 'http://localhost:4000/api/';
-        window.localStorage.setItem('baseURL',baseURL);
+        window.localStorage.setItem('baseURL', API_URL);
 
         let token;
         // login adn get token
-        await this.login(baseURL);
+        await this.login(API_URL);
         token = window.localStorage.getItem('token');
 
         // get user info
-        await this.getUserInfo(baseURL, token)
+        await this.getUserInfo(API_URL, token)
         console.log(this.state.posts)
     }
 
