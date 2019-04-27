@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button/index';
 import ProfilePosts from '../ProfilePosts/ProfilePosts'
 import { withStyles } from '@material-ui/core/styles/index';
 import NavBar from '../NavBar/NavBar'
+import { getUserInfo } from '../../utils/APIHelpers';
 
 const API_URL = "http://pet-gallery.herokuapp.com/api/";
 class Profile extends Component{
@@ -23,10 +24,9 @@ class Profile extends Component{
             posts:[],
             featured: [],
             currentPanel: 'posts'
-        }
+        };
 
         this.login = this.login.bind(this);
-        this.getUserInfo = this.getUserInfo.bind(this);
         this.getPosts = this.getPosts.bind(this);
         this.showFeatured = this.showFeatured.bind(this);
         this.showDiscussions = this.showDiscussions.bind(this);
@@ -45,38 +45,6 @@ class Profile extends Component{
             })
     }
 
-    getUserInfo(baseURL, token){
-        // get user info
-
-        const config ={
-            headers: {'Authorization': "bearer " + token}
-        }
-
-        axios.get(baseURL + 'user', config)
-            .then((response)=>{
-                const resData = response.data.data;
-                console.log(resData)
-
-                // calculate ratings
-                const ratings = resData.ratings;
-                let sum = 0;
-                ratings.forEach((rating)=>{
-                    sum += rating;
-                });
-                sum /= ratings.length;
-
-                // update state
-                this.setState({
-                    id: resData._id, 
-                    name:resData.name, 
-                    location: resData.location, 
-                    ratings: sum, 
-                    image: resData.imageURL, 
-                    posts: resData.petsCreated,
-                    featured: resData.petsFeatured
-                });
-            })
-    }
 
     getPosts(){
 
@@ -103,7 +71,23 @@ class Profile extends Component{
         token = window.localStorage.getItem('token');
 
         // get user info
-        await this.getUserInfo(API_URL, token)
+        let resData = await getUserInfo(token);
+        // calculate ratings
+        const ratings = resData.ratings;
+        let sum = 0;
+        ratings.forEach((rating)=>{
+            sum += rating;
+        });
+        sum /= ratings.length;
+        this.setState({
+            id: resData._id,
+            name:resData.name,
+            location: resData.location,
+            ratings: sum,
+            image: resData.imageURL,
+            posts: resData.petsCreated,
+            featured: resData.petsFeatured
+        });
         console.log(this.state.posts)
     }
 
@@ -159,7 +143,7 @@ class Profile extends Component{
                         posts = {this.state.posts}
                         isFeatured={false}>
                     </ProfilePosts>
-                : this.state.currentPanel === 'featured' ? 
+                : this.state.currentPanel === 'featured' ?
                     <ProfilePosts
                         userId = {this.state.id}
                         posts = {this.state.featured}
