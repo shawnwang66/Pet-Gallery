@@ -1,9 +1,9 @@
 @import "../../variables";
 $login-input-bg-color: #fafafa; 
 $login-input-ph-color: #999;
-$bt-bg-color: #485DA6;
-$bt-bg-color-hover: rgb(57, 74, 134);
-$err-txt-color: #ce4752;
+$bt-transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+$bt-bg-color: linear-gradient(to right, #944b94 0, #d75a88 21%, #ff7e71 60%);
+$err-txt-color: #e85965;
 $time: 0.3s;
 
 .cp-root {
@@ -78,21 +78,23 @@ $time: 0.3s;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: $bt-bg-color;
-        border: 1px solid $bt-bg-color;
+        background: $bt-bg-color;
+        background-size: 200% auto;
         border-radius: 4px;
         padding: 5px;
         width: 70%;
         color: #fff;
-        transition: $time;
+        transition: $bt-transition;
+        outline:none;
 
         &:disabled {
             opacity: .3;
         }
+
         &:hover:not([disabled]) {
-            transition: $time;
+            transition: $bt-transition;
             cursor: pointer;
-            background-color: $bt-bg-color-hover; 
+            background-position: right center;
         }
     }
 }

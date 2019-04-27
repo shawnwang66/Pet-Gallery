@@ -55,6 +55,7 @@ class Login extends Component {
         .then((res) => {
             const token = res.data.token;
             window.localStorage.setItem('token', token);
+            window.localStorage.setItem('username', this.userName);
             this.setState({
                 redirect: true
             });
