@@ -5,6 +5,7 @@ $bt-transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 $bt-bg-color: linear-gradient(to right, #944b94 0, #d75a88 21%, #ff7e71 60%);
 $err-txt-color: #e85965;
 $vip-txt-color: #ffb25f;
+$wrapper-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.1);
 $auto-fill-shadow: 0 0 0px 1000px $login-input-bg-color inset;
 $time: 0.3s;
 
@@ -37,7 +38,7 @@ $time: 0.3s;
     border-radius: 10px;
     margin: 10px 0px;
     transition: $time;
-    box-shadow: 0px 0px 20px 4px rgba(180, 180, 180, 0.46);
+    box-shadow: $wrapper-shadow;
 
     .app-title {
         box-shadow: none;

@@ -72,7 +72,7 @@ class Login extends Component {
                         <input id="pwd_box" placeholder="Password" name="pwd" type="password" onChange={this.onInputChanged}></input>
                     </div>
                     <button className='submit-bt' disabled={this.state.disableSubmit} onClick={this.submitLoginInfo}>
-                        <p className='bt-text'>Submit</p>
+                        <p className='bt-text'>Log In</p>
                     </button>
                     {this.state.errorHappened ? <p className='error-text'>Invalid username or password :(</p> : []}
                 </div>

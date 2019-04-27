@@ -140,7 +140,7 @@ class Register extends Component {
                         <input id="loc_box" placeholder="Location" name="loc" type="text" onChange={this.onInputChanged}></input>
                     </div>
                     <button className='submit-bt' disabled={this.state.disableSubmit} onClick={this.submitRegisterInfo}>
-                        <p className='bt-text'>Submit</p>
+                        <p className='bt-text'>Sign Up</p>
                     </button>
                     {this.state.errorHappened ? <p className='error-text'>Username or email already taken :(</p> : 
                     this.userEmail !== "" && !this.state.validEmail ? <p className='error-text'>Invalid email</p> : 
