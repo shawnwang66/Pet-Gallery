@@ -46,7 +46,7 @@ export default class NavBar extends Component{
         console.log('here!!!!!!!!');
         try {
             let thisQuery = nextProps.searchQuery;
-            if (thisQuery !== undefined) {
+            if (thisQuery !== undefined && thisQuery !== this.state.searchQuery) {
                 this.setState({searchQuery: thisQuery});
             }
         } catch (e) {

@@ -6,7 +6,7 @@
 }
 
 .expanded {
-  height: 100px;
+  height: auto;
 }
 
 .closed {
@@ -26,4 +26,21 @@
 .masonry-component {
   margin: 0 auto;
   padding-top: 15px;
+}
+
+.filter-select-container {
+  width: 180px;
+}
+
+.filter-container {
+  margin: 10px;
+  padding-left: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  top: 3px;
+}
+
+.slider {
+  width: 300px;
 }

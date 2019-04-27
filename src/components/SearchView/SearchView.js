@@ -7,6 +7,14 @@ import ImageCell from '../ImageCell/ImageCell';
 import axios from 'axios';
 import {getUserInfo} from "../../utils/APIHelpers";
 import queryString from 'querystring';
+import FormControl from '@material-ui/core/FormControl';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import Grow from '@material-ui/core/Grow';
+import Slider, { Range } from 'rc-slider';
+
+
 
 /**
  * Renders a our MainView in a printerest-like layout
@@ -14,64 +22,22 @@ import queryString from 'querystring';
  * We are using react-masonry-component to handle this layout
  * reference: https://www.npmjs.com/package/react-masonry-component
  * https://stackoverflow.com/questions/36904185/react-router-scroll-to-top-on-every-transition
+ * https://material-ui.com/demos/selects/
+ * https://material-ui.com/lab/slider/
  */
 const API_URL = 'http://pet-gallery.herokuapp.com/api';
 let LOGIN_TOKEN = undefined;
 
-const sizeOptions = [
-  {text: 'Small', key: 1, value:1},
-  {text: 'Medium', key: 2, value:2},
-  {text: 'Large', key: 3, value:3},
-];
+const categoryOptions = ['Cat', 'Dog', 'Bird',];
 
-const categoryOptions = [
-  {text: 'Cat', key: 1, value:1},
-  {text: 'Dog', key: 2, value:2},
-  {text: 'Bird', key: 3, value:3},
-];
+const catBreedOptions = ['Siamese', 'Persian', 'Maine Coon','Ragdoll', 'Bengal', 'Abyssinian','Birman',
+  'Oriental Shorthair', 'Sphynx', 'Devon Rex','Himalayan',  'American Shorthair'];
 
-const catBreedOptions = [
-  {text: 'Siamese', key: 1, value:1},
-  {text: 'Persian', key: 2, value:2},
-  {text: 'Maine Coon', key: 3, value:3},
-  {text: 'Ragdoll', key: 4, value:4},
-  {text: 'Bengal', key: 5, value:5},
-  {text: 'Abyssinian', key: 6, value:6},
-  {text: 'Birman', key: 7, value:7},
-  {text: 'Oriental Shorthair', key: 8, value:8},
-  {text: 'Sphynx', key: 9, value:9},
-  {text: 'Devon Rex', key: 10, value:10},
-  {text: 'Himalayan', key: 11, value:11},
-  {text: 'American Shorthair', key: 12, value:12},
-];
+const dogBreedOptions = ['Retrievers','German Shepherd Dogs','American Bobtail Cat', 'French Bulldogs',
+  'Bulldogs', 'Beagles', 'Poodles', 'Rottweilers', 'German Shorthaired', 'Yorkshire Terriers', 'Boxers', 'Dachshunds'];
 
-const dogBreedOptions = [
-  {text: 'Retrievers', key: 1, value:1},
-  {text: 'German Shepherd Dogs', key: 2, value:2},
-  {text: 'American Bobtail Cat', key: 3, value:3},
-  {text: 'French Bulldogs', key: 4, value:4},
-  {text: 'Bulldogs', key: 5, value:5},
-  {text: 'Beagles', key: 6, value:6},
-  {text: 'Poodles', key: 7, value:7},
-  {text: 'Rottweilers', key: 8, value:8},
-  {text: 'German Shorthaired', key: 9, value:9},
-  {text: 'Yorkshire Terriers', key: 10, value:10},
-  {text: 'Boxers', key: 11, value:11},
-  {text: 'Dachshunds', key: 12, value:12},
-];
-
-const birdBreedOptions = [
-  {text: 'Canaries', key: 1, value:1},
-  {text: 'Budgies', key: 2, value:2},
-  {text: 'Finches', key: 3, value:3},
-  {text: 'Cockatiels', key: 4, value:4},
-  {text: 'Quaker Parakeets', key: 5, value:5},
-  {text: 'Pionus Parrots', key: 6, value:6},
-  {text: 'Poicephalus Parrots', key: 7, value:7},
-  {text: 'Amazon Parrots', key: 8, value:8},
-  {text: 'Pyrrhura Conures', key: 9, value:9},
-  {text: 'Peach-Faced Lovebirds', key: 10, value:10},
-];
+const birdBreedOptions = ['Canaries', 'Budgies', 'Finches', 'Cockatiels', 'Quaker Parakeets', 'Pionus Parrots',
+  'Poicephalus Parrots', 'Amazon Parrots', 'Pyrrhura Conures', 'Peach-Faced Lovebirds'];
 
 export default class SearchView extends Component {
   constructor(props) {
@@ -79,15 +45,16 @@ export default class SearchView extends Component {
     this.state = {
       favoritedPets: [],
       data: [],
-      searchMode: false,
       displayBreedPicker: false,
       searchQuery: '',
       selectedCategory: '',
       selectedBreed: '',
+      priceSliderValue: 0,
     };
 
     this.setCategory = this.setCategory.bind(this);
     this.setBreed = this.setBreed.bind(this);
+    this.updatePriceSlider = this.updatePriceSlider.bind(this);
   }
 
   componentDidMount() {
@@ -96,12 +63,6 @@ export default class SearchView extends Component {
     if (thisQuery !== this.state.searchQuery) {
       this.setState({searchQuery: thisQuery});
     }
-    setTimeout(function() {
-      this.setState({searchMode: true})
-    }.bind(this), 1200);
-    setTimeout(function() {
-      this.setState({displayBreedPicker: true})
-    }.bind(this), 2000);
     axios.get(API_URL + '/pets')
       .then( res => {
         this.setState({
@@ -122,26 +83,33 @@ export default class SearchView extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    window.scrollTo(0, 0);
     let thisQuery = queryString.parse(this.props.location.search)['?text'];
     if (thisQuery !== this.state.searchQuery) {
+      window.scrollTo(0, 0);
       this.setState({searchQuery: thisQuery});
     }
   }
 
-  setCategory(e, {value}) {
+  setCategory(e) {
+    let value = e.target.value;
     if (value !== this.state.selectedCategory) {
       this.setState({selectedCategory: value});
       this.setState({selectedBreed: ''});
 
     }
-    this.setState({selectedCategory: value})
+    this.setState({selectedCategory: value});
   }
 
-  setBreed(e, {value}) {
+  setBreed(e) {
+    let value = e.target.value;
     if (value !== this.state.selectedBreed) {
       this.setState({selectedBreed: value});
+
     }
+  }
+
+  updatePriceSlider(e, val) {
+    this.setState({priceSliderValue: val})
   }
 
   render() {
@@ -161,40 +129,69 @@ export default class SearchView extends Component {
       }
       return(null);
     });
-    if (this.state.searchMode) {
-      console.log('search mode!');
-    }
+
+    let categoryItems = categoryOptions.map( (item,idx) => {
+      return(<MenuItem value={idx}>{item}</MenuItem>);
+    });
+
+    let catBreedItems = catBreedOptions.map( (item,idx) => {
+      return(<MenuItem value={idx}>{item}</MenuItem>);
+    });
+
+    let dogBreedItems = dogBreedOptions.map( (item,idx) => {
+      return(<MenuItem value={idx}>{item}</MenuItem>);
+    });
+
+    let birdBreedItems = birdBreedOptions.map( (item,idx) => {
+      return(<MenuItem value={idx}>{item}</MenuItem>);
+    });
+
     return(
       <div>
         <NavBar expanded={false} searchQuery={this.state.searchQuery}/>
         <div className={'search-view-container'}>
-          {
-            this.state.searchMode?
               <div className={'filter-container expanded'}>
-                <Dropdown
-                  placeholder={'Category'}
-                  floating
-                  options={categoryOptions}
-                  clearable
-                  selection
-                  onChange={this.setCategory}
-                  value={this.state.selectedCategory}
-
-                />
-                <Dropdown
-                  placeholder={'Breed'}
-                  floating
-                  options={this.state.selectedCategory===1?catBreedOptions:
-                    (this.state.selectedCategory===2?dogBreedOptions:birdBreedOptions)}
-                  clearable
-                  selection
-                  onChange={this.setBreed}
-                  value={this.state.selectedBreed}
-                />
-
-              </div> :
+                <div className={'filter-container'}>
+                  <FormControl className='filter-select-container'>
+                    <InputLabel>
+                      Category
+                    </InputLabel>
+                    <Select
+                      value={this.state.selectedCategory}
+                      onChange={this.setCategory}
+                    >
+                      <MenuItem value=''>
+                        Category
+                      </MenuItem>
+                      {categoryItems}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div className={'filter-container expanded'}>
+                  {
+                    this.state.selectedCategory === '' ? null :
+                      <Grow in={this.state.selectedCategory!==''}>
+                        <FormControl className='filter-select-container'>
+                          <InputLabel>
+                            Breed
+                          </InputLabel>
+                          <Select
+                            value={this.state.selectedBreed}
+                            onChange={this.setBreed}
+                          >
+                            <MenuItem value=''>
+                              Breed
+                            </MenuItem>
+                            {this.state.selectedCategory===0?catBreedItems:
+                              (this.state.selectedCategory===1?dogBreedItems:birdBreedItems)
+                            }
+                          </Select>
+                        </FormControl>
+                      </Grow>
+                  }
+                </div>
+              </div>
               <div className={'filter-container closed'}/>
-          }
           <div className={'masonry-container'}>
             <Masonry
               className={'masonry-component'}
