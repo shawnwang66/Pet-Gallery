@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./ImageCell.style.scss";
 import { Icon } from 'semantic-ui-react'
+import {addPetToFavorite} from "../../utils/APIHelpers";
 
 
 /**
@@ -48,6 +49,15 @@ export default class ImageCell extends Component {
   }
 
   favoriteButtonOnClick() {
+    if (!this.props.isLoggedIn) {
+      return;
+    }
+    if (this.state.isFavorite) {
+      // remove this id from favorite
+      addPetToFavorite(this.props.id, window.localStorage.getItem('token'));
+    } else {
+      // add this id to favorite
+    }
     this.setState({
       isFavorite: !this.state.isFavorite,
     })
