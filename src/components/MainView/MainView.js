@@ -21,10 +21,18 @@ export default class MainView extends Component {
     this.state = {
       favoritedPets: [],
       data: [],
+      searchMode: false,
+      displayBreedPicker: false,
     }
   }
 
   componentDidMount() {
+    setTimeout(function() {
+      this.setState({searchMode: true})
+    }.bind(this), 1000);
+    setTimeout(function() {
+      this.setState({displayBreedPicker: true})
+    }.bind(this), 2000);
     axios.get(API_URL + '/pets')
       .then( res => {
         this.setState({
@@ -61,18 +69,21 @@ export default class MainView extends Component {
       }
       return(null);
     });
+    if (this.state.searchMode) {
+      console.log('search mode!');
+    }
     return(
         <div>
           <NavBar expanded={true}/>
           <div className={'main-view-container'}>
-             <div className={'masonry-container'}>
-               <Masonry
+            <div className={'masonry-container'}>
+              <Masonry
                  className={'masonry-component'}
                  options={{isFitWidth: true}}
-               >
-                 {petDivs}
-               </Masonry>
-             </div>
+              >
+                {petDivs}
+              </Masonry>
+            </div>
           </div>
         </div>);
   }
