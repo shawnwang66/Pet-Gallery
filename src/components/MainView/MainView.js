@@ -47,13 +47,15 @@ export default class MainView extends Component {
       return(null);
     });
     return(
-     <div className={'masonry-container'}>
-       <Masonry
-         className={'masonry-component'}
-         options={{isFitWidth: true}}
-       >
-         {petDivs}
-       </Masonry>
-     </div>);
+      <div className={'main-view-container'}>
+         <div className={'masonry-container'}>
+           <Masonry
+             className={'masonry-component'}
+             options={{isFitWidth: true}}
+           >
+             {petDivs}
+           </Masonry>
+         </div>
+      </div>);
   }
 }
