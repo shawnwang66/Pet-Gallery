@@ -120,7 +120,7 @@ class Profile extends Component{
 
         return(
             <div>
-                <NavBar expanded={true}/>
+                <NavBar expanded={false}/>
                 <div className={styles.self}>
                     <div className={styles.description}>
                         <h1>{this.state.name}</h1>
