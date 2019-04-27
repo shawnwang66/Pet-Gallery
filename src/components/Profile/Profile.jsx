@@ -141,15 +141,16 @@ class Profile extends Component{
 
                 <div className={styles.buttonGroup}>
 
-                    <Button size="large" variant="outlined" color="primary" onClick={this.showFeatured} >
+                    <button className={styles.buttonContainer} onClick={this.showFeatured}>
                         Featured
-                    </Button>
-                    <Button size="large" variant="outlined" color="primary" onClick={this.showPosts}>
+                    </button>
+                    <button className={styles.buttonContainer} onClick={this.showPosts}>
                         Posts
-                    </Button>
-                    <Button size="large" variant="outlined" color="primary" onClick={this.showDiscussions}>
+                    </button>
+                    <button className={styles.buttonContainer} onClick={this.showDiscussions}>
                         Discussion
-                    </Button>
+                    </button>
+
                 </div>
 
                 {this.state.currentPanel === 'posts' ?
