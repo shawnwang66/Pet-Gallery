@@ -57,7 +57,7 @@ class Register extends Component {
                 this.fullName = e.target.value;
                 break;
             case 'loc':
-                this.loc = e.target.value;
+                this.userLoc = e.target.value;
                 break;
             default:
                 break;
