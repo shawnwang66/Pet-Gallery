@@ -1,4 +1,7 @@
+.masoryContainer{
+  margin: 0 auto;
 
+}
 .potsNew{
   border: gray dotted;
   width: 290px;
@@ -11,6 +14,8 @@
   //box-shadow:2px 2px 2px ;
   &:hover{
       opacity: 1;
+    transform: scale(1.05);
+    transition: 0.2s;
   }
   margin: 20px 10px;
 }
@@ -42,7 +47,7 @@
   display: flex;
   padding: 50px 150px;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
   flex-direction: row;
   width: 100%;
@@ -57,6 +62,38 @@
   margin: 20px 10px !important;
 }
 
-.gridCardImage{
-  background-position: center;
+.gridCardContainer
+{
+  position: relative;
+
+  &:hover{
+    //opacity: 0.7;
+    transform: scale(1.05);
+    transition: 0.2s;
+
+  }
+
+}
+// ref: https://css-tricks.com/almanac/properties/b/box-shadow/
+
+.gridCardContainer:before, .gridCardContainer:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 25px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 35px 20px #777;
+  -moz-box-shadow: 0 35px 20px #777;
+  box-shadow: 0 35px 20px #777;
+
+}
+.gridCardContainer:after
+{
+  right: 10px;
+  left: auto;
 }

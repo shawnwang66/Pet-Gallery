@@ -1,0 +1,121 @@
+@import "../../variables";
+$login-input-bg-color: #fafafa; 
+$login-input-ph-color: #999;
+$bt-transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+$bt-bg-color: linear-gradient(to right, #944b94 0, #d75a88 21%, #ff7e71 60%);
+$err-txt-color: #e85965;
+$time: 0.3s;
+
+.cp-root {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: $main-background;
+}
+
+.wrapper {
+    width: 400px;
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    margin: 10px 0px;
+    box-shadow: 0px 0px 20px 4px rgba(180, 180, 180, 0.46);
+
+    .app-title {
+        color: black;
+        font-size: 30px;
+        box-shadow: none;
+        margin: 10px;
+    }
+
+    .error-text {
+        color: $err-txt-color;
+        margin: 10px;
+    }
+
+    .input_wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 10px;
+
+        input {
+            color: black;
+            width: 70%;
+            -webkit-appearance: none;
+            flex: 1 0 0px;
+            margin: 0;
+            outline: 0;
+            overflow: hidden;
+            padding: 9px 0 7px 8px;
+            text-overflow: ellipsis;
+            border-radius: 2px;
+            margin: 5px 0px;
+            background-color: $login-input-bg-color;
+            border: 1px solid $login-input-bg-color;
+            appearance: none !important;
+            transition: $time;
+
+            &:focus {
+                border-color: #ff7e71; 
+                transition: $time;
+            }
+        }
+
+        ::placeholder {
+            color: $login-input-ph-color;
+        }
+    }
+
+    .submit-bt {
+        margin: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $bt-bg-color;
+        background-size: 200% auto;
+        border-radius: 4px;
+        padding: 5px;
+        width: 70%;
+        color: #fff;
+        transition: $bt-transition;
+        outline:none;
+
+        &:disabled {
+            opacity: .3;
+        }
+
+        &:hover:not([disabled]) {
+            transition: $bt-transition;
+            cursor: pointer;
+            background-position: right center;
+        }
+    }
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px;
+}
+
+.register {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 5px;
+
+    .app-text {
+        margin: 10px;
+    }
+}

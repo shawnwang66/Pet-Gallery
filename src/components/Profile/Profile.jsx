@@ -8,13 +8,12 @@ import Button from '@material-ui/core/Button/index';
 import ProfilePosts from '../ProfilePosts/ProfilePosts'
 import { withStyles } from '@material-ui/core/styles/index';
 import NavBar from '../NavBar/NavBar'
-import { getUserInfo } from '../../utils/APIHelpers';
 
 const API_URL = "http://pet-gallery.herokuapp.com/api/";
 class Profile extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             id: '',
             name: "",
@@ -24,9 +23,10 @@ class Profile extends Component{
             posts:[],
             featured: [],
             currentPanel: 'posts'
-        };
+        }
 
         this.login = this.login.bind(this);
+        this.getUserInfo = this.getUserInfo.bind(this);
         this.getPosts = this.getPosts.bind(this);
         this.showFeatured = this.showFeatured.bind(this);
         this.showDiscussions = this.showDiscussions.bind(this);
@@ -45,6 +45,38 @@ class Profile extends Component{
             })
     }
 
+    getUserInfo(baseURL, token){
+        // get user info
+
+        const config ={
+            headers: {'Authorization': "bearer " + token}
+        }
+
+        axios.get(baseURL + 'user', config)
+            .then((response)=>{
+                const resData = response.data.data;
+                console.log(resData)
+
+                // calculate ratings
+                const ratings = resData.ratings;
+                let sum = 0;
+                ratings.forEach((rating)=>{
+                    sum += rating;
+                });
+                sum /= ratings.length;
+
+                // update state
+                this.setState({
+                    id: resData._id, 
+                    name:resData.name, 
+                    location: resData.location, 
+                    ratings: sum, 
+                    image: resData.imageURL, 
+                    posts: resData.petsCreated,
+                    featured: resData.favoritedPets
+                });
+            })
+    }
 
     getPosts(){
 
@@ -62,38 +94,21 @@ class Profile extends Component{
         this.setState({ currentPanel: 'discuss' });
     }
 
-    async componentWillMount() {
+    componentDidMount() {
         window.localStorage.setItem('baseURL', API_URL);
 
         let token;
         // login adn get token
-        await this.login(API_URL);
+         this.login(API_URL);
         token = window.localStorage.getItem('token');
 
         // get user info
-        let resData = await getUserInfo(token);
-        // calculate ratings
-        const ratings = resData.ratings;
-        let sum = 0;
-        ratings.forEach((rating)=>{
-            sum += rating;
-        });
-        sum /= ratings.length;
-        this.setState({
-            id: resData._id,
-            name:resData.name,
-            location: resData.location,
-            ratings: sum,
-            image: resData.imageURL,
-            posts: resData.petsCreated,
-            featured: resData.petsFeatured
-        });
-        console.log(this.state.posts)
+         this.getUserInfo(API_URL, token)
+        // console.log(this.state.posts)
     }
 
 
     render(){
-
         const Avatar = {
             backgroundImage: `url(${this.state.image})`,
             backgroundRepeat: "no-repeat",
@@ -126,15 +141,16 @@ class Profile extends Component{
 
                 <div className={styles.buttonGroup}>
 
-                    <Button size="large" variant="outlined" color="primary" onClick={this.showFeatured} >
+                    <button className={styles.buttonContainer} onClick={this.showFeatured}>
                         Featured
-                    </Button>
-                    <Button size="large" variant="outlined" color="primary" onClick={this.showPosts}>
+                    </button>
+                    <button className={styles.buttonContainer} onClick={this.showPosts}>
                         Posts
-                    </Button>
-                    <Button size="large" variant="outlined" color="primary" onClick={this.showDiscussions}>
+                    </button>
+                    <button className={styles.buttonContainer} onClick={this.showDiscussions}>
                         Discussion
-                    </Button>
+                    </button>
+
                 </div>
 
                 {this.state.currentPanel === 'posts' ?
@@ -143,7 +159,7 @@ class Profile extends Component{
                         posts = {this.state.posts}
                         isFeatured={false}>
                     </ProfilePosts>
-                : this.state.currentPanel === 'featured' ?
+                : this.state.currentPanel === 'featured' ? 
                     <ProfilePosts
                         userId = {this.state.id}
                         posts = {this.state.featured}
