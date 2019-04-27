@@ -50,17 +50,16 @@ class Register extends Component {
                 this.password = val;
                 break;
             case 'email':
-                if (this.isEmailValid(e.target.value)) {
-                    this.userEmail = e.target.value;
-                    validEmail = true;
-                } else
-                    validEmail = false;
+                this.userEmail = e.target.value;
+                validEmail = this.isEmailValid(e.target.value);
                 break;
             case 'fullname':
                 this.fullName = e.target.value;
                 break;
             case 'loc':
                 this.loc = e.target.value;
+                break;
+            default:
                 break;
         }
 
@@ -72,6 +71,7 @@ class Register extends Component {
                 requireAllFilled = false;
                 return true;
             }
+            return false;
         });
 
         this.setState({
@@ -143,13 +143,13 @@ class Register extends Component {
                         <p className='bt-text'>Submit</p>
                     </button>
                     {this.state.errorHappened ? <p className='error-text'>Username or email already taken :(</p> : 
-                    !this.state.validEmail ? <p className='error-text'>Invalid email</p> : 
+                    this.userEmail !== "" && !this.state.validEmail ? <p className='error-text'>Invalid email</p> : 
                     !this.state.requireAllFilled ? <p className='error-text'>Please fill all required fields</p> : []}
                 </div>
                 <div className='wrapper register'>
                     <p className="app-text">Already have an account?</p>
                     <Link to={{ pathname: "/login" }}>
-                        <a>Log in</a>
+                        <p>Log in</p>
                     </Link>
                 </div>
             </div>

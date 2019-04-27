@@ -79,7 +79,7 @@ class Login extends Component {
                 <div className='wrapper register'>
                     <p className="app-text">Do not have an account?</p>
                     <Link to={{ pathname: "/register" }}>
-                        <a>Sign up</a>
+                        <p>Sign up</p>
                     </Link>
                 </div>
             </div>

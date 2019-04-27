@@ -4,6 +4,7 @@ $login-input-ph-color: #999;
 $bt-transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 $bt-bg-color: linear-gradient(to right, #944b94 0, #d75a88 21%, #ff7e71 60%);
 $err-txt-color: #e85965;
+$vip-txt-color: #ffb25f;
 $auto-fill-shadow: 0 0 0px 1000px $login-input-bg-color inset;
 $time: 0.3s;
 
@@ -19,7 +20,7 @@ $time: 0.3s;
 }
 
 .slogan {
-    color: #485DA6;
+    color: rgb(96, 111, 162);
     font-weight: bold;
     font-size: 40px;
     margin: 0;
@@ -91,7 +92,7 @@ $time: 0.3s;
         }
 
         .required::placeholder {
-            color: $err-txt-color;
+            color: $vip-txt-color;
         }
     }
 
