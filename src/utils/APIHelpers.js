@@ -55,7 +55,9 @@ export async function removePetFromFavorite(id) {
           'favoritedPets': favoritedPets
         };
         axios.put(API_URL + 'user', data, config)
-          .then( res => {});
+          .then( res => {
+              console.log(res)
+          });
       } else {
         return;
       }

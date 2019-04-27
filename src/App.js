@@ -4,7 +4,7 @@ import './App.scss';
 
 import Profile from './components/Profile/Profile';
 import Login from './components/Login/Login';
-import NavBar from './components/NavBar/NavBar';
+import PetDetail from './components/PetDetail/PetDetail'
 import MainView from './components/MainView/MainView';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
