@@ -4,6 +4,7 @@ import "./MainView.style.scss";
 import Masonry from 'react-masonry-component';
 import ImageCell from '../ImageCell/ImageCell';
 import axios from 'axios';
+import {getUserInfo} from "../../utils/APIHelpers";
 
 /**
  * Renders a our MainView in a printerest-like layout
@@ -12,11 +13,13 @@ import axios from 'axios';
  * reference: https://www.npmjs.com/package/react-masonry-component
  */
 const API_URL = 'http://pet-gallery.herokuapp.com/api';
+let LOGIN_TOKEN = undefined;
 
 export default class MainView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      favoritedPets: [],
       data: [],
     }
   }
@@ -27,6 +30,16 @@ export default class MainView extends Component {
         this.setState({
           data: res.data.data
         });
+        LOGIN_TOKEN = window.localStorage.getItem('token');
+        if (LOGIN_TOKEN !== undefined) {
+          getUserInfo(LOGIN_TOKEN).then(
+            resData => {
+              this.setState({
+                favoritedPets: resData.favoritedPets
+              });
+            }
+          ).catch(e => {});
+        }
       })
       .catch( e => {})
   }
@@ -42,7 +55,8 @@ export default class MainView extends Component {
           imageURL={item.imageURLs[0]}
           location={'Champaign, IL'}
           id={item._id}
-          isFavorite={false}
+          isFavorite={this.state.favoritedPets.includes(item._id)}
+          isLoggedIn={LOGIN_TOKEN!==undefined}
         />);
       }
       return(null);
