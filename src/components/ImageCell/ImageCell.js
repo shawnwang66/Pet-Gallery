@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import "./ImageCell.style.scss";
 import { Icon } from 'semantic-ui-react'
 import {addPetToFavorite, removePetFromFavorite} from "../../utils/APIHelpers";
+import { Link } from 'react-router-dom';
 
 
 /**
@@ -71,12 +72,13 @@ export default class ImageCell extends Component {
   }
 
   petOnClick() {
-    window.location.replace('/#/pet/'+this.state.id);
   }
 
   render() {
     return(<div className={'image-cell-container'}>
-      <img src={this.state.imageURL} className={'round-image'} alt={this.state.name} onClick={this.petOnClick}/>
+      <Link to={{ pathname: '/pet/'+this.state.id }}>
+        <img src={this.state.imageURL} className={'round-image'} alt={this.state.name}/>
+      </Link>
       <div className={'detail-flex-container'}>
         <div className={'name-location-container'}>
           <div className={'name-container'}>

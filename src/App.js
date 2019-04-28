@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch,HashRouter} from 'react-router-dom'
+import { Route, Switch,HashRouter, Router} from 'react-router-dom'
 import './App.scss';
 
 import Profile from './components/Profile/Profile';
@@ -12,6 +12,11 @@ import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import PetDetail from './components/PetDetail/PetDetail';
 import SearchView from './components/SearchView/SearchView';
 
+
+/**
+ * reference: https://www.npmjs.com/package/history
+ * https://stackoverflow.com/questions/42701129/how-to-push-to-history-in-react-router-v4
+ */
 
 class App extends Component {
   render() {

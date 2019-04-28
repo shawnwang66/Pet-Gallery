@@ -5,6 +5,7 @@ import dog from '../../assets/dog.png';
 import cat from '../../assets/cat.png';
 import {animateScroll as scroll } from 'react-scroll';
 import {Redirect} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 
 /**
@@ -93,14 +94,14 @@ export default class NavBar extends Component{
         if (this.state.expanded){
             return (
                 <div className={position<=540?'nav-expanded':'nav-minimized'}>
-                    <div
-                        className='nav-item-left disable-select'
-                        style={{opacity:navOpacity}}
-                        onClick={()=>{
-                            window.location.replace('/');
-                        }}>
-                        Pet Gallery
-                    </div>
+                    <Link to={'/'}>
+                        <div
+                            className='nav-item-left disable-select'
+                            style={{opacity:navOpacity}}
+                        >
+                            Pet Gallery
+                        </div>
+                    </Link>
                     <div className='title disable-select' style={{opacity:opacity}}>
                         <img className='icon-cat' src={cat}/>
                         Pet Gallery
@@ -125,10 +126,12 @@ export default class NavBar extends Component{
         }
         else{
             return (
-                <div className={'nav-minimized'}>
-                    <div className='nav-item-left' style={{opacity:1}} onClick={()=>{
-                        window.location.replace('/');
-                    }}>Pet Gallery</div>
+                    <div className={'nav-minimized'}>
+                        <Link to={'/'}>
+                            <div className='nav-item-left' style={{opacity:1}}>
+                                Pet Gallery
+                            </div>
+                        </Link>
                     <form onSubmit={this.handleSubmit}>
                         <Input
                             className='search'
