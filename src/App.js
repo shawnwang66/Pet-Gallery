@@ -8,7 +8,7 @@ import Register from './components/Login/Register';
 import NavBar from './components/NavBar/NavBar';
 import MainView from './components/MainView/MainView';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faDove, faDog, faCat, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import PetDetail from './components/PetDetail/PetDetail';
 
 
@@ -28,7 +28,7 @@ class App extends Component {
   }
 }
 
-const fonts = [ faDove, faCat, faDog, faPencilAlt ];
+const fonts = [ faPencilAlt ];
 library.add(fonts);
 
 export default App;
