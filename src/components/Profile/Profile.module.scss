@@ -42,12 +42,21 @@ body{
   vertical-align: middle;
   width:300px;
   height: 300px;
-
+  cursor: pointer;
+  transition-duration: 0.14s;
 
   img{
     height: 100%;
     width: 100%;
     border-radius: 50%;
+  }
+
+  &:hover{
+    filter: brightness(0.7);
+    -webkit-filter: brightness(0.9);
+    transform: scale(1.05);
+    transition: 0.2s;
+
   }
 }
 
@@ -87,4 +96,8 @@ body{
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   margin: 8px 10px 12px;
   background-position: right center;
+}
+
+.inputButton{
+  display: none;
 }
