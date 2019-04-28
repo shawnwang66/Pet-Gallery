@@ -12,7 +12,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import Grow from '@material-ui/core/Grow';
-import Slider, { Range } from 'rc-slider';
 
 
 
@@ -24,11 +23,12 @@ import Slider, { Range } from 'rc-slider';
  * https://stackoverflow.com/questions/36904185/react-router-scroll-to-top-on-every-transition
  * https://material-ui.com/demos/selects/
  * https://material-ui.com/lab/slider/
+ * https://www.npmjs.com/package/rc-slider
  */
 const API_URL = 'http://pet-gallery.herokuapp.com/api';
 let LOGIN_TOKEN = undefined;
 
-const categoryOptions = ['Cat', 'Dog', 'Bird',];
+const categoryOptions = ['Cat', 'Dog'];
 
 const catBreedOptions = ['Siamese', 'Persian', 'Maine Coon','Ragdoll', 'Bengal', 'Abyssinian','Birman',
   'Oriental Shorthair', 'Sphynx', 'Devon Rex','Himalayan',  'American Shorthair'];
@@ -36,8 +36,16 @@ const catBreedOptions = ['Siamese', 'Persian', 'Maine Coon','Ragdoll', 'Bengal',
 const dogBreedOptions = ['Retrievers','German Shepherd Dogs','American Bobtail Cat', 'French Bulldogs',
   'Bulldogs', 'Beagles', 'Poodles', 'Rottweilers', 'German Shorthaired', 'Yorkshire Terriers', 'Boxers', 'Dachshunds'];
 
-const birdBreedOptions = ['Canaries', 'Budgies', 'Finches', 'Cockatiels', 'Quaker Parakeets', 'Pionus Parrots',
-  'Poicephalus Parrots', 'Amazon Parrots', 'Pyrrhura Conures', 'Peach-Faced Lovebirds'];
+const catYears = ['Kitten', 'Young', 'Adult', 'Senior'];
+
+const dogYears = ['Puppy', 'Young', 'Adult', 'Senior'];
+
+const energyLevel = ['Low', 'Moderate', 'High'];
+
+const priceRange = ['$', '$$', '$$$'];
+
+// const birdBreedOptions = ['Canaries', 'Budgies', 'Finches', 'Cockatiels', 'Quaker Parakeets', 'Pionus Parrots',
+//   'Poicephalus Parrots', 'Amazon Parrots', 'Pyrrhura Conures', 'Peach-Faced Lovebirds'];
 
 export default class SearchView extends Component {
   constructor(props) {
@@ -49,12 +57,18 @@ export default class SearchView extends Component {
       searchQuery: '',
       selectedCategory: '',
       selectedBreed: '',
-      priceSliderValue: 0,
+      selectedAge: '',
+      selectedEnergyLevel: '',
+      selectedPrice: '',
     };
 
     this.setCategory = this.setCategory.bind(this);
     this.setBreed = this.setBreed.bind(this);
-    this.updatePriceSlider = this.updatePriceSlider.bind(this);
+    this.setPrice = this.setPrice.bind(this);
+    this.setEnergyLevel = this.setEnergyLevel.bind(this);
+    this.setAge = this.setAge.bind(this);
+
+
   }
 
   componentDidMount() {
@@ -95,6 +109,7 @@ export default class SearchView extends Component {
     if (value !== this.state.selectedCategory) {
       this.setState({selectedCategory: value});
       this.setState({selectedBreed: ''});
+      this.setState({selectedAge: ''});
 
     }
     this.setState({selectedCategory: value});
@@ -108,8 +123,27 @@ export default class SearchView extends Component {
     }
   }
 
-  updatePriceSlider(e, val) {
-    this.setState({priceSliderValue: val})
+  setPrice(e) {
+    let value = e.target.value;
+    if (value !== this.state.selectedPrice) {
+      this.setState({selectedPrice: value});
+
+    }
+  }
+
+  setAge(e) {
+    let value = e.target.value;
+    if (value !== this.state.selectedAge) {
+      this.setState({selectedAge: value});
+
+    }
+  }
+
+  setEnergyLevel(e) {
+    let value = e.target.value;
+    if (value !== this.state.selectedEnergyLevel) {
+      this.setState({selectedEnergyLevel: value});
+    }
   }
 
   render() {
@@ -131,23 +165,39 @@ export default class SearchView extends Component {
     });
 
     let categoryItems = categoryOptions.map( (item,idx) => {
-      return(<MenuItem value={idx}>{item}</MenuItem>);
+      return(<MenuItem value={idx} key={idx}>{item}</MenuItem>);
     });
 
     let catBreedItems = catBreedOptions.map( (item,idx) => {
-      return(<MenuItem value={idx}>{item}</MenuItem>);
+      return(<MenuItem value={idx} key={idx}>{item}</MenuItem>);
     });
 
     let dogBreedItems = dogBreedOptions.map( (item,idx) => {
-      return(<MenuItem value={idx}>{item}</MenuItem>);
+      return(<MenuItem value={idx} key={idx}>{item}</MenuItem>);
     });
 
-    let birdBreedItems = birdBreedOptions.map( (item,idx) => {
-      return(<MenuItem value={idx}>{item}</MenuItem>);
+    let catYearItems = catYears.map( (item,idx) => {
+      return (<MenuItem value={idx} key={idx}>{item}</MenuItem>);
     });
+
+    let dogYearItems = dogYears.map( (item,idx) => {
+      return (<MenuItem value={idx} key={idx}>{item}</MenuItem>);
+    });
+
+    let priceItems = priceRange.map( (item,idx) => {
+      return (<MenuItem value={idx} key={idx}>{item}</MenuItem>);
+    });
+
+    let energyItems = energyLevel.map( (item,idx) => {
+      return (<MenuItem value={idx} key={idx}>{item}</MenuItem>);
+    });
+
+    // let birdBreedItems = birdBreedOptions.map( (item,idx) => {
+    //   return(<MenuItem value={idx} key={idx}>{item}</MenuItem>);
+    // });
 
     return(
-      <div>
+      <div className={'search-background'}>
         <NavBar expanded={false} searchQuery={this.state.searchQuery}/>
         <div className={'search-view-container'}>
               <div className={'filter-container expanded'}>
@@ -167,31 +217,82 @@ export default class SearchView extends Component {
                     </Select>
                   </FormControl>
                 </div>
-                <div className={'filter-container expanded'}>
                   {
                     this.state.selectedCategory === '' ? null :
-                      <Grow in={this.state.selectedCategory!==''}>
-                        <FormControl className='filter-select-container'>
-                          <InputLabel>
-                            Breed
-                          </InputLabel>
-                          <Select
-                            value={this.state.selectedBreed}
-                            onChange={this.setBreed}
-                          >
-                            <MenuItem value=''>
+                      <div className={'filter-container'}>
+                        <Grow in={this.state.selectedCategory!==''}>
+                          <FormControl className='filter-select-container'>
+                            <InputLabel>
                               Breed
-                            </MenuItem>
-                            {this.state.selectedCategory===0?catBreedItems:
-                              (this.state.selectedCategory===1?dogBreedItems:birdBreedItems)
-                            }
-                          </Select>
-                        </FormControl>
-                      </Grow>
+                            </InputLabel>
+                            <Select
+                              value={this.state.selectedBreed}
+                              onChange={this.setBreed}
+                            >
+                              <MenuItem value=''>
+                                Breed
+                              </MenuItem>
+                              {this.state.selectedCategory===0?catBreedItems:dogBreedItems
+                              }
+                            </Select>
+                          </FormControl>
+                        </Grow>
+                      </div>
                   }
+                  {
+                    this.state.selectedCategory === '' ? null :
+                      <div className={'filter-container'}>
+                        <Grow in={this.state.selectedCategory!==''}>
+                          <FormControl className='filter-select-container'>
+                            <InputLabel>
+                              Age
+                            </InputLabel>
+                            <Select
+                              value={this.state.selectedAge}
+                              onChange={this.setAge}
+                            >
+                              <MenuItem value=''>
+                                Breed
+                              </MenuItem>
+                              {this.state.selectedCategory===0?catYearItems:dogYearItems}
+                            </Select>
+                          </FormControl>
+                        </Grow>
+                      </div>
+                  }
+                <div className={'filter-container'}>
+                  <FormControl className='filter-select-container'>
+                    <InputLabel>
+                      Price
+                    </InputLabel>
+                    <Select
+                      value={this.state.selectedPrice}
+                      onChange={this.setPrice}
+                    >
+                      <MenuItem value=''>
+                        Price
+                      </MenuItem>
+                      {priceItems}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div className={'filter-container'}>
+                  <FormControl className='filter-select-container'>
+                    <InputLabel>
+                      Energy Level
+                    </InputLabel>
+                    <Select
+                      value={this.state.selectedEnergyLevel}
+                      onChange={this.setEnergyLevel}
+                    >
+                      <MenuItem value=''>
+                        Energy Level
+                      </MenuItem>
+                      {energyItems}
+                    </Select>
+                  </FormControl>
                 </div>
               </div>
-              <div className={'filter-container closed'}/>
           <div className={'masonry-container'}>
             <Masonry
               className={'masonry-component'}
