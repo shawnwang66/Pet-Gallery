@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Profile.module.scss'
 import axios from "axios/index";
-// import {Image} from 'semantic-ui-react/index'
+import DiscussionPosts from '../DiscussionPosts/DiscussionPosts';
 import ReactStars from 'react-stars'
 import Button from '@material-ui/core/Button/index';
 import ProfilePosts from '../ProfilePosts/ProfilePosts'
@@ -191,20 +191,23 @@ class Profile extends Component{
                     </button>
 
                 </div>
-
-                {this.state.currentPanel === 'posts' ?
-                    <ProfilePosts
-                        userId = {this.state.id}
-                        posts = {this.state.posts}
-                        isFeatured={false}>
-                    </ProfilePosts>
-                : this.state.currentPanel === 'featured' ? 
-                    <ProfilePosts
-                        userId = {this.state.id}
-                        posts = {this.state.featured}
-                        isFeatured={true}>
-                    </ProfilePosts>
-                : <div></div>}
+                {
+                    this.state.currentPanel === 'posts' ?
+                        <ProfilePosts
+                            userId = {this.state.id}
+                            posts = {this.state.posts}
+                            isFeatured={false}>
+                        </ProfilePosts>
+                    : this.state.currentPanel === 'featured' ? 
+                        <ProfilePosts
+                            userId = {this.state.id}
+                            posts = {this.state.featured}
+                            isFeatured={true}>
+                        </ProfilePosts>
+                        : <DiscussionPosts
+                            userId={this.state.id}>
+                        </DiscussionPosts>
+                }
             </div>
         );
     }
