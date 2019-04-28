@@ -55,7 +55,7 @@ class Profile extends Component{
             headers: {'Authorization': "bearer " + token}
         }
 
-        axios.get(baseURL + 'user', config)
+        return axios.get(baseURL + 'user', config)
             .then((response)=>{
                 const resData = response.data.data;
                 console.log(resData)
@@ -78,6 +78,8 @@ class Profile extends Component{
                     posts: resData.petsCreated,
                     featured: resData.favoritedPets
                 });
+
+                return resData;
             })
     }
     updateImageSingle(){
@@ -170,6 +172,9 @@ class Profile extends Component{
                     <label htmlFor="inputImage">
                         <div className={styles.imgContainer}>
                             <img style={Avatar} onClick={this.handleClickOpen('changeAvatar')}/>
+                            <Button variant={"contained"} component={"span"} color="secondary" className={styles.editSpan}>
+                                Edit
+                            </Button>
                         </div>
                     </label>
                     <input id={'inputImage'} type='file' name='image' className={styles.inputButton} onChange={this.updateImageSingle}/>

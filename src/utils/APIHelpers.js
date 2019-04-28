@@ -28,7 +28,6 @@ export async function addPetToFavorite(id) {
 
   return axios.post(API_URL + 'favorite', data, config)
     .then((response)=>{
-      console.log(response);
     })
     .catch();
 }
@@ -42,7 +41,6 @@ export async function removePetFromFavorite(id) {
 
   return axios.delete(API_URL + 'favorite', config)
     .then((response)=>{
-      console.log(response);
     })
     .catch();
 

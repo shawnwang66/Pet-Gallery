@@ -73,12 +73,31 @@ export default class SearchView extends Component {
   }
 
   updateSearch() {
-    console.log('request API');
     let params = {};
     if (this.state.searchQuery!=='') {
-      console.log('search!!!!!', this.state.searchQuery);
       params['filter'] = {input: this.state.searchQuery};
     }
+    if (this.state.selectedCategory!=='') {
+      params['type'] = this.state.selectedCategory;
+    }
+    if (this.state.selectedAge!=='') {
+      params['age'] = this.state.selectedAge;
+    }
+    if (this.state.selectedBreed!=='') {
+      if (this.state.selectedCategory==0) {
+        params['breed'] = {breed: catBreedOptions[this.state.selectedBreed]};
+      } else {
+        params['breed'] = {breed: dogBreedOptions[this.state.selectedBreed]};
+      }
+    }
+    if (this.state.selectedPrice!=='') {
+      params['price'] = this.state.selectedPrice;
+    }
+    if (this.state.selectedEnergyLevel!=='') {
+      params['energyLevel'] = this.state.selectedEnergyLevel;
+    }
+
+
     axios.get(API_URL + '/pets', {params: params})
       .then( res => {
         console.log(res.data.data);
@@ -111,7 +130,7 @@ export default class SearchView extends Component {
     let thisQuery = queryString.parse(this.props.location.search)['?text'];
     if (thisQuery !== this.state.searchQuery) {
       console.log('string=', thisQuery,'end');
-      if (thisQuery !== this.state.searchQuery) {
+      if (thisQuery !== this.state.searchQuery || this.state.data.length === 0) {
         window.scrollTo(0, 0);
         this.setState({searchQuery: thisQuery}, this.updateSearch);
       }
@@ -126,13 +145,13 @@ export default class SearchView extends Component {
       this.setState({selectedAge: ''});
 
     }
-    this.setState({selectedCategory: value});
+    this.setState({selectedCategory: value}, this.updateSearch);
   }
 
   setBreed(e) {
     let value = e.target.value;
     if (value !== this.state.selectedBreed) {
-      this.setState({selectedBreed: value});
+      this.setState({selectedBreed: value}, this.updateSearch);
 
     }
   }
@@ -140,7 +159,7 @@ export default class SearchView extends Component {
   setPrice(e) {
     let value = e.target.value;
     if (value !== this.state.selectedPrice) {
-      this.setState({selectedPrice: value});
+      this.setState({selectedPrice: value}, this.updateSearch);
 
     }
   }
@@ -148,7 +167,7 @@ export default class SearchView extends Component {
   setAge(e) {
     let value = e.target.value;
     if (value !== this.state.selectedAge) {
-      this.setState({selectedAge: value});
+      this.setState({selectedAge: value}, this.updateSearch);
 
     }
   }
@@ -156,7 +175,7 @@ export default class SearchView extends Component {
   setEnergyLevel(e) {
     let value = e.target.value;
     if (value !== this.state.selectedEnergyLevel) {
-      this.setState({selectedEnergyLevel: value});
+      this.setState({selectedEnergyLevel: value}, this.updateSearch);
     }
   }
 
@@ -214,6 +233,9 @@ export default class SearchView extends Component {
       <div className={'search-background'}>
         <NavBar expanded={false} searchQuery={this.state.searchQuery}/>
         <div className={'search-view-container'}>
+          <div className={'nav-bar-place-holder'}>
+
+          </div>
               <div className={'filter-container expanded'}>
                 <div className={'filter-container'}>
                   <FormControl className='filter-select-container'>
@@ -307,14 +329,25 @@ export default class SearchView extends Component {
                   </FormControl>
                 </div>
               </div>
-          <div className={'masonry-container'}>
-            <Masonry
-              className={'masonry-component'}
-              options={{isFitWidth: true}}
-            >
-              {petDivs}
-            </Masonry>
-          </div>
+          {
+            (this.state.data.length!==0)?
+              <div className={'masonry-container'}>
+                <Masonry
+                  className={'masonry-component'}
+                  options={{isFitWidth: true}}
+                >
+                  {petDivs}
+                </Masonry>
+              </div> :
+              <div className={'not-found-outer-container'}>
+                <div className={'not-found-inner-container'}>
+                  <div className={'not-found-center'}>
+                    No Results Found
+                  </div>
+                </div>
+              </div>
+
+          }
         </div>
       </div>);
   }
