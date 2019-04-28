@@ -36,6 +36,7 @@ export default class PetDetail extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0,0);
         getUserInfo(localStorage.getItem('token'))
             .then(data => this.setState({
                 user:data,

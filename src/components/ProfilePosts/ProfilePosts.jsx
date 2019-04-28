@@ -32,7 +32,9 @@ class ProfilePosts extends Component{
             submittedSuccess: false,
             submittedFailed: false,
             gridItems:[],
-            categories: ['Cat','Dog','Bird','Others'],
+            categories: ['cat','dog'],
+            catAge: ['Kitten', 'Young','Adult','Senior'],
+            dogAge: ['Puppy', 'Young','Adult','Senior'],
             size: [ 'small', 'medium', 'large' ],
             energyLevel : [ 'low', 'medium', 'high' ],
             userId : this.props.userId,
@@ -103,12 +105,20 @@ class ProfilePosts extends Component{
 
         };
 
+        let ageMapped = 0;
+        for(let i=0;i<this.state.dogAge.length;i++){
+            if (this.state.inputAge === this.state.dogAge[i]){
+                ageMapped  = i;
+                break;
+            }
+        }
+
         const data = {
                 user_id: userId,
                 name: this.state.inputName,
                 category: this.state.selectedCate,
                 breed: this.state.inputBreed,
-                age: this.state.inputAge,
+                age: ageMapped,
                 gender: this.state.inputGender,
                 owner: userId,
                 imageURLs: this.state.inputImg,
@@ -158,18 +168,20 @@ class ProfilePosts extends Component{
 
                         return(
                             <div className={styles.gridCardContainer}>
-                                <Card
-                                    key={pet._id}
-                                    color={'grey'}
-                                    className={styles.gridCard}
-                                >
-                                    <div style={imgConfig}></div>
-                                    <Card.Content>
-                                        <Card.Header>{pet.name}</Card.Header>
-                                        <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
-                                        <Card.Description>{"Price: $"+pet.price}</Card.Description>
-                                    </Card.Content>
-                                </Card>
+                                <Link to={`pet/${pet._id}`}>
+                                    <Card
+                                        key={pet._id}
+                                        color={'grey'}
+                                        className={styles.gridCard}
+                                    >
+                                        <div style={imgConfig}></div>
+                                        <Card.Content>
+                                            <Card.Header>{pet.name}</Card.Header>
+                                            <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
+                                            <Card.Description>{"Price: $"+pet.price}</Card.Description>
+                                        </Card.Content>
+                                    </Card>
+                                </Link>
                             </div>
                         );
 
@@ -218,18 +230,21 @@ class ProfilePosts extends Component{
 
                             return(
                                 <div className={styles.gridCardContainer}>
-                                    <Card
-                                        key={pet._id}
-                                        color={'grey'}
-                                        className={styles.gridCard}
-                                    >
-                                        <div style={imgConfig}></div>
-                                        <Card.Content>
-                                            <Card.Header>{pet.name}</Card.Header>
-                                            <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
-                                            <Card.Description>{"Price: $"+pet.price}</Card.Description>
-                                        </Card.Content>
-                                    </Card>
+                                    <Link to={`pet/${pet._id}`}>
+                                        <Card
+                                            key={pet._id}
+                                            color={'grey'}
+                                            className={styles.gridCard}
+                                        >
+                                            <div style={imgConfig}></div>
+
+                                            <Card.Content>
+                                                <Card.Header>{pet.name}</Card.Header>
+                                                <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
+                                                <Card.Description>{"Price: $"+pet.price}</Card.Description>
+                                            </Card.Content>
+                                        </Card>
+                                    </Link>
                                 </div>
                             );
 
@@ -371,7 +386,7 @@ class ProfilePosts extends Component{
 
                         />
                         <TextField
-
+                            select
                             margin="dense"
                             id="age"
                             label="age"
@@ -381,7 +396,18 @@ class ProfilePosts extends Component{
                             value={this.state.inputAge}
                             className={styles.inputFiled}
 
-                        />
+                        >
+                            {this.state.selectedCate === 'cat'
+                                ? this.state.catAge.map(option => (
+                                <MenuItem key={option} value={option}>
+                                    {option}
+                                </MenuItem>))
+                                : this.state.dogAge.map(option => (
+                                    <MenuItem key={option} value={option}>
+                                        {option}
+                                    </MenuItem>))
+                            }
+                        </TextField>
                         <TextField
 
                             margin="dense"

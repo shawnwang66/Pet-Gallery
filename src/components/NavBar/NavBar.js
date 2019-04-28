@@ -43,7 +43,6 @@ export default class NavBar extends Component{
 
 
     componentWillReceiveProps(nextProps, nextContext) {
-        console.log('here!!!!!!!!');
         try {
             let thisQuery = nextProps.searchQuery;
             if (thisQuery !== undefined && thisQuery !== this.state.searchQuery) {
@@ -80,9 +79,9 @@ export default class NavBar extends Component{
     render() {
         if (this.state.isSearching) {
             let newRoute = '/search?text=' + this.state.searchQuery;
-            if (this.state.searchQuery==='') {
-                newRoute = '';
-            }
+            // if (this.state.searchQuery==='') {
+            //     newRoute = '';
+            // }
             this.setState({isSearching: false});
             return <Redirect to={newRoute}/>
         }

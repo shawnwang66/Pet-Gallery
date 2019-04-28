@@ -2,17 +2,15 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Profile.module.scss'
 import axios from "axios/index";
-// import {Image} from 'semantic-ui-react/index'
+import DiscussionPosts from '../DiscussionPosts/DiscussionPosts';
 import ReactStars from 'react-stars'
 import Button from '@material-ui/core/Button/index';
 import ProfilePosts from '../ProfilePosts/ProfilePosts'
 import { withStyles } from '@material-ui/core/styles/index';
 import NavBar from '../NavBar/NavBar'
 
-
 const API_URL = "http://pet-gallery.herokuapp.com/api/";
 
-// const API_URL = "http://localhost:4000/api/";
 class Profile extends Component{
 
     constructor(props){
@@ -57,7 +55,7 @@ class Profile extends Component{
             headers: {'Authorization': "bearer " + token}
         }
 
-        axios.get(baseURL + 'user', config)
+        return axios.get(baseURL + 'user', config)
             .then((response)=>{
                 const resData = response.data.data;
                 console.log(resData)
@@ -80,6 +78,8 @@ class Profile extends Component{
                     posts: resData.petsCreated,
                     featured: resData.favoritedPets
                 });
+
+                return resData;
             })
     }
     updateImageSingle(){
@@ -172,6 +172,9 @@ class Profile extends Component{
                     <label htmlFor="inputImage">
                         <div className={styles.imgContainer}>
                             <img style={Avatar} onClick={this.handleClickOpen('changeAvatar')}/>
+                            <Button variant={"contained"} component={"span"} color="secondary" className={styles.editSpan}>
+                                Edit
+                            </Button>
                         </div>
                     </label>
                     <input id={'inputImage'} type='file' name='image' className={styles.inputButton} onChange={this.updateImageSingle}/>
@@ -191,20 +194,23 @@ class Profile extends Component{
                     </button>
 
                 </div>
-
-                {this.state.currentPanel === 'posts' ?
-                    <ProfilePosts
-                        userId = {this.state.id}
-                        posts = {this.state.posts}
-                        isFeatured={false}>
-                    </ProfilePosts>
-                : this.state.currentPanel === 'featured' ? 
-                    <ProfilePosts
-                        userId = {this.state.id}
-                        posts = {this.state.featured}
-                        isFeatured={true}>
-                    </ProfilePosts>
-                : <div></div>}
+                {
+                    this.state.currentPanel === 'posts' ?
+                        <ProfilePosts
+                            userId = {this.state.id}
+                            posts = {this.state.posts}
+                            isFeatured={false}>
+                        </ProfilePosts>
+                    : this.state.currentPanel === 'featured' ? 
+                        <ProfilePosts
+                            userId = {this.state.id}
+                            posts = {this.state.featured}
+                            isFeatured={true}>
+                        </ProfilePosts>
+                        : <DiscussionPosts
+                            userId={this.state.id}>
+                        </DiscussionPosts>
+                }
             </div>
         );
     }

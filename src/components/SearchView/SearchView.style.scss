@@ -15,7 +15,7 @@
 
 .search-view-container {
   background-color: #fffaed;
-  margin-top: 60px;
+  height: calc(100vh);
 }
 
 .masonry-container {
@@ -28,8 +28,15 @@
   padding-top: 15px;
 }
 
+.nav-bar-place-holder {
+  height: 60px;
+  flex: 0 0 auto;
+
+}
+
 .filter-select-container {
   width: 180px;
+
 }
 
 .filter-container {
@@ -39,11 +46,36 @@
   flex-wrap: wrap;
   position: relative;
   top: 3px;
+  flex: 0 0 auto;
+
 }
+
+.not-found-outer-container {
+  display: flex;
+  height: 100%;
+  flex-flow: column;
+}
+
+.not-found-inner-container {
+  flex: 1 1 auto;
+  position: relative;
+  background-color: #fffaed;
+
+}
+
 
 .search-background {
   background-color: #fffaed;
 
+}
+
+.not-found-center {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 40px;
+  color: #777;
 }
 
 .slider {
