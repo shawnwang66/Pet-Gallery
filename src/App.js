@@ -4,8 +4,13 @@ import './App.scss';
 
 import Profile from './components/Profile/Profile';
 import Login from './components/Login/Login';
-import PetDetail from './components/PetDetail/PetDetail'
+import Register from './components/Login/Register';
+import NavBar from './components/NavBar/NavBar';
 import MainView from './components/MainView/MainView';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faDove, faDog, faCat } from '@fortawesome/free-solid-svg-icons';
+import PetDetail from './components/PetDetail/PetDetail';
+import SearchView from './components/SearchView/SearchView';
 
 
 class App extends Component {
@@ -17,10 +22,15 @@ class App extends Component {
               <Route exact path="/profile" component={Profile}/>
               <Route exact path="/pet/:id" component={PetDetail}/>
               <Route exact path="/login" component={Login}/>
+              <Route exact path="/register" component={Register}/>
+              <Route exact path="/search" component={SearchView}/>
           </Switch>
         </HashRouter>
     )
   }
 }
+
+const fonts = [ faDove, faCat, faDog ];
+library.add(fonts);
 
 export default App;
