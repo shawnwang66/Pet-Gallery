@@ -67,18 +67,21 @@ export default class SearchView extends Component {
     this.setPrice = this.setPrice.bind(this);
     this.setEnergyLevel = this.setEnergyLevel.bind(this);
     this.setAge = this.setAge.bind(this);
+    this.updateSearch = this.updateSearch.bind(this);
 
 
   }
 
-  componentDidMount() {
-    window.scrollTo(0,0);
-    let thisQuery = queryString.parse(this.props.location.search)['?text'];
-    if (thisQuery !== this.state.searchQuery) {
-      this.setState({searchQuery: thisQuery});
+  updateSearch() {
+    console.log('request API');
+    let params = {};
+    if (this.state.searchQuery!=='') {
+      console.log('search!!!!!', this.state.searchQuery);
+      params['filter'] = {input: this.state.searchQuery};
     }
-    axios.get(API_URL + '/pets')
+    axios.get(API_URL + '/pets', {params: params})
       .then( res => {
+        console.log(res.data.data);
         this.setState({
           data: res.data.data
         });
@@ -96,11 +99,22 @@ export default class SearchView extends Component {
       .catch( e => {})
   }
 
+  componentDidMount() {
+    window.scrollTo(0,0);
+    let thisQuery = queryString.parse(this.props.location.search)['?text'];
+    if (thisQuery !== this.state.searchQuery) {
+      this.setState({searchQuery: thisQuery}, this.updateSearchgi);
+    }
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     let thisQuery = queryString.parse(this.props.location.search)['?text'];
     if (thisQuery !== this.state.searchQuery) {
-      window.scrollTo(0, 0);
-      this.setState({searchQuery: thisQuery});
+      console.log('string=', thisQuery,'end');
+      if (thisQuery !== this.state.searchQuery) {
+        window.scrollTo(0, 0);
+        this.setState({searchQuery: thisQuery}, this.updateSearch);
+      }
     }
   }
 
@@ -252,7 +266,7 @@ export default class SearchView extends Component {
                               onChange={this.setAge}
                             >
                               <MenuItem value=''>
-                                Breed
+                                Age
                               </MenuItem>
                               {this.state.selectedCategory===0?catYearItems:dogYearItems}
                             </Select>
