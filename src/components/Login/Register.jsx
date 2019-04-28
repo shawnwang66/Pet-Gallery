@@ -94,7 +94,8 @@ class Register extends Component {
             password: this.password,
             name: this.fullName,
             email: this.userEmail,
-            location: this.userLoc
+            location: this.userLoc,
+            imageURL: avatar
         })
         .then((res) => {
             console.log(`User Created: ${res}`);
@@ -171,7 +172,7 @@ class Register extends Component {
     
                 <div className='wrapper form'>
                     <p className='app-title'>{TITLE}</p>
-                    <div className='avatar-holder' style={avatarStyle} onClick={this.uploadAvatar}>
+                    <div className='avatar-holder' style={avatarStyle}> {/* onClick={this.uploadAvatar} */}
                         <input id='upload-input' type="file" name="upload-avatar" ></input>
                         <div className='avatar-mask' style={avatarMaskStyle}>
                             {this.state.isUploading ? <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div> :
