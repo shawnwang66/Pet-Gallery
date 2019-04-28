@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import './Login.style.scss'
 import axios from "axios/index";
-import { Redirect } from 'react-router-dom';
-import Button from '@material-ui/core/Button/index';
-import NavBar from '../NavBar/NavBar'
+import { Link, Redirect } from 'react-router-dom';
 
 const API_URL = "http://pet-gallery.herokuapp.com/api/";
 const APP_NAME = "Pet Gallery";
@@ -26,24 +23,20 @@ class Login extends Component {
     }
 
     onInputChanged(e) {
+        const inputName = e.target.name;
+        switch (inputName) {
+            case 'username':
+                this.userName = e.target.value;
+                break;
+            case 'pwd':
+                this.password = e.target.value;
+                break;
+        }
+        
         this.setState({
+            disableSubmit: this.userName === "" || this.password === "",
             errorHappened: false
         });
-
-        const inputName = e.target.name;
-        if (inputName === 'username')
-            this.userName = e.target.value;
-        else if (inputName === 'pwd')
-            this.password = e.target.value;
-
-        if (this.userName !== "" && this.password !== "")
-            this.setState({
-                disableSubmit: false
-            });
-        else 
-            this.setState({
-                disableSubmit: true
-            });
     }
 
     submitLoginInfo() {
@@ -55,6 +48,7 @@ class Login extends Component {
         .then((res) => {
             const token = res.data.token;
             window.localStorage.setItem('token', token);
+            window.localStorage.setItem('username', this.userName);
             this.setState({
                 redirect: true
             });
@@ -73,7 +67,7 @@ class Login extends Component {
                 {this.state.redirect ? <Redirect to='/'/> : []}
                 <div className='wrapper form'>
                     <p className='app-title'>{APP_NAME}</p>
-                    <div className='input_wrapper'>
+                    <div className='input-wrapper'>
                         <input id="usr_box" placeholder="Username" name="username" type="text" onChange={this.onInputChanged}></input>
                         <input id="pwd_box" placeholder="Password" name="pwd" type="password" onChange={this.onInputChanged}></input>
                     </div>
@@ -84,7 +78,9 @@ class Login extends Component {
                 </div>
                 <div className='wrapper register'>
                     <p className="app-text">Do not have an account?</p>
-                    <a>Register</a>
+                    <Link to={{ pathname: "/register" }}>
+                        <p>Sign up</p>
+                    </Link>
                 </div>
             </div>
         );

@@ -1,9 +1,11 @@
 @import "../../variables";
 $login-input-bg-color: #fafafa; 
 $login-input-ph-color: #999;
-$bt-bg-color: #485DA6;
-$bt-bg-color-hover: rgb(57, 74, 134);
-$err-txt-color: #ce4752;
+$bt-transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+$bt-bg-color: linear-gradient(to right, #944b94 0, #d75a88 21%, #ff7e71 60%);
+$err-txt-color: #e85965;
+$vip-txt-color: #ffb25f;
+$auto-fill-shadow: 0 0 0px 1000px $login-input-bg-color inset;
 $time: 0.3s;
 
 .cp-root {
@@ -17,19 +19,31 @@ $time: 0.3s;
     background: $main-background;
 }
 
+.slogan {
+    color: rgb(96, 111, 162);
+    font-weight: bold;
+    font-size: 40px;
+    margin: 0;
+
+    span {
+        margin: 0px 20px;
+    }
+}
+
 .wrapper {
     width: 400px;
     background-color: #fff;
     border: 1px solid #e6e6e6;
     border-radius: 10px;
     margin: 10px 0px;
+    transition: $time;
     box-shadow: 0px 0px 20px 4px rgba(180, 180, 180, 0.46);
 
     .app-title {
+        box-shadow: none;
+        margin: 5px 10px;
         color: black;
         font-size: 30px;
-        box-shadow: none;
-        margin: 10px;
     }
 
     .error-text {
@@ -37,7 +51,7 @@ $time: 0.3s;
         margin: 10px;
     }
 
-    .input_wrapper {
+    .input-wrapper {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -63,13 +77,22 @@ $time: 0.3s;
             transition: $time;
 
             &:focus {
-                border-color: #ff7e71; 
+                border-color: #ffb25f; 
                 transition: $time;
             }
         }
 
+        input:-webkit-autofill {
+            box-shadow: $auto-fill-shadow;
+            -webkit-box-shadow: $auto-fill-shadow;
+        }
+
         ::placeholder {
             color: $login-input-ph-color;
+        }
+
+        .required::placeholder {
+            color: $vip-txt-color;
         }
     }
 
@@ -78,21 +101,23 @@ $time: 0.3s;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: $bt-bg-color;
-        border: 1px solid $bt-bg-color;
+        background: $bt-bg-color;
+        background-size: 200% auto;
         border-radius: 4px;
         padding: 5px;
         width: 70%;
         color: #fff;
-        transition: $time;
+        transition: $bt-transition;
+        outline:none;
 
         &:disabled {
             opacity: .3;
         }
+
         &:hover:not([disabled]) {
-            transition: $time;
+            transition: $bt-transition;
             cursor: pointer;
-            background-color: $bt-bg-color-hover; 
+            background-position: right center;
         }
     }
 }
@@ -115,5 +140,15 @@ $time: 0.3s;
 
     .app-text {
         margin: 10px;
+    }
+
+    a {
+        color: #485DA6;
+        transition: $time;
+
+        &:hover {
+            transition: $time;
+            color: #944b94;
+        }
     }
 }

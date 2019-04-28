@@ -22,42 +22,28 @@ export async function addPetToFavorite(id) {
     headers: {'Authorization': "bearer " + token}
   };
 
-  return axios.get(API_URL + 'user', config)
+  let data = {
+    'pet_id': id
+  };
+
+  return axios.post(API_URL + 'favorite', data, config)
     .then((response)=>{
-      const favoritedPets = response.data.data.favoritedPets;
-      if (favoritedPets.includes(id)) {
-        return;
-      } else {
-        favoritedPets.push(id);
-
-        let data = {
-          'favoritedPets': favoritedPets
-        };
-        axios.put(API_URL + 'user', data, config)
-          .then( res => {});
-
-      }
-    });
+      console.log(response);
+    })
+    .catch();
 }
 
 export async function removePetFromFavorite(id) {
   let token = await window.localStorage.getItem('token');
   let config = {
-    headers: {'Authorization': "bearer " + token}
+    headers: {'Authorization': "bearer " + token},
+    data: {'pet_id': id}
   };
 
-  return axios.get(API_URL + 'user', config)
+  return axios.delete(API_URL + 'favorite', config)
     .then((response)=>{
-      let favoritedPets = response.data.data.favoritedPets;
-      if (favoritedPets.includes(id)) {
-        favoritedPets.splice(favoritedPets.indexOf(id),1);
-        let data = {
-          'favoritedPets': favoritedPets
-        };
-        axios.put(API_URL + 'user', data, config)
-          .then( res => {});
-      } else {
-        return;
-      }
-    });
+      console.log(response);
+    })
+    .catch();
+
 }
