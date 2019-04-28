@@ -3,7 +3,8 @@ import './Login.style.scss'
 import axios from "axios/index";
 import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import avatar from '../../assets/avatar-ph.png';
+import { faAlignCenter } from '@fortawesome/free-solid-svg-icons';
 const API_URL = "http://pet-gallery.herokuapp.com/api/";
 const TITLE = "Welcome";
 
@@ -16,7 +17,9 @@ class Register extends Component {
             errorHappened: false,
             requireAllFilled: false,
             validEmail: true,
-            redirect: false
+            redirect: false,
+            avatar: avatar,
+            isUploading: false
         };
 
         this.userName = "";
@@ -25,6 +28,7 @@ class Register extends Component {
         this.userEmail = "";
         this.userLoc = "";
 
+        this.uploadAvatar = this.uploadAvatar.bind(this);
         this.onInputChanged = this.onInputChanged.bind(this);
         this.login = this.login.bind(this);
         this.submitRegisterInfo = this.submitRegisterInfo.bind(this);
@@ -121,7 +125,20 @@ class Register extends Component {
         });
     }
 
+    uploadAvatar() {
+        const upload = document.getElementById('upload-input');
+        upload.click();
+    }
+
     render() {
+        const avatarStyle = {
+            'backgroundImage': `url(${this.state.avatar})`,
+        }
+
+        const avatarMaskStyle = {
+            'opacity': this.state.isUploading ? 1 : null
+        }
+
         return(
             <div className='cp-root'>
                 {this.state.redirect ? <Redirect to='/'/> : []}
@@ -132,6 +149,13 @@ class Register extends Component {
                 </p>
                 <div className='wrapper form'>
                     <p className='app-title'>{TITLE}</p>
+                    <div className='avatar-holder' style={avatarStyle} onClick={this.uploadAvatar}>
+                        <input id='upload-input' type="file" name="upload-avatar" ></input>
+                        <div className='avatar-mask' style={avatarMaskStyle}>
+                            {this.state.isUploading ? <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div> :
+                            <FontAwesomeIcon icon="pencil-alt" />}
+                        </div>
+                    </div>
                     <div id='input-wrapper' className='input-wrapper'>
                         <input id="usr_box" className="required" placeholder="Username *" name="username" type="text" onChange={this.onInputChanged}></input>
                         <input id="pwd_box" className="required" placeholder="Password *" name="pwd" type="password" onChange={this.onInputChanged}></input>
