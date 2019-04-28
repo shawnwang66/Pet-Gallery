@@ -13,8 +13,11 @@ export default class QASection extends React.Component {
         super(props);
         this.state={
             questions:[],
-            user:null
-        }
+            user:null,
+            userText:''
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.submitQuestion = this.submitQuestion.bind(this);
     }
 
     componentDidMount() {
@@ -36,8 +39,18 @@ export default class QASection extends React.Component {
             })
     }
 
-    render() {
 
+    handleChange = (event) =>{
+        this.setState({
+            userText:event.target.value
+        })
+    };
+
+    submitQuestion(){
+
+    }
+
+    render() {
         return (
             <div className='QA-section'>
                 <div className='comment-section'>
@@ -50,13 +63,14 @@ export default class QASection extends React.Component {
                         margin="normal"
                         variant="outlined"
                         rows={4}
+                        onChange={this.handleChange}
                         InputLabelProps={{
                             shrink: true,
                         }}
                         className='comment'
                     />
                 </div>
-                <button className='submit'>Submit</button>
+                <button className='submit' onClick={this.submitQuestion}>Submit</button>
             </div>
         )
     }
