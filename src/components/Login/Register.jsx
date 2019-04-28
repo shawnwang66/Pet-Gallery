@@ -4,6 +4,7 @@ import axios from "axios/index";
 import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+const AVATAR_PH = "http://icons.iconarchive.com/icons/webalys/kameleon.pics/128/Wooden-Horse-icon.png";
 const API_URL = "http://pet-gallery.herokuapp.com/api/";
 const TITLE = "Welcome";
 
@@ -16,7 +17,10 @@ class Register extends Component {
             errorHappened: false,
             requireAllFilled: false,
             validEmail: true,
-            redirect: false
+            redirect: false,
+            avatar: AVATAR_PH,
+            uploadError: false,
+            isUploading: false
         };
 
         this.userName = "";
@@ -25,6 +29,7 @@ class Register extends Component {
         this.userEmail = "";
         this.userLoc = "";
 
+        this.uploadAvatar = this.uploadAvatar.bind(this);
         this.onInputChanged = this.onInputChanged.bind(this);
         this.login = this.login.bind(this);
         this.submitRegisterInfo = this.submitRegisterInfo.bind(this);
@@ -78,17 +83,19 @@ class Register extends Component {
             disableSubmit: (requireAllFilled && validEmail) ? false : true,
             requireAllFilled: requireAllFilled,
             validEmail: validEmail,
-            errorHappened: false
+            errorHappened: false,
+            uploadError: false
         });
     }
 
     submitRegisterInfo() {
-        axios.post(API_URL + 'user', {
+        axios.post(`${API_URL}user`, {
             username: this.userName,
             password: this.password,
             name: this.fullName,
             email: this.userEmail,
-            location: this.userLoc
+            location: this.userLoc,
+            imageURL: AVATAR_PH
         })
         .then((res) => {
             console.log(`User Created: ${res}`);
@@ -103,7 +110,7 @@ class Register extends Component {
     }
 
     login() {
-        axios.post(API_URL + 'login',{
+        axios.post(`${API_URL}login`, {
             username : this.userName,
             password : this.password
         })
@@ -121,17 +128,57 @@ class Register extends Component {
         });
     }
 
+    uploadAvatar() {
+        const uploadInput = document.getElementById('upload-input');
+        uploadInput.click();
+        uploadInput.onchange = () => {
+            const imgFile = uploadInput.files[0];
+            uploadInput.value = "";
+            if (!imgFile)
+                return;
+            if (imgFile.type.search('image') === -1)
+                this.setState({ uploadError: true });
+            else {
+                const form = new FormData();
+                form.append('avatar', imgFile);
+                this.setState({ isUploading: true });
+                axios
+                    .post(`${API_URL}image/upload`, form)
+                    .then((res) => {
+                        console.log(res);
+                        this.setState({ isUploading: false });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        this.setState({ isUploading: false, uploadError: true });
+                    });
+            }
+                
+        }
+    }
+    
     render() {
+        const avatarStyle = {
+            'backgroundImage': `url(${this.state.avatar})`,
+        }
+
+        const avatarMaskStyle = {
+            'opacity': this.state.isUploading ? 1 : null
+        }
+
         return(
             <div className='cp-root'>
                 {this.state.redirect ? <Redirect to='/'/> : []}
-                <p className='slogan'>
-                    <span className="font-icon"><FontAwesomeIcon icon="cat" /></span>
-                    <span className="font-icon"><FontAwesomeIcon icon="dove" /></span>
-                    <span className="font-icon"><FontAwesomeIcon icon="dog" /></span>
-                </p>
+    
                 <div className='wrapper form'>
                     <p className='app-title'>{TITLE}</p>
+                    <div className='avatar-holder' style={avatarStyle}> {/* onClick={this.uploadAvatar} */}
+                        <input id='upload-input' type="file" name="upload-avatar" ></input>
+                        <div className='avatar-mask' style={avatarMaskStyle}>
+                            {this.state.isUploading ? <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div> :
+                            <FontAwesomeIcon icon="pencil-alt" />}
+                        </div>
+                    </div>
                     <div id='input-wrapper' className='input-wrapper'>
                         <input id="usr_box" className="required" placeholder="Username *" name="username" type="text" onChange={this.onInputChanged}></input>
                         <input id="pwd_box" className="required" placeholder="Password *" name="pwd" type="password" onChange={this.onInputChanged}></input>
@@ -140,11 +187,19 @@ class Register extends Component {
                         <input id="loc_box" placeholder="Location" name="loc" type="text" onChange={this.onInputChanged}></input>
                     </div>
                     <button className='submit-bt' disabled={this.state.disableSubmit} onClick={this.submitRegisterInfo}>
-                        <p className='bt-text'>Submit</p>
+                        <p className='bt-text'>Sign Up</p>
                     </button>
-                    {this.state.errorHappened ? <p className='error-text'>Username or email already taken :(</p> : 
-                    this.userEmail !== "" && !this.state.validEmail ? <p className='error-text'>Invalid email</p> : 
-                    !this.state.requireAllFilled ? <p className='error-text'>Please fill all required fields</p> : []}
+                    {
+                        this.state.uploadError ? 
+                            <p className='error-text'>Invalid image file</p>
+                        : this.state.errorHappened ? 
+                            <p className='error-text'>Username or email already taken :(</p> 
+                        : this.userEmail !== "" && !this.state.validEmail ? 
+                            <p className='error-text'>Invalid email</p> 
+                        : !this.state.requireAllFilled ? 
+                            <p className='error-text'>Please fill all required fields</p> 
+                        : []
+                    }
                 </div>
                 <div className='wrapper register'>
                     <p className="app-text">Already have an account?</p>
