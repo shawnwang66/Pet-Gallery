@@ -27,6 +27,7 @@ export default class ImageCell extends Component {
     this.favoriteButtonOnClick = this.favoriteButtonOnClick.bind(this);
     this.infoButtonOnClick = this.infoButtonOnClick.bind(this);
     this.updateState = this.updateState.bind(this);
+    this.petOnClick = this.petOnClick.bind(this);
 
   }
 
@@ -69,9 +70,13 @@ export default class ImageCell extends Component {
 
   }
 
+  petOnClick() {
+    window.location.replace('/#/pet/'+this.state.id);
+  }
+
   render() {
     return(<div className={'image-cell-container'}>
-      <img src={this.state.imageURL} className={'round-image'} alt={this.state.name}/>
+      <img src={this.state.imageURL} className={'round-image'} alt={this.state.name} onClick={this.petOnClick}/>
       <div className={'detail-flex-container'}>
         <div className={'name-location-container'}>
           <div className={'name-container'}>
