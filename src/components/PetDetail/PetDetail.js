@@ -6,6 +6,7 @@ import {removePetFromFavorite, addPetToFavorite,getUserInfo} from '../../utils/A
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import {Divider} from 'semantic-ui-react';
+import ImageSlider from '../ImageSlider/ImageSlider'
 
 const API = 'http://pet-gallery.herokuapp.com/api';
 
@@ -93,7 +94,8 @@ export default class PetDetail extends Component {
 
     render() {
         const favorite = this.generateFav();
-        console.log(this.state);
+        let trimmedArray = [...this.state.images];
+        trimmedArray.shift();
         return (
             <div className='main'>
                 <NavBar expanded={false}/>
@@ -131,8 +133,7 @@ export default class PetDetail extends Component {
                         </div>
                     </div>
                 </div>
-
-
+                <ImageSlider images={trimmedArray}/>
             </div>
         )
     }
