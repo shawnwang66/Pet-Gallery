@@ -11,24 +11,18 @@ export default class ImageSlider extends React.Component {
 
         this.state = {
             images:this.props.images,
-
+            clicked:false
         }
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
         this.setState({
             images:nextProps.images,
-        })
-    }
-
-
-    eventFire(el, etype){
-        if (el.fireEvent) {
-            el.fireEvent('on' + etype);
-        } else {
-            var evObj = document.createEvent('Events');
-            evObj.initEvent(etype, true, false);
-            el.dispatchEvent(evObj);
+        });
+        const first = document.getElementsByTagName('img')[2];
+        if (first && !this.state.clicked){
+            first.click();
+            this.setState({clicked:true})
         }
     }
 
@@ -38,10 +32,7 @@ export default class ImageSlider extends React.Component {
         const images = trimmed.map(item=>
             <img src={item} />
         );
-        const first = document.getElementsByTagName('img')[2];
-        if (first){
-            first.click();
-        }
+
         return (
                 <Coverflow
                            displayQuantityOfSide={2}
@@ -61,10 +52,8 @@ export default class ImageSlider extends React.Component {
                                }
                            }}
                 >
-                <img id='1' src = {this.state.images[0]}/>
-
+                <img src = {this.state.images[0]}/>
                     {images}
-
                 </Coverflow>
         );
     }

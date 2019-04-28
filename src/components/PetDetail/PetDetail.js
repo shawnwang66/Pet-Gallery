@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import {Divider} from 'semantic-ui-react';
 import ImageSlider from '../ImageSlider/ImageSlider'
+import QASection from '../QASection/QASection'
 
 const API = 'http://pet-gallery.herokuapp.com/api';
 
@@ -81,6 +82,26 @@ export default class PetDetail extends Component {
         }
     }
 
+    handleAge(age){
+        if (age===0){
+            if (this.state.category==='cat'){
+                return 'kitten';
+            }
+            else{
+                return 'puppy';
+            }
+        }
+        else if (age===1){
+            return 'young';
+        }
+        else if (age===2){
+            return 'adult';
+        }
+        else{
+            return 'senior';
+        }
+    }
+
     generateFav(){
         if (this.state.user){
             return (!this.state.favorite?
@@ -96,6 +117,7 @@ export default class PetDetail extends Component {
         const favorite = this.generateFav();
         let trimmedArray = [...this.state.images];
         trimmedArray.shift();
+        const age = this.handleAge(this.state.age);
         return (
             <div className='main'>
                 <NavBar expanded={false}/>
@@ -118,7 +140,7 @@ export default class PetDetail extends Component {
                                 {this.state.breed}
                             </Button>
                             <Button variant="contained" color="primary">
-                                {this.state.age+' Months'}
+                                {age}
                             </Button>
                             <Button variant="contained" color="primary">
                                 {this.state.energy+' energy level'}
@@ -134,6 +156,7 @@ export default class PetDetail extends Component {
                     </div>
                 </div>
                 <ImageSlider images={trimmedArray}/>
+                <QASection pet={this.state.id}/>
             </div>
         )
     }
