@@ -9,10 +9,8 @@ import ProfilePosts from '../ProfilePosts/ProfilePosts'
 import { withStyles } from '@material-ui/core/styles/index';
 import NavBar from '../NavBar/NavBar'
 
-
 const API_URL = "http://pet-gallery.herokuapp.com/api/";
 
-// const API_URL = "http://localhost:4000/api/";
 class Profile extends Component{
 
     constructor(props){
