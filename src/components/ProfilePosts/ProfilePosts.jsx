@@ -19,6 +19,9 @@ import axios from "axios/index";
 import Button from '@material-ui/core/Button/index';
 import InputAdornment from "@material-ui/core/InputAdornment";
 
+const API_URL = "http://pet-gallery.herokuapp.com/api/";
+
+// const API_URL = "http://localhost:4000/api/";
 
 class ProfilePosts extends Component{
     constructor(props){
@@ -29,7 +32,9 @@ class ProfilePosts extends Component{
             submittedSuccess: false,
             submittedFailed: false,
             gridItems:[],
-            categories: ['Cat','Dog','Bird','Others'],
+            categories: ['Cat','Dog'],
+            catAge: ['Kitten', 'Young','Adult','Senior'],
+            dogAge: ['Puppy', 'Young','Adult','Senior'],
             size: [ 'small', 'medium', 'large' ],
             energyLevel : [ 'low', 'medium', 'high' ],
             userId : this.props.userId,
@@ -42,14 +47,13 @@ class ProfilePosts extends Component{
             inputGender : '',
             inputDescription: '',
             inputPrice: '',
+            inputImg:[],
 
-            postGrid: [],
-            // TODO delete test
-            testGrid: []
         }
 
         this.submitForm = this.submitForm.bind(this);
         this.generatePostsGrid = this.generatePostsGrid.bind(this);
+        this.updateImageMultiple = this.updateImageMultiple.bind(this);
     }
 
     handleClickOpen = name => event => {
@@ -59,6 +63,7 @@ class ProfilePosts extends Component{
     handleClose = name => event =>{
         if (name === 'submittedSuccess'){
             this.setState({ [name]: false ,diagOpen: false});
+            window.location.reload();
         }
         else
             this.setState({
@@ -72,6 +77,25 @@ class ProfilePosts extends Component{
         });
     };
 
+     updateImageMultiple(){
+        let token = window.localStorage.getItem('token');
+
+        let bodyFormData = new FormData();
+        let imagefile = document.querySelector('#petInputImage');
+
+        for (var i = 0; i < imagefile.files.length; i++) {
+            let file = imagefile.files.item(i);
+            bodyFormData.append('petInputImage', file);
+        }
+
+         axios.post(API_URL + 'image/upload/multiple', bodyFormData,
+            { headers: {'Content-Type': 'multipart/form-data' , 'Authorization': "bearer " + token }})
+            .then((respnose)=>{
+                let addImgs = respnose.data.img;
+                this.setState({inputImg:addImgs});
+            })
+    }
+
     submitForm(){
         const userId = this.props.userId;
         const url = window.localStorage.getItem('baseURL');
@@ -81,15 +105,23 @@ class ProfilePosts extends Component{
 
         };
 
+        let ageMapped = 0;
+        for(let i=0;i<this.state.dogAge.length;i++){
+            if (this.state.inputAge === this.state.dogAge[i]){
+                ageMapped  = i;
+                break;
+            }
+        }
+
         const data = {
                 user_id: userId,
                 name: this.state.inputName,
                 category: this.state.selectedCate,
                 breed: this.state.inputBreed,
-                age: this.state.inputAge,
+                age: ageMapped,
                 gender: this.state.inputGender,
                 owner: userId,
-                imageURLs: testImgs,
+                imageURLs: this.state.inputImg,
                 size: this.state.selectedSize,
                 energyLevel: this.state.selectedEnergyLevel,
                 description: this.state.inputDescription,
@@ -99,6 +131,7 @@ class ProfilePosts extends Component{
 
         axios.post(url+'pets',data)
             .then((response)=>{
+                console.log("------posted")
                 console.log(response)
                 if (response.status === 200) {
                     this.setState({submittedSuccess: true});
@@ -109,6 +142,7 @@ class ProfilePosts extends Component{
 
         // this.setState(this.state)
         this.handleClose('diagOpen')
+        // window.location.reload();
     }
 
     generatePostsGrid(inputProps){
@@ -347,7 +381,7 @@ class ProfilePosts extends Component{
 
                         />
                         <TextField
-
+                            select
                             margin="dense"
                             id="age"
                             label="age"
@@ -357,7 +391,18 @@ class ProfilePosts extends Component{
                             value={this.state.inputAge}
                             className={styles.inputFiled}
 
-                        />
+                        >
+                            {this.state.selectedCate === 'Cat'
+                                ? this.state.catAge.map(option => (
+                                <MenuItem key={option} value={option}>
+                                    {option}
+                                </MenuItem>))
+                                : this.state.dogAge.map(option => (
+                                    <MenuItem key={option} value={option}>
+                                        {option}
+                                    </MenuItem>))
+                            }
+                        </TextField>
                         <TextField
 
                             margin="dense"
@@ -424,7 +469,6 @@ class ProfilePosts extends Component{
 
                         />
 
-
                         <TextField
                             multiline
                             rows={4}
@@ -439,10 +483,17 @@ class ProfilePosts extends Component{
 
                     </DialogContent>
                     <DialogActions>
-                        <Button  color="primary" >
-                            UPLOAD
-                            <CloudUploadIcon  className={styles.icon} />
-                        </Button>
+                        <label htmlFor={"petInputImage"}>
+                            <Button  size="large" component="span" color="primary" >
+                                UPLOAD Images
+                                <CloudUploadIcon  className={styles.icon} />
+                            </Button>
+                        </label>
+
+                        <input id={'petInputImage'} type='file' name='image' multiple className={styles.inputButton}
+                            onChange={this.updateImageMultiple}
+                        />
+
                         <Button onClick={this.submitForm} color="secondary">
                             Submit
                         </Button>

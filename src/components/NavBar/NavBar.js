@@ -95,7 +95,10 @@ export default class NavBar extends Component{
                 <div className={position<=540?'nav-expanded':'nav-minimized'}>
                     <div
                         className='nav-item-left disable-select'
-                        style={{opacity:navOpacity}}>
+                        style={{opacity:navOpacity}}
+                        onClick={()=>{
+                            window.location.replace('/');
+                        }}>
                         Pet Gallery
                     </div>
                     <div className='title disable-select' style={{opacity:opacity}}>
@@ -123,7 +126,9 @@ export default class NavBar extends Component{
         else{
             return (
                 <div className={'nav-minimized'}>
-                    <div className='nav-item-left' style={{opacity:1}}>Pet Gallery</div>
+                    <div className='nav-item-left' style={{opacity:1}} onClick={()=>{
+                        window.location.replace('/');
+                    }}>Pet Gallery</div>
                     <form onSubmit={this.handleSubmit}>
                         <Input
                             className='search'
