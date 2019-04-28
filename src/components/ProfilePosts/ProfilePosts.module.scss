@@ -1,3 +1,5 @@
+@import "../Profile/Profile.module";
+
 .masoryContainer{
   margin: 0 auto;
 
@@ -60,6 +62,10 @@
 .gridCard{
   height: 340px;
   margin: 20px 10px !important;
+  &:hover{
+    filter: brightness(0.5);
+    -webkit-filter: brightness(0.9);
+  }
 }
 
 .gridCardContainer

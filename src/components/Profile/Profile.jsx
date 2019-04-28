@@ -9,7 +9,10 @@ import ProfilePosts from '../ProfilePosts/ProfilePosts'
 import { withStyles } from '@material-ui/core/styles/index';
 import NavBar from '../NavBar/NavBar'
 
+
 const API_URL = "http://pet-gallery.herokuapp.com/api/";
+
+// const API_URL = "http://localhost:4000/api/";
 class Profile extends Component{
 
     constructor(props){
@@ -22,15 +25,17 @@ class Profile extends Component{
             image: "",
             posts:[],
             featured: [],
-            currentPanel: 'posts'
+            currentPanel: 'posts',
+            changeAvatar: false,
+            localImageURL: ''
         }
 
         this.login = this.login.bind(this);
         this.getUserInfo = this.getUserInfo.bind(this);
-        this.getPosts = this.getPosts.bind(this);
         this.showFeatured = this.showFeatured.bind(this);
         this.showDiscussions = this.showDiscussions.bind(this);
         this.showPosts = this.showPosts.bind(this);
+        this.updateImageSingle = this.updateImageSingle.bind(this);
     }
 
     login(baseURL){
@@ -77,10 +82,22 @@ class Profile extends Component{
                 });
             })
     }
+    updateImageSingle(){
+        let token = window.localStorage.getItem('token');
 
-    getPosts(){
+        let bodyFormData = new FormData();
+        let imagefile = document.querySelector('#inputImage');
 
+        bodyFormData.append("image", imagefile.files[0]);
+
+        axios.post(API_URL + 'image/upload/single', bodyFormData,
+            { headers: {'Content-Type': 'multipart/form-data' , 'Authorization': "bearer " + token }})
+            .then((respnose)=>{
+                this.setState({image:respnose.data.data.image})
+                console.log(bodyFormData)
+            })
     }
+
 
     showFeatured() {
         this.setState({ currentPanel: 'featured' });
@@ -93,6 +110,24 @@ class Profile extends Component{
     showDiscussions() {
         this.setState({ currentPanel: 'discuss' });
     }
+
+    handleClickOpen = name => event => {
+        this.setState({ [name]: true });
+    };
+
+    handleClose = name => event =>{
+        this.setState({
+            [name]: false,
+        });
+    };
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
+
 
     componentDidMount() {
         window.localStorage.setItem('baseURL', API_URL);
@@ -134,9 +169,13 @@ class Profile extends Component{
 
                     </div>
 
-                    <div className={styles.imgContainer}>
-                        <img style={Avatar} />
-                    </div>
+                    <label htmlFor="inputImage">
+                        <div className={styles.imgContainer}>
+                            <img style={Avatar} onClick={this.handleClickOpen('changeAvatar')}/>
+                        </div>
+                    </label>
+                    <input id={'inputImage'} type='file' name='image' className={styles.inputButton} onChange={this.updateImageSingle}/>
+
                 </div>
 
                 <div className={styles.buttonGroup}>
