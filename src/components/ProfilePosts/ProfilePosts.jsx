@@ -168,18 +168,20 @@ class ProfilePosts extends Component{
 
                         return(
                             <div className={styles.gridCardContainer}>
-                                <Card
-                                    key={pet._id}
-                                    color={'grey'}
-                                    className={styles.gridCard}
-                                >
-                                    <div style={imgConfig}></div>
-                                    <Card.Content>
-                                        <Card.Header>{pet.name}</Card.Header>
-                                        <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
-                                        <Card.Description>{"Price: $"+pet.price}</Card.Description>
-                                    </Card.Content>
-                                </Card>
+                                <Link to={`pet/${pet._id}`}>
+                                    <Card
+                                        key={pet._id}
+                                        color={'grey'}
+                                        className={styles.gridCard}
+                                    >
+                                        <div style={imgConfig}></div>
+                                        <Card.Content>
+                                            <Card.Header>{pet.name}</Card.Header>
+                                            <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
+                                            <Card.Description>{"Price: $"+pet.price}</Card.Description>
+                                        </Card.Content>
+                                    </Card>
+                                </Link>
                             </div>
                         );
 
@@ -228,18 +230,21 @@ class ProfilePosts extends Component{
 
                             return(
                                 <div className={styles.gridCardContainer}>
-                                    <Card
-                                        key={pet._id}
-                                        color={'grey'}
-                                        className={styles.gridCard}
-                                    >
-                                        <div style={imgConfig}></div>
-                                        <Card.Content>
-                                            <Card.Header>{pet.name}</Card.Header>
-                                            <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
-                                            <Card.Description>{"Price: $"+pet.price}</Card.Description>
-                                        </Card.Content>
-                                    </Card>
+                                    <Link to={`pet/${pet._id}`}>
+                                        <Card
+                                            key={pet._id}
+                                            color={'grey'}
+                                            className={styles.gridCard}
+                                        >
+                                            <div style={imgConfig}></div>
+
+                                            <Card.Content>
+                                                <Card.Header>{pet.name}</Card.Header>
+                                                <Card.Meta>{"Breed:"+pet.breed}</Card.Meta>
+                                                <Card.Description>{"Price: $"+pet.price}</Card.Description>
+                                            </Card.Content>
+                                        </Card>
+                                    </Link>
                                 </div>
                             );
 

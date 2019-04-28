@@ -57,7 +57,7 @@ class Profile extends Component{
             headers: {'Authorization': "bearer " + token}
         }
 
-        axios.get(baseURL + 'user', config)
+        return axios.get(baseURL + 'user', config)
             .then((response)=>{
                 const resData = response.data.data;
                 console.log(resData)
@@ -80,6 +80,8 @@ class Profile extends Component{
                     posts: resData.petsCreated,
                     featured: resData.favoritedPets
                 });
+
+                return resData;
             })
     }
     updateImageSingle(){
