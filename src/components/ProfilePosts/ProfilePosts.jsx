@@ -32,7 +32,7 @@ class ProfilePosts extends Component{
             submittedSuccess: false,
             submittedFailed: false,
             gridItems:[],
-            categories: ['Cat','Dog'],
+            categories: ['cat','dog'],
             catAge: ['Kitten', 'Young','Adult','Senior'],
             dogAge: ['Puppy', 'Young','Adult','Senior'],
             size: [ 'small', 'medium', 'large' ],
@@ -392,7 +392,7 @@ class ProfilePosts extends Component{
                             className={styles.inputFiled}
 
                         >
-                            {this.state.selectedCate === 'Cat'
+                            {this.state.selectedCate === 'cat'
                                 ? this.state.catAge.map(option => (
                                 <MenuItem key={option} value={option}>
                                     {option}
