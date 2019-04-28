@@ -37,27 +37,50 @@ body{
     font-size: 30px;
   }
 }
-
+.editSpan{
+  position: absolute;
+  margin: 0;
+  font-family: 'Concert One', sans-serif;
+  font-size: 40px;
+  color: whitesmoke;
+  z-index: 2;
+  opacity: 0;
+  &:hover{
+    transform: scale(1.05);
+    transition: 0.2s;
+  }
+}
 .imgContainer{
   vertical-align: middle;
   width:300px;
   height: 300px;
   cursor: pointer;
   transition-duration: 0.14s;
-
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  &:hover{
+    .editSpan{
+      opacity: 1;
+    }
+    img{
+      filter: brightness(0.9);
+      -webkit-filter: brightness(0.78);
+      transform: scale(1.05);
+      transition: 0.2s;
+    }
+  }
   img{
     height: 100%;
     width: 100%;
     border-radius: 50%;
+    position: absolute;
   }
 
-  &:hover{
-    filter: brightness(0.7);
-    -webkit-filter: brightness(0.9);
-    transform: scale(1.05);
-    transition: 0.2s;
 
-  }
+
 }
 
 .buttonGroup{
