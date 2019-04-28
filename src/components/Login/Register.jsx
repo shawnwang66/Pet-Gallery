@@ -3,8 +3,8 @@ import './Login.style.scss'
 import axios from "axios/index";
 import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import avatar from '../../assets/avatar-ph.png';
 
+const AVATAR_PH = "http://icons.iconarchive.com/icons/webalys/kameleon.pics/128/Wooden-Horse-icon.png";
 const API_URL = "http://pet-gallery.herokuapp.com/api/";
 const TITLE = "Welcome";
 
@@ -18,7 +18,7 @@ class Register extends Component {
             requireAllFilled: false,
             validEmail: true,
             redirect: false,
-            avatar: avatar,
+            avatar: AVATAR_PH,
             uploadError: false,
             isUploading: false
         };
@@ -95,7 +95,7 @@ class Register extends Component {
             name: this.fullName,
             email: this.userEmail,
             location: this.userLoc,
-            imageURL: avatar
+            imageURL: AVATAR_PH
         })
         .then((res) => {
             console.log(`User Created: ${res}`);
