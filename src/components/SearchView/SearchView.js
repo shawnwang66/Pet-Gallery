@@ -233,6 +233,9 @@ export default class SearchView extends Component {
       <div className={'search-background'}>
         <NavBar expanded={false} searchQuery={this.state.searchQuery}/>
         <div className={'search-view-container'}>
+          <div className={'nav-bar-place-holder'}>
+
+          </div>
               <div className={'filter-container expanded'}>
                 <div className={'filter-container'}>
                   <FormControl className='filter-select-container'>
@@ -326,14 +329,25 @@ export default class SearchView extends Component {
                   </FormControl>
                 </div>
               </div>
-          <div className={'masonry-container'}>
-            <Masonry
-              className={'masonry-component'}
-              options={{isFitWidth: true}}
-            >
-              {petDivs}
-            </Masonry>
-          </div>
+          {
+            (this.state.data.length!==0)?
+              <div className={'masonry-container'}>
+                <Masonry
+                  className={'masonry-component'}
+                  options={{isFitWidth: true}}
+                >
+                  {petDivs}
+                </Masonry>
+              </div> :
+              <div className={'not-found-outer-container'}>
+                <div className={'not-found-inner-container'}>
+                  <div className={'not-found-center'}>
+                    No Results Found
+                  </div>
+                </div>
+              </div>
+
+          }
         </div>
       </div>);
   }
