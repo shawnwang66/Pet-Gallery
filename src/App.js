@@ -11,6 +11,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import PetDetail from './components/PetDetail/PetDetail';
 import SearchView from './components/SearchView/SearchView';
+import DiscussionPosts from './components/DiscussionPosts/DiscussionPosts';
 
 
 /**
