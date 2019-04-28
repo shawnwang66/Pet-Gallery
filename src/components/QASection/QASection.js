@@ -27,7 +27,6 @@ export default class QASection extends React.Component {
     }
 
     render() {
-        console.log(this.state.questions);
         return (
             <div></div>
         )

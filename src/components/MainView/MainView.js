@@ -69,9 +69,6 @@ export default class MainView extends Component {
       }
       return(null);
     });
-    if (this.state.searchMode) {
-      console.log('search mode!');
-    }
     return(
         <div>
           <NavBar expanded={true}/>
