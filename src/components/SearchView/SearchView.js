@@ -73,6 +73,7 @@ export default class SearchView extends Component {
   }
 
   updateSearch() {
+    console.log('update search!!!!');
     let params = {};
     if (this.state.searchQuery!=='') {
       params['filter'] = {input: this.state.searchQuery};
@@ -122,12 +123,15 @@ export default class SearchView extends Component {
     window.scrollTo(0,0);
     let thisQuery = queryString.parse(this.props.location.search)['?text'];
     if (thisQuery !== this.state.searchQuery) {
-      this.setState({searchQuery: thisQuery}, this.updateSearchgi);
+      this.setState({searchQuery: thisQuery}, this.updateSearch);
     }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('did update! search!!!!');
+
     let thisQuery = queryString.parse(this.props.location.search)['?text'];
+    console.log(thisQuery, this.state.searchQuery);
     if (thisQuery !== this.state.searchQuery) {
       console.log('string=', thisQuery,'end');
       if (thisQuery !== this.state.searchQuery || this.state.data.length === 0) {
