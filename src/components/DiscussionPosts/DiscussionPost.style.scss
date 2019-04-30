@@ -1,5 +1,5 @@
 $upvote-txt-color: #999;
-$upvote-icon-color: #38438b;
+$upvote-icon-color: #e85965;
 $wrapper-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
 $time: 0.3s;
 
@@ -11,11 +11,8 @@ $time: 0.3s;
     width: 40%;
     height: 100px;
     background-color: #fff;
-    border: 1px solid #e6e6e6;
     border-radius: 10px;
-    margin: 10px 0px;
     transition: $time;
-    margin: 10px;
     padding: 10px;
 
     &:hover {
@@ -30,7 +27,6 @@ $time: 0.3s;
         width: 20%;
         display: flex;
         flex-direction: column;
-        // justify-content: space-around;
         align-items: center;
 
         
@@ -41,10 +37,10 @@ $time: 0.3s;
 
         p {
             margin: 0;
-            font-size: 20px;
+            font-size: 15px;
             position: none;
             color: $upvote-txt-color;
-            transform: translateY(-10px);
+            transform: translateY(-5px);
         }
     }
 
@@ -55,8 +51,8 @@ $time: 0.3s;
         flex-direction: column;
         justify-content: space-around;
         align-items: flex-start;
-        color: #38438b;
-        font-size: 30px;
+        color: rgb(103, 103, 103);
+        font-size: 27px;
     }
 
     .post-time {
