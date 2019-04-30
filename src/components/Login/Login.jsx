@@ -46,8 +46,12 @@ class Login extends Component {
 			})
 			.then(res => {
 				const token = res.data.token;
+				const uid = res.data.uid;
+
 				window.localStorage.setItem("token", token);
+				window.localStorage.setItem("uid", uid);
 				window.localStorage.setItem("username", this.userName);
+				
 				this.setState({
 					redirect: true
 				});

@@ -17,7 +17,7 @@ export default class NavBar extends Component{
     constructor(props){
         super(props);
         this.state = {
-            expanded:this.props.expanded,
+            expanded: this.props.expanded,
             scroll:0,
             searchQuery: '',
             isSearching: false,
@@ -107,7 +107,21 @@ export default class NavBar extends Component{
                         Pet Gallery
                         <img className='icon-dog' src={dog}/>
                     </div>
-                    <div className='nav-item-right disable-select' style={{opacity:navOpacity}}>Log in</div>
+                    {
+                        window.localStorage.getItem('token') ? 
+                            <Link to={'/profile'}>
+                                <div className='nav-item-right disable-select' style={{opacity:navOpacity}}>
+                                    已登录
+                                </div>
+                            </Link>
+                        :   
+                            <Link to={'/login'}>
+                                <div className='nav-item-right disable-select' style={{opacity:navOpacity}}>
+                                    Log in
+                                </div>
+                            </Link>
+                    }
+                    
                     <form onSubmit={this.handleSubmit}>
                         <Input
                             className='search'
@@ -143,7 +157,20 @@ export default class NavBar extends Component{
                             value={this.state.searchQuery}
                         />
                     </form>
-                    <div className='nav-item-right' style={{opacity:1}}>Log in</div>
+                    {
+                        window.localStorage.getItem('token') ? 
+                            <Link to={'/profile'}>
+                                <div className='nav-item-right' style={{opacity:1}}>
+                                    已登录
+                                </div>
+                            </Link>
+                        :   
+                            <Link to={'/login'}>
+                                <div className='nav-item-right' style={{opacity:1}}>
+                                    Log in
+                                </div>
+                            </Link>
+                    }
                 </div>
             )
         }
