@@ -8,7 +8,7 @@ import Register from './components/Login/Register';
 import NavBar from './components/NavBar/NavBar';
 import MainView from './components/MainView/MainView';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import PetDetail from './components/PetDetail/PetDetail';
 import SearchView from './components/SearchView/SearchView';
 import DiscussionPosts from './components/DiscussionPosts/DiscussionPosts';
@@ -36,7 +36,7 @@ class App extends Component {
   }
 }
 
-const fonts = [ faPencilAlt ];
+const fonts = [ faPencilAlt, faCaretUp ];
 library.add(fonts);
 
 export default App;
