@@ -1,7 +1,8 @@
 import React from 'react'
 import './QASection.style.scss'
 import axios from 'axios'
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
+import QuestionCell from '../QuestionCell/QuestionCell';
 import {getUserInfo} from "../../utils/APIHelpers";
 import Avatar from "@material-ui/core/Avatar";
 
@@ -34,7 +35,10 @@ export default class QASection extends React.Component {
                 data.map(item=>{
                     this.setState({
                         questions:[item,...this.state.questions]
-                    });
+                    }, ()=> {
+                        console.log(this.state.questions);
+                      }
+                    );
                 })
             })
     }
@@ -71,6 +75,8 @@ export default class QASection extends React.Component {
                     />
                 </div>
                 <button className='submit' onClick={this.submitQuestion}>Submit</button>
+                <div className='question-container'>
+                </div>
             </div>
         )
     }
