@@ -8,10 +8,17 @@ import './ImageSlider.style.scss'
 export default class ImageSlider extends React.Component {
     constructor(props){
         super(props);
-
         this.state = {
             images:this.props.images,
             clicked:false
+        }
+    }
+
+    componentDidMount() {
+        const first = document.getElementsByTagName('img')[2];
+        if (first) {
+            first.click();
+            this.setState({clicked: true})
         }
     }
 
@@ -25,6 +32,7 @@ export default class ImageSlider extends React.Component {
             this.setState({clicked:true})
         }
     }
+
 
     render() {
         let trimmed = [...this.state.images];

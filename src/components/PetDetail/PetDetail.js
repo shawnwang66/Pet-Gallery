@@ -156,7 +156,9 @@ export default class PetDetail extends Component {
                         </div>
                     </div>
                 </div>
-                <ImageSlider images={trimmedArray}/>
+                {trimmedArray.length!==0  && trimmedArray!==null &&
+                    <ImageSlider images={trimmedArray}/>
+                }
                 <QASection pet={this.state.id}/>
             </div>
         )
