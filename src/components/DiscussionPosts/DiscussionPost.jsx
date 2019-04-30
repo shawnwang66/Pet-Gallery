@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import './DiscussionPost.style.scss'
-import axios from "axios/index";
 import { Link, Redirect } from 'react-router-dom';
 import { format } from 'timeago.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const API_URL = "http://pet-gallery.herokuapp.com/api/";
-const APP_NAME = "Pet Gallery";
 
 class DiscussionPost extends Component {
 
@@ -43,10 +40,14 @@ class DiscussionPost extends Component {
                 <div className='question-txt'>
                     <p>{this.state.question}</p>
                 </div>
-                <div className='post-time'>
-                    <p id='formatted'>{this.extractDate(this.state.date).formatted}</p>
-                    <p id='raw'>{this.extractDate(this.state.date).raw}</p>
-                </div>
+                {this.extractDate(this.state.date) === "" ? (
+					[]
+				) : (
+					<div className="post-time">
+						<p id="formatted">{this.extractDate(this.state.date).formatted}</p>
+						<p id="raw">{this.extractDate(this.state.date).raw}</p>
+					</div>
+				)}
             </div>
         );
     }
