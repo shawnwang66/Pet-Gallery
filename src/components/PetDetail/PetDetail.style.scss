@@ -2,7 +2,8 @@
 
 .main{
   background-color: $content-background;
-
+  display: flex;
+  flex-direction: column;
 }
 
 .main-info{
@@ -19,6 +20,7 @@
     padding-left: 200px;
     height: 300px;
     width: 450px;
+
     .divider{
       margin-top: 2em;
       margin-bottom: 0;
