@@ -15,17 +15,20 @@
 
 .search-view-container {
   background-color: #fffaed;
-  height: calc(100vh);
+  height: auto;
+  min-height: 100vh;
 }
 
 .masonry-container {
   max-width: 1920px;
   margin: 0 auto;
+
 }
 
 .masonry-component {
   margin: 0 auto;
   padding-top: 15px;
+
 }
 
 .nav-bar-place-holder {
@@ -57,6 +60,7 @@
 }
 
 .not-found-inner-container {
+  height: 100vh;
   flex: 1 1 auto;
   position: relative;
   background-color: #fffaed;
