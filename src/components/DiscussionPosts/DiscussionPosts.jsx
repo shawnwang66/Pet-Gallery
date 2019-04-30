@@ -1,12 +1,8 @@
-import { get } from "http";
-
 import React, { Component } from 'react'
 import './DiscussionPosts.style.scss'
 import axios from "axios/index";
-import { Link, Redirect } from 'react-router-dom';
 import DiscussionPost from '../DiscussionPosts/DiscussionPost'
 const API_URL = "http://pet-gallery.herokuapp.com/api/";
-const APP_NAME = "Pet Gallery";
 
 class DiscussionPosts extends Component {
 
