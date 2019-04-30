@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
 import "./SearchView.style.scss";
 import Masonry from 'react-masonry-component';
-import {Dropdown, Transition} from "semantic-ui-react";
+import {Loader, Dimmer} from "semantic-ui-react";
 import ImageCell from '../ImageCell/ImageCell';
 import axios from 'axios';
 import {getUserInfo} from "../../utils/APIHelpers";
@@ -54,6 +54,7 @@ export default class SearchView extends Component {
       favoritedPets: [],
       data: [],
       displayBreedPicker: false,
+      dataRequested: false,
       searchQuery: '',
       selectedCategory: '',
       selectedBreed: '',
@@ -73,7 +74,7 @@ export default class SearchView extends Component {
   }
 
   updateSearch() {
-    console.log('update search!!!!');
+    this.setState({dataRequested: false});
     let params = {};
     if (this.state.searchQuery!=='') {
       params['filter'] = {input: this.state.searchQuery};
@@ -103,8 +104,10 @@ export default class SearchView extends Component {
       .then( res => {
         console.log(res.data.data);
         this.setState({
-          data: res.data.data
+          data: res.data.data,
+          dataRequested: true
         });
+
         LOGIN_TOKEN = window.localStorage.getItem('token');
         if (LOGIN_TOKEN !== undefined) {
           getUserInfo(LOGIN_TOKEN).then(
@@ -334,7 +337,7 @@ export default class SearchView extends Component {
                 </div>
               </div>
           {
-            (this.state.data.length!==0)?
+            (this.state.data.length!==0 && this.state.dataRequested) ?
               <div className={'masonry-container'}>
                 <Masonry
                   className={'masonry-component'}
@@ -346,7 +349,12 @@ export default class SearchView extends Component {
               <div className={'not-found-outer-container'}>
                 <div className={'not-found-inner-container'}>
                   <div className={'not-found-center'}>
-                    No Results Found
+
+                    {
+                      this.state.dataRequested?
+                        "No Results Found":
+                      <Loader active/>
+                    }
                   </div>
                 </div>
               </div>
