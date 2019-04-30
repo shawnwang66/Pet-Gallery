@@ -40,18 +40,31 @@ class Login extends Component {
 
 	submitLoginInfo() {
 		axios
-			.post(API_URL + "login", {
+			.post(`${API_URL}login`, {
 				username: this.userName,
 				password: this.password
 			})
 			.then(res => {
 				const token = res.data.token;
-				const uid = res.data.uid;
+				let uid;
 
 				window.localStorage.setItem("token", token);
-				window.localStorage.setItem("uid", uid);
 				window.localStorage.setItem("username", this.userName);
-				
+
+				axios
+					.get(`${API_URL}user`, 
+						{
+							headers: { 'Authorization': `bearer ${token}` }
+						})
+					.then((res) => {
+						uid = res.data.data._id;
+						console.log("UID:" + uid);
+						window.localStorage.setItem("uid", uid);
+					})
+					.catch((_) => {
+						window.localStorage.setItem("uid", null);
+					});
+					
 				this.setState({
 					redirect: true
 				});
