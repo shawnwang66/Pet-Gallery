@@ -47,7 +47,7 @@ class DiscussionPosts extends Component {
     
     render() {
         return(
-            <div>
+            <div className='posts-wrapper'>
                 {
                     this.state.questions.map((q, idx) => <DiscussionPost key={idx} question={q}></DiscussionPost>
                     )
