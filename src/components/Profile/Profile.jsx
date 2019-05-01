@@ -94,6 +94,7 @@ class Profile extends Component{
             { headers: {'Content-Type': 'multipart/form-data' , 'Authorization': "bearer " + token }})
             .then((respnose)=>{
                 this.setState({image:respnose.data.data.image})
+                window.localStorage.setItem('avatar', respnose.data.data.image);
                 console.log(bodyFormData)
             })
     }

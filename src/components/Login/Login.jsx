@@ -46,7 +46,7 @@ class Login extends Component {
 			})
 			.then(res => {
 				const token = res.data.token;
-				let uid;
+				let uid, avatar;
 
 				window.localStorage.setItem("token", token);
 				window.localStorage.setItem("username", this.userName);
@@ -58,11 +58,13 @@ class Login extends Component {
 						})
 					.then((res) => {
 						uid = res.data.data._id;
-						console.log("UID:" + uid);
+						avatar = res.data.data.imageURL;
 						window.localStorage.setItem("uid", uid);
+						window.localStorage.setItem("avatar", avatar);
 					})
 					.catch((_) => {
 						window.localStorage.setItem("uid", null);
+						window.localStorage.setItem("avatar", null);
 					});
 					
 				this.setState({

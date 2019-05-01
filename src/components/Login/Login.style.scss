@@ -59,7 +59,7 @@ $time: 0.3s;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        border-radius: 10000px;
+        border-radius: 100%;
         border: 5px solid white;
         transition: $time;
 
@@ -93,11 +93,10 @@ $time: 0.3s;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 10000px;
+            border-radius: 100%;
             background: #ff7e71;
             width: 100%;
             height: 100%;
-
             transition: $time;
         }
     }
