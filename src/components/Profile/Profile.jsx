@@ -16,6 +16,7 @@ class Profile extends Component{
     constructor(props){
         super(props);
         this.state = {
+            queryId: this.props.match.params.id,
             id: '',
             name: "",
             location: "",
@@ -34,6 +35,7 @@ class Profile extends Component{
         this.showDiscussions = this.showDiscussions.bind(this);
         this.showPosts = this.showPosts.bind(this);
         this.updateImageSingle = this.updateImageSingle.bind(this);
+        this.getProfile = this.getProfile.bind(this);
     }
 
     login(baseURL){
@@ -61,22 +63,55 @@ class Profile extends Component{
                 console.log(resData)
 
                 // calculate ratings
-                const ratings = resData.ratings;
                 let sum = 0;
-                ratings.forEach((rating)=>{
-                    sum += rating;
-                });
-                sum /= ratings.length;
+                let postsNum = resData.petsCreated.length;
 
+               if (postsNum > 50)
+                   sum = 5;
+               else{
+                   sum = Math.round(postsNum / 10);
+               }
                 // update state
                 this.setState({
                     id: resData._id, 
                     name:resData.name, 
                     location: resData.location, 
-                    ratings: sum, 
+                    ratings: isNaN(sum)? 0:sum,
                     image: resData.imageURL, 
                     posts: resData.petsCreated,
                     featured: resData.favoritedPets
+                });
+
+                return resData;
+            })
+    }
+
+    // this is used for user to query another user's profile
+    getProfile(baseURL, userId){
+
+        axios.get(baseURL + 'user/'+ userId)
+            .then((response)=>{
+                const resData = response.data.data[0];
+
+                // calculate ratings
+                let sum = 0;
+                let postsNum = resData.petsCreated.length;
+
+                if (postsNum > 50)
+                    sum = 5;
+                else{
+                    sum = Math.round(postsNum / 10);
+                }
+
+                // update state
+                this.setState({
+                    id: resData._id,
+                    name:resData.name,
+                    location: resData.location,
+                    ratings: isNaN(sum)? 0:sum,
+                    image: resData.imageURL,
+                    posts: resData.petsCreated,
+                    // featured: resData.favoritedPets
                 });
 
                 return resData;
@@ -134,13 +169,21 @@ class Profile extends Component{
         window.localStorage.setItem('baseURL', API_URL);
 
         let token;
-        // login adn get token
-         this.login(API_URL);
+        let uid;
+
         token = window.localStorage.getItem('token');
+        uid = window.localStorage.getItem('uid');
+
+        if (uid === this.state.queryId){
+            this.getUserInfo(API_URL, token);
+        }
+        else{
+            this.getProfile(API_URL, this.state.queryId);
+        }
 
         // get user info
-         this.getUserInfo(API_URL, token)
-        // console.log(this.state.posts)
+        //  this.getUserInfo(API_URL, token)
+
     }
 
 
@@ -170,23 +213,33 @@ class Profile extends Component{
 
                     </div>
 
-                    <label htmlFor="inputImage">
+                    { this.state.queryId === window.localStorage.getItem('uid')?
+                        <label htmlFor="inputImage">
+                            <div className={styles.imgContainer}>
+                                <img style={Avatar} onClick={this.handleClickOpen('changeAvatar')}/>
+                                <Button variant={"contained"} component={"span"} color="secondary"
+                                        className={styles.editSpan}>
+                                    Edit
+                                </Button>
+                            </div>
+                        </label>
+                        :
                         <div className={styles.imgContainer}>
                             <img style={Avatar} onClick={this.handleClickOpen('changeAvatar')}/>
-                            <Button variant={"contained"} component={"span"} color="secondary" className={styles.editSpan}>
-                                Edit
-                            </Button>
                         </div>
-                    </label>
+
+                    }
                     <input id={'inputImage'} type='file' name='image' className={styles.inputButton} onChange={this.updateImageSingle}/>
 
                 </div>
 
                 <div className={styles.buttonGroup}>
-
-                    <button className={styles.buttonContainer} onClick={this.showFeatured}>
+                    {this.state.queryId === window.localStorage.getItem('uid')?
+                        <button className={styles.buttonContainer} onClick={this.showFeatured}>
                         Featured
-                    </button>
+                        </button>:
+                        <div></div>
+                    }
                     <button className={styles.buttonContainer} onClick={this.showPosts}>
                         Posts
                     </button>
@@ -200,9 +253,11 @@ class Profile extends Component{
                         <ProfilePosts
                             userId = {this.state.id}
                             posts = {this.state.posts}
-                            isFeatured={false}>
+                            isFeatured={false}
+                            isSelf={this.state.queryId === window.localStorage.getItem('uid')}
+                        >
                         </ProfilePosts>
-                    : this.state.currentPanel === 'featured' ? 
+                    : this.state.currentPanel === 'featured'?
                         <ProfilePosts
                             userId = {this.state.id}
                             posts = {this.state.featured}

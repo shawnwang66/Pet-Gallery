@@ -3,6 +3,7 @@
 .main{
   background-color: $content-background;
   display: flex;
+  height: auto;
   flex-direction: column;
 }
 
@@ -76,6 +77,7 @@
   position: relative;
   top: -10px;
 }
+
 .favorite:focus {outline:0;}
 
 .favorite:hover{
