@@ -128,7 +128,6 @@ export default class QASection extends React.Component {
                         />
                     }
                 </div>
-<<<<<<< HEAD
                 {this.state.user ?
                 <button className='submit pink' onClick={this.submitQuestion}>Submit</button>:
                 <button className='submit blue' onClick={this.submitQuestion}>Login</button>
@@ -151,11 +150,10 @@ export default class QASection extends React.Component {
                         </Button>
                     </DialogActions>
                 </Dialog>
-=======
+
                 <button className='submit' onClick={this.submitQuestion}>Submit</button>
                 <div className='question-container'>
                 </div>
->>>>>>> 68f826e528c84989ed944e2624aac0d3347cda67
             </div>
         )
     }
