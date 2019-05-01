@@ -63,14 +63,14 @@ class Profile extends Component{
                 console.log(resData)
 
                 // calculate ratings
-                const ratings = resData.ratings;
                 let sum = 0;
-                if (ratings !== null && ratings.length !== undefined) {
-                    ratings.forEach((rating) => {
-                        sum += rating;
-                    });
-                    sum /= ratings.length;
-                }
+                let postsNum = resData.petsCreated.length;
+
+               if (postsNum > 50)
+                   sum = 5;
+               else{
+                   sum = Math.round(postsNum / 10);
+               }
                 // update state
                 this.setState({
                     id: resData._id, 
@@ -92,18 +92,17 @@ class Profile extends Component{
         axios.get(baseURL + 'user/'+ userId)
             .then((response)=>{
                 const resData = response.data.data[0];
-                console.log(resData)
 
                 // calculate ratings
-                const ratings = resData.ratings;
                 let sum = 0;
+                let postsNum = resData.petsCreated.length;
 
-                if (ratings !== null && ratings !== undefined) {
-                    ratings.forEach((rating) => {
-                        sum += rating;
-                    });
-                    sum /= ratings.length;
+                if (postsNum > 50)
+                    sum = 5;
+                else{
+                    sum = Math.round(postsNum / 10);
                 }
+
                 // update state
                 this.setState({
                     id: resData._id,
