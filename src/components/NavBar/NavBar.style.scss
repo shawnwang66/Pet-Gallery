@@ -46,6 +46,78 @@
   font-family: 'Handlee', sans-serif;
 }
 
+.nav-item-right-img {
+  color: $main-font-color;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right:40px;
+  height: 50px;
+  font-weight: lighter;
+  cursor: pointer;
+  margin-top: -15px;
+  font-size: 30px;
+  position: absolute;
+  top: 560px;
+  right: 0;
+
+  a {
+    height: 45px;
+    width: 45px;
+    margin: 0px 10px;
+  }
+
+  .nav-item-avatar {
+    height: 100%;
+    border: 2.3px solid white;
+    border-radius: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.208);
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: 0.3s;
+    color: white;
+
+    .nav-avatar-mask {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      opacity: 0;
+      background-color: #ff7e71;
+      transition: .3s;
+      font-size: 20px;
+    }
+
+    #sign-out {
+        background-color: #485DA6;
+        opacity: 1;
+    }
+
+    &:hover {
+      transform: translateY(25px) scale(1.4);
+      
+      .nav-avatar-mask {
+        opacity: 1;
+        transition: .3s;
+      }
+    }
+
+    &:active {
+      transform: translateY(25px) scale(1.2);
+    }
+  }
+
+  
+}
+
 .disable-select{
   user-select: none;
   -moz-user-select: none;

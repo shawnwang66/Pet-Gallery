@@ -6,6 +6,7 @@ import cat from '../../assets/cat.png';
 import {animateScroll as scroll } from 'react-scroll';
 import {Redirect} from 'react-router-dom'
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 /**
@@ -22,11 +23,13 @@ export default class NavBar extends Component{
             searchQuery: '',
             isSearching: false,
         };
+        this.usrAvatar = window.localStorage.getItem('avatar');
 
         this.handleScroll = this.handleScroll.bind(this);
         this.focusHandler = this.focusHandler.bind(this);
         this.searchFieldOnChange = this.searchFieldOnChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.signOut = this.signOut.bind(this);
     }
 
     componentDidMount() {
@@ -77,6 +80,11 @@ export default class NavBar extends Component{
         this.setState({isSearching: true});
     }
 
+    signOut() {
+        window.localStorage.clear();
+        window.location = '/';
+    }
+
     render() {
         if (this.state.isSearching) {
             let newRoute = '/search?text=' + this.state.searchQuery;
@@ -109,11 +117,28 @@ export default class NavBar extends Component{
                     </div>
                     {
                         window.localStorage.getItem('token') ? 
-                            <Link to={'/profile'}>
-                                <div className='nav-item-right disable-select' style={{opacity:navOpacity}}>
-                                    已登录
-                                </div>
-                            </Link>
+                        <div className='nav-item-right-img'>
+                                <Link to={'/profile'} style={{opacity:navOpacity}}>
+                                    <div className='nav-item-avatar' style={
+                                        { 
+                                            opacity: 1,
+                                            backgroundImage: 
+                                            `url(${this.usrAvatar})`
+                                        }
+                                    }>
+                                        <div className='nav-avatar-mask'>
+                                            <FontAwesomeIcon icon='home'></FontAwesomeIcon>
+                                        </div>
+                                    </div>
+                                </Link>
+                                <a onClick={this.signOut} style={{opacity:navOpacity}}>
+                                    <div className='nav-item-avatar'>
+                                        <div id='sign-out' className='nav-avatar-mask'>
+                                            <FontAwesomeIcon icon='sign-out-alt'></FontAwesomeIcon>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
                         :   
                             <Link to={'/login'}>
                                 <div className='nav-item-right disable-select' style={{opacity:navOpacity}}>
@@ -159,11 +184,28 @@ export default class NavBar extends Component{
                     </form>
                     {
                         window.localStorage.getItem('token') ? 
-                            <Link to={'/profile'}>
-                                <div className='nav-item-right' style={{opacity:1}}>
-                                    已登录
-                                </div>
-                            </Link>
+                            <div className='nav-item-right-img'>
+                                <Link to={'/profile'} >
+                                    <div className='nav-item-avatar' style={
+                                        { 
+                                            opacity: 1,
+                                            backgroundImage: 
+                                            `url(${this.usrAvatar})`
+                                        }
+                                    }>
+                                        <div className='nav-avatar-mask'>
+                                            <FontAwesomeIcon icon='home'></FontAwesomeIcon>
+                                        </div>
+                                    </div>
+                                </Link>
+                                <a onClick={this.signOut} >
+                                    <div className='nav-item-avatar'>
+                                        <div id='sign-out' className='nav-avatar-mask'>
+                                            <FontAwesomeIcon icon='sign-out-alt'></FontAwesomeIcon>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
                         :   
                             <Link to={'/login'}>
                                 <div className='nav-item-right' style={{opacity:1}}>
