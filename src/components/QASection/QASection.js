@@ -9,7 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button'
 import {animateScroll as scroll } from 'react-scroll';
-
+import anonymous from '../../assets/anonymous.png';
 
 const API = 'http://pet-gallery.herokuapp.com/api';
 
@@ -82,12 +82,18 @@ export default class QASection extends React.Component {
     }
 
     render() {
-        console.log(this.state.question);
+
+
+
+
         return (
             <div className='QA-section'>
                 <div className='comment-section'>
-                    {this.state.user &&
-                    <Avatar alt={this.state.user.name} src={this.state.user.imageURL} className='avatar' />}
+                    {this.state.user ?
+                    <Avatar alt={this.state.user.name} src={this.state.user.imageURL} className='avatar' />:
+                        <Avatar alt='Anonymous' src={anonymous} className='avatar' />
+                    }
+                    {this.state.user ?
                     <TextField
                         value={this.state.userText}
                         label="Ask a question"
@@ -101,9 +107,27 @@ export default class QASection extends React.Component {
                             shrink: true,
                         }}
                         className='comment'
-                    />
+                    />:
+                        <TextField
+                            value={this.state.userText}
+                            label="Ask a question"
+                            placeholder="You have to login to ask a question"
+                            multiline={true}
+                            margin="normal"
+                            variant="outlined"
+                            disabled={true}
+                            rows={4}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            className='comment'
+                        />
+                    }
                 </div>
-                <button className='submit' onClick={this.submitQuestion}>Submit</button>
+                {this.state.user ?
+                <button className='submit pink' onClick={this.submitQuestion}>Submit</button>:
+                <button className='submit blue' onClick={this.submitQuestion}>Login</button>
+                }
                 <Dialog
                     open={this.state.dialog}
                     aria-labelledby="alert-dialog-title"
