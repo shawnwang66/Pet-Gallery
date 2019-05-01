@@ -277,20 +277,15 @@ class ProfilePosts extends Component{
                         options={{isFitWidth: true}}
                         className={styles.masoryContainer}
                     >
-                        {this.props.isFeatured ? [] :
-                            !this.props.isSelf ?
-                                <div className={styles.potsNew}>
-                                    <Fab size="large" color="primary" aria-label="Add">
-                                        EMPTY
-                                    </Fab>
-                                </div>
-                                :
+                        {this.props.isFeatured || !this.props.isSelf  ? [] :
                             <div className={styles.potsNew}>
                                 <Fab size="large" color="primary" aria-label="Add" onClick={this.handleClickOpen('diagOpen')}>
                                     <AddIcon/>
                                 </Fab>
                             </div>}
-                        {this.state.gridItems}
+                        {
+                            this.state.gridItems
+                        }
                     </Masonry>
                 </div>
 

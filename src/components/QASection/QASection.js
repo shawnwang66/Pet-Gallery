@@ -19,7 +19,7 @@ export default class QASection extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            questions:[],
+            questions:['1'],
             user:null,
             userText:'',
             dialog: false,
@@ -39,14 +39,8 @@ export default class QASection extends React.Component {
         axios.get(API+'/question/pet/'+pet)
             .then(result=>{
                 const data = result.data.data;
-                data.map(item=>{
-                    this.setState({
-                        questions:[item,...this.state.questions]
-                    }, ()=> {
-                        console.log(this.state.questions);
-                      }
-                    );
-                })
+                console.log('data=', data);
+                this.setState({questions: data});
             })
     }
 
@@ -82,7 +76,12 @@ export default class QASection extends React.Component {
             .catch(err=>console.log(err))
     }
     render() {
-        console.log(this.state.questions);
+        let questionList = this.state.questions.map((item,idx) => {
+            return (<QuestionCell
+                key={idx}
+                question={item}
+            />);
+        });
         return (
             <div className='QA-section'>
                 <div className='comment-section'>
@@ -104,6 +103,7 @@ export default class QASection extends React.Component {
                             shrink: true,
                         }}
                         className='comment'
+
                     />:
                         <TextField
                             value={this.state.userText}
@@ -120,6 +120,11 @@ export default class QASection extends React.Component {
                             className='comment'
                         />
                     }
+                    />
+                </div>
+                <button className='submit' onClick={this.submitQuestion}>Submit</button>
+                <div className='question-container'>
+                    {questionList}
                 </div>
                 {this.state.user &&
                 <button className='submit pink' onClick={this.submitQuestion}>Submit</button>
