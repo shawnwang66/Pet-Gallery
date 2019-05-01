@@ -24,7 +24,7 @@ export default class QuestionCell extends React.Component {
       userName: '',
       userImageURL: '',
       authorID: '',
-      showAnswer:'0'
+      showAnswer:'0',
       questionID: '',
     };
     this.toggleUpvote = this.toggleUpvote.bind(this);
