@@ -8,6 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import {Divider} from 'semantic-ui-react';
 import ImageSlider from '../ImageSlider/ImageSlider'
 import QASection from '../QASection/QASection'
+import {Link} from "react-router-dom";
 
 const API = 'http://pet-gallery.herokuapp.com/api';
 
@@ -103,6 +104,7 @@ export default class PetDetail extends Component {
         }
     }
 
+
     generateFav(){
         if (this.state.user){
             return (!this.state.favorite?
@@ -150,9 +152,11 @@ export default class PetDetail extends Component {
                         <Divider horizontal className='divider'>Owner's Note</Divider>
                         <div className='owner-note'>
                             {this.state.owner &&
-                            <Avatar alt={this.state.owner.name} src={this.state.owner.imageURL} className='avatar' />
-                            }
-                            {this.state.description}
+                            <Link to={{ pathname: '/profile/'+this.state.owner._id }}>
+                                <Avatar alt={this.state.owner.name} src={this.state.owner.imageURL} className='avatar' />
+                            </Link>
+                                }
+                            {this.state.description ? this.state.description: <span style={{color:'#c2c2c2', fontSize:'16px'}}>This user has left no description for the pet.</span>}
                         </div>
                     </div>
                 </div>

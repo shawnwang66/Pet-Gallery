@@ -69,27 +69,20 @@ export default class QASection extends React.Component {
             'upvote':0,
             'answer':[],
             'author':this.state.user._id,
-
         };
 
         axios.post(API+'/question/', data, config)
-            .then(()=>{
-                data.dateCreated='Just now';
+            .then(res=>{
                 this.setState({
-                    question:[...this.state.questions,data],
+                    question:[...this.state.questions,res.data.data],
                     userText:'',
                     dialog:true
                 })
-
             })
             .catch(err=>console.log(err))
     }
-
     render() {
-
-
-
-
+        console.log(this.state.questions);
         return (
             <div className='QA-section'>
                 <div className='comment-section'>
@@ -128,9 +121,8 @@ export default class QASection extends React.Component {
                         />
                     }
                 </div>
-                {this.state.user ?
-                <button className='submit pink' onClick={this.submitQuestion}>Submit</button>:
-                <button className='submit blue' onClick={this.submitQuestion}>Login</button>
+                {this.state.user &&
+                <button className='submit pink' onClick={this.submitQuestion}>Submit</button>
                 }
                 <Dialog
                     open={this.state.dialog}
@@ -150,10 +142,6 @@ export default class QASection extends React.Component {
                         </Button>
                     </DialogActions>
                 </Dialog>
-
-                <button className='submit' onClick={this.submitQuestion}>Submit</button>
-                <div className='question-container'>
-                </div>
             </div>
         )
     }

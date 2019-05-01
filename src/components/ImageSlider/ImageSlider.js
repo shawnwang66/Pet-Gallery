@@ -1,6 +1,5 @@
 import React from 'react';
 import Coverflow from 'react-coverflow';
-import { StyleRoot } from 'radium';
 
 import './ImageSlider.style.scss'
 
@@ -11,14 +10,6 @@ export default class ImageSlider extends React.Component {
         this.state = {
             images:this.props.images,
             clicked:false
-        }
-    }
-
-    componentDidMount() {
-        const first = document.getElementsByTagName('img')[2];
-        if (first) {
-            first.click();
-            this.setState({clicked: true})
         }
     }
 
