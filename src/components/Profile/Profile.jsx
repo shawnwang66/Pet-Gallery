@@ -213,14 +213,22 @@ class Profile extends Component{
 
                     </div>
 
-                    <label htmlFor="inputImage">
+                    { this.state.queryId === window.localStorage.getItem('uid')?
+                        <label htmlFor="inputImage">
+                            <div className={styles.imgContainer}>
+                                <img style={Avatar} onClick={this.handleClickOpen('changeAvatar')}/>
+                                <Button variant={"contained"} component={"span"} color="secondary"
+                                        className={styles.editSpan}>
+                                    Edit
+                                </Button>
+                            </div>
+                        </label>
+                        :
                         <div className={styles.imgContainer}>
                             <img style={Avatar} onClick={this.handleClickOpen('changeAvatar')}/>
-                            <Button variant={"contained"} component={"span"} color="secondary" className={styles.editSpan}>
-                                Edit
-                            </Button>
                         </div>
-                    </label>
+
+                    }
                     <input id={'inputImage'} type='file' name='image' className={styles.inputButton} onChange={this.updateImageSingle}/>
 
                 </div>
