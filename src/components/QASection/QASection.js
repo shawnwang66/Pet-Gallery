@@ -112,6 +112,7 @@ export default class QASection extends React.Component {
                             multiline={true}
                             margin="normal"
                             variant="outlined"
+                            fullWidth={true}
                             disabled={true}
                             rows={4}
                             InputLabelProps={{
@@ -122,7 +123,6 @@ export default class QASection extends React.Component {
                     }
 
                 </div>
-
                 {this.state.user &&
                 <button className='submit pink' onClick={this.submitQuestion}>Submit</button>
                 }
