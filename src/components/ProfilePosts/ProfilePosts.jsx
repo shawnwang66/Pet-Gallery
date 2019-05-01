@@ -278,6 +278,13 @@ class ProfilePosts extends Component{
                         className={styles.masoryContainer}
                     >
                         {this.props.isFeatured ? [] :
+                            !this.props.isSelf ?
+                                <div className={styles.potsNew}>
+                                    <Fab size="large" color="primary" aria-label="Add">
+                                        EMPTY
+                                    </Fab>
+                                </div>
+                                :
                             <div className={styles.potsNew}>
                                 <Fab size="large" color="primary" aria-label="Add" onClick={this.handleClickOpen('diagOpen')}>
                                     <AddIcon/>
