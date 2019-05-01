@@ -46,3 +46,33 @@ export async function removePetFromFavorite(id) {
 
 }
 
+export async function upvoteQuestion(id) {
+  let token = await window.localStorage.getItem('token');
+  let config = {
+    headers: {'Authorization': "bearer " + token}
+  };
+
+  let data = {
+    'id': id
+  };
+
+  return axios.post(API_URL + 'upvoteq', data, config)
+    .then((response)=>{
+    })
+    .catch();
+}
+
+export async function undoUpvoteQuestion(id) {
+  let token = await window.localStorage.getItem('token');
+  let config = {
+    headers: {'Authorization': "bearer " + token},
+    data: {'id': id}
+  };
+
+  return axios.delete(API_URL + 'upvoteq', config)
+    .then((response)=>{
+    })
+    .catch();
+
+}
+

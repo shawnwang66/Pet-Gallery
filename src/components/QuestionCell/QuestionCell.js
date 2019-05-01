@@ -2,7 +2,7 @@ import React from 'react'
 import './QuestionCell.style.scss'
 import axios from 'axios'
 import TextField from '@material-ui/core/TextField'
-import {getUserInfo} from "../../utils/APIHelpers";
+import {upvoteQuestion, undoUpvoteQuestion} from "../../utils/APIHelpers";
 import Avatar from "@material-ui/core/Avatar";
 import { Divider, Icon } from 'semantic-ui-react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,6 +22,7 @@ export default class QuestionCell extends React.Component {
       userName: '',
       userImageURL: '',
       authorID: '',
+      questionID: '',
     };
     this.toggleUpvote = this.toggleUpvote.bind(this);
     this.commentButtonOnClick = this.commentButtonOnClick.bind(this);
@@ -39,6 +40,12 @@ export default class QuestionCell extends React.Component {
   updateContent(inputQuestion) {
     this.setState({
       content: inputQuestion.content,
+      upvoteCount: inputQuestion.upvotedBy.length,
+      questionID: inputQuestion._id,
+    });
+    const token = window.localStorage.getItem('uid');
+    this.setState({
+      upvoted: inputQuestion.upvotedBy.indexOf(token)!==-1
     });
     if (inputQuestion.author === this.state.authorID) {
       return;
@@ -47,8 +54,6 @@ export default class QuestionCell extends React.Component {
     axios.get(API + '/user/' + inputQuestion.author)
       .then(data => {
         data = data.data.data[0];
-
-
         this.setState({userName: data.name, userImageURL: data.imageURL});
       })
       .catch(e => {});
@@ -58,6 +63,9 @@ export default class QuestionCell extends React.Component {
     let upvoteChange = 1;
     if (this.state.upvoted) {
       upvoteChange = -1;
+      undoUpvoteQuestion(this.state.questionID);
+    } else {
+      upvoteQuestion(this.state.questionID);
     }
     this.setState({
       upvoted: !this.state.upvoted,
