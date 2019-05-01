@@ -120,15 +120,15 @@ export default class QASection extends React.Component {
                             className='comment'
                         />
                     }
-                    />
+
                 </div>
-                <button className='submit' onClick={this.submitQuestion}>Submit</button>
-                <div className='question-container'>
-                    {questionList}
-                </div>
+
                 {this.state.user &&
                 <button className='submit pink' onClick={this.submitQuestion}>Submit</button>
                 }
+                <div className='question-container'>
+                    {questionList}
+                </div>
                 <Dialog
                     open={this.state.dialog}
                     aria-labelledby="alert-dialog-title"
