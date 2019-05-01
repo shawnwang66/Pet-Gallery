@@ -121,12 +121,31 @@ class Register extends Component {
 			})
 			.then(res => {
 				const token = res.data.token;
-				console.log("Login succeed");
+				let uid, avatar;
+
 				window.localStorage.setItem("token", token);
 				window.localStorage.setItem("username", this.userName);
-				this.setState({
-					redirect: true
-				});
+
+				axios
+					.get(`${API_URL}user`, 
+						{
+							headers: { 'Authorization': `bearer ${token}` }
+						})
+					.then((res) => {
+						uid = res.data.data._id;
+						avatar = res.data.data.imageURL;
+						window.localStorage.setItem("uid", uid);
+						window.localStorage.setItem("avatar", avatar);
+					})
+					.catch((_) => {
+						window.localStorage.setItem("uid", null);
+						window.localStorage.setItem("avatar", null);
+					})
+					.finally(() => {
+						this.setState({
+							redirect: true
+						});
+					});
 			})
 			.catch(err => {
 				console.log(`Error during login: ${err}`);
