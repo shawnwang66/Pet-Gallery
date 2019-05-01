@@ -168,7 +168,7 @@ class ProfilePosts extends Component{
 
                         return(
                             <div className={styles.gridCardContainer}>
-                                <Link to={`pet/${pet._id}`}>
+                                <Link to={{pathname: `/pet/${pet._id}`}}>
                                     <Card
                                         key={pet._id}
                                         color={'grey'}
