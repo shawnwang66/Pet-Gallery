@@ -65,11 +65,12 @@ class Login extends Component {
 					.catch((_) => {
 						window.localStorage.setItem("uid", null);
 						window.localStorage.setItem("avatar", null);
+					})
+					.finally(() => {
+						this.setState({
+							redirect: true
+						});
 					});
-					
-				this.setState({
-					redirect: true
-				});
 			})
 			.catch(err => {
 				console.log(`Error during login: ${err}`);
