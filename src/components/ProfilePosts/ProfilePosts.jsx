@@ -37,6 +37,11 @@ class ProfilePosts extends Component{
             dogAge: ['Puppy', 'Young','Adult','Senior'],
             size: [ 'small', 'medium', 'large' ],
             energyLevel : [ 'low', 'medium', 'high' ],
+            catBreed : ['Siamese', 'Persian', 'Maine Coon','Ragdoll', 'Bengal', 'Abyssinian','Birman',
+                'Oriental Shorthair', 'Sphynx', 'Devon Rex','Himalayan',  'American Shorthair'],
+            dogBreed: ['Retrievers','German Shepherd Dogs','American Bobtail Cat', 'French Bulldogs',
+                'Bulldogs', 'Beagles', 'Poodles', 'Rottweilers', 'German Shorthaired', 'Yorkshire Terriers', 'Boxers', 'Dachshunds'],
+            genderSelection: ['Male','Female'],
             userId : this.props.userId,
             selectedCate: '',
             selectedSize: '',
@@ -376,17 +381,28 @@ class ProfilePosts extends Component{
                         </TextField>
 
                         <TextField
-
+                            select
                             margin="dense"
                             id="breed"
-                            label="breed"
+                            label="Breed"
                             type="breed"
                             variant="outlined"
                             onChange={this.handleChange('inputBreed')}
                             value={this.state.inputBreed}
                             className={styles.inputFiled}
 
-                        />
+                        >
+                            {this.state.selectedCate === 'cat'
+                                ? this.state.catBreed.map(option => (
+                                    <MenuItem key={option} value={option}>
+                                        {option}
+                                    </MenuItem>))
+                                : this.state.dogBreed.map(option => (
+                                    <MenuItem key={option} value={option}>
+                                        {option}
+                                    </MenuItem>))
+                            }
+                        </TextField>
                         <TextField
                             select
                             margin="dense"
@@ -412,6 +428,7 @@ class ProfilePosts extends Component{
                         </TextField>
                         <TextField
 
+                            select
                             margin="dense"
                             id="gender"
                             label="gender"
@@ -421,7 +438,12 @@ class ProfilePosts extends Component{
                             value={this.state.inputGender}
                             className={styles.inputFiled}
 
-                        />
+                        >
+                            { this.state.genderSelection.map(option => (
+                            <MenuItem key={option} value={option}>
+                                {option}
+                            </MenuItem>))}
+                        </TextField>
                         <TextField
                             id="select-size"
                             select
