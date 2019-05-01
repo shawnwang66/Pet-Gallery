@@ -19,7 +19,7 @@ export default class QASection extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            questions:['1'],
+            questions:[],
             user:null,
             userText:'',
             dialog: false,
@@ -68,9 +68,12 @@ export default class QASection extends React.Component {
         axios.post(API+'/question/', data, config)
             .then(res=>{
                 this.setState({
-                    question:[...this.state.questions,res.data.data],
+                    questions:[...this.state.questions,res.data.data],
                     userText:'',
                     dialog:true
+                }, () => {
+                  console.log(this.state.questions)
+                  this.forceUpdate()
                 })
             })
             .catch(err=>console.log(err))
