@@ -1,6 +1,5 @@
 import React from 'react';
 import Coverflow from 'react-coverflow';
-import { StyleRoot } from 'radium';
 
 import './ImageSlider.style.scss'
 
@@ -8,7 +7,6 @@ import './ImageSlider.style.scss'
 export default class ImageSlider extends React.Component {
     constructor(props){
         super(props);
-
         this.state = {
             images:this.props.images,
             clicked:false
@@ -25,6 +23,7 @@ export default class ImageSlider extends React.Component {
             this.setState({clicked:true})
         }
     }
+
 
     render() {
         let trimmed = [...this.state.images];
