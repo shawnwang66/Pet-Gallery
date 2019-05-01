@@ -99,11 +99,9 @@ export default class SearchView extends Component {
       params['energyLevel'] = this.state.selectedEnergyLevel;
     }
 
-    console.log('new search!');
 
     axios.get(API_URL + '/pets', {params: params})
       .then( res => {
-        console.log(res.data.data);
         this.setState({
           data: res.data.data,
           dataRequested: true
@@ -113,7 +111,6 @@ export default class SearchView extends Component {
         if (LOGIN_TOKEN !== undefined) {
           getUserInfo(LOGIN_TOKEN).then(
             resData => {
-              console.log('done requesting!');
               this.setState({
                 favoritedPets: resData.favoritedPets
               });
@@ -125,7 +122,6 @@ export default class SearchView extends Component {
   }
 
   componentDidMount() {
-    console.log('did mount');
     window.scrollTo(0,0);
     let thisQuery = queryString.parse(this.props.location.search)['?text'];
     if (thisQuery !== this.state.searchQuery || thisQuery==='') {
@@ -141,12 +137,9 @@ export default class SearchView extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('did update! search!!!!');
 
     let thisQuery = queryString.parse(this.props.location.search)['?text'];
-    console.log(thisQuery, this.state.searchQuery);
     if (thisQuery !== this.state.searchQuery) {
-      console.log('string=', thisQuery,'end');
       if (thisQuery !== this.state.searchQuery || this.state.data.length === 0) {
         window.scrollTo(0, 0);
         this.setState({searchQuery: thisQuery}, this.updateSearch);
