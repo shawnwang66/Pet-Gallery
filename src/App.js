@@ -9,7 +9,6 @@ import NavBar from './components/NavBar/NavBar';
 import MainView from './components/MainView/MainView';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPencilAlt, faCaretUp, faHome, faCommentAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { faPencilAlt, faCaretUp, faCommentAlt } from '@fortawesome/free-solid-svg-icons';
 import PetDetail from './components/PetDetail/PetDetail';
 import SearchView from './components/SearchView/SearchView';
 import DiscussionPosts from './components/DiscussionPosts/DiscussionPosts';
