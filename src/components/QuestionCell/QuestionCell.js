@@ -1,11 +1,11 @@
 import React from 'react'
 import './QuestionCell.style.scss'
 import axios from 'axios'
-import TextField from '@material-ui/core/TextField'
-import {getUserInfo} from "../../utils/APIHelpers";
 import Avatar from "@material-ui/core/Avatar";
 import { Divider, Icon } from 'semantic-ui-react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AnimateHeight from 'react-animate-height';
+import AnswerCell from '../AnswerCell/AnswerCell';
 
 
 const API = 'http://pet-gallery.herokuapp.com/api';
@@ -22,10 +22,12 @@ export default class QuestionCell extends React.Component {
       userName: '',
       userImageURL: '',
       authorID: '',
+      showAnswer:'0'
     };
     this.toggleUpvote = this.toggleUpvote.bind(this);
     this.commentButtonOnClick = this.commentButtonOnClick.bind(this);
     this.updateContent = this.updateContent.bind(this);
+    this.showAnswer = this.showAnswer.bind(this);
   }
 
   componentDidMount() {
@@ -65,12 +67,18 @@ export default class QuestionCell extends React.Component {
     });
   }
 
+  showAnswer(){
+    this.setState({
+      showAnswer:'auto'
+    })
+  }
 
   commentButtonOnClick() {
     this.setState({commentExpanded: !this.state.commentExpanded});
   }
 
   render() {
+    console.log(this.props.question);
     return (
       <div>
         <div className={'question-inner-container'}>
@@ -99,10 +107,18 @@ export default class QuestionCell extends React.Component {
 
         <div className={'comment-button'} onClick={this.commentButtonOnClick}>
           <FontAwesomeIcon className='comment-icon' icon="comment-alt"/>
-          <div className={'comment-text'}>
+          <div className={'comment-text'} onClick={this.showAnswer}>
             Answers
           </div>
         </div>
+
+        <AnimateHeight
+            className='answer'
+            duration={ 500 }
+            height={ this.state.showAnswer }
+        >
+          <AnswerCell answers={this.props.question.answers}/>
+        </AnimateHeight>
       </div>
     )
   }
