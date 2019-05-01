@@ -13,7 +13,7 @@ export default class QASection extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            questions:[],
+            questions:['1'],
             user:null,
             userText:''
         };
@@ -32,14 +32,8 @@ export default class QASection extends React.Component {
         axios.get(API+'/question/pet/'+pet)
             .then(result=>{
                 const data = result.data.data;
-                data.map(item=>{
-                    this.setState({
-                        questions:[item,...this.state.questions]
-                    }, ()=> {
-                        console.log(this.state.questions);
-                      }
-                    );
-                })
+                console.log('data=', data);
+                this.setState({questions: data});
             })
     }
 
@@ -55,6 +49,13 @@ export default class QASection extends React.Component {
     }
 
     render() {
+        let questionList = this.state.questions.map((item,idx) => {
+            return (<QuestionCell
+                key={idx}
+                question={item}
+            />);
+        });
+
         return (
             <div className='QA-section'>
                 <div className='comment-section'>
@@ -76,6 +77,7 @@ export default class QASection extends React.Component {
                 </div>
                 <button className='submit' onClick={this.submitQuestion}>Submit</button>
                 <div className='question-container'>
+                    {questionList}
                 </div>
             </div>
         )
