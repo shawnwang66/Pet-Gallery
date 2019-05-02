@@ -11,14 +11,15 @@ class DiscussionPosts extends Component {
         this.state = {
             uid: this.props.userId,
             questions: [],
-            answers: []
+            answers: [],
+            questionRetrieved: false
         };
 
         this.userName = "";
         this.password = "";
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const token = window.localStorage.getItem('token');
         const config = {
             headers: { 'Authorization': `bearer ${token}` }
@@ -28,7 +29,8 @@ class DiscussionPosts extends Component {
             .then((res) => {
                 const questions = res.data.data;
                 this.setState({
-                    questions: questions
+                    questions: questions,
+                    questionRetrieved: true
                 });
             })
             .catch((err) => {
@@ -40,14 +42,19 @@ class DiscussionPosts extends Component {
     render() {
         return(
             <div className='posts-wrapper'>
-                {   this.state.questions ?
-                    <DiscussionPost question={0}></DiscussionPost>
-                :   this.state.questions.length() === 0 ?
+            {this.state.questionRetrieved ? 
+                !this.state.questions || this.state.questions.length === 0 ?
                     <DiscussionPost question={0}></DiscussionPost>
                 :
-                    this.state.questions.map((q, idx) => <DiscussionPost key={idx} question={q}></DiscussionPost>
-                    )
-                }
+                    this.state.questions.map((q, idx) => <DiscussionPost key={idx} question={q}></DiscussionPost>)
+            :
+                <div className="lds-ellipsis">
+                    <div />
+                    <div />
+                    <div />
+                    <div />
+                </div>
+            }
             </div>
         );
     }
