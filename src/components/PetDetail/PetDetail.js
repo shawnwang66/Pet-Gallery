@@ -125,7 +125,8 @@ export default class PetDetail extends Component {
         return (
             <div className='main'>
                 <NavBar expanded={false}/>
-                <div className="main-info">
+                <div className={'detail-main-container'}>
+                    <div className="main-info">
                     <div className='img-container'>
                         <div style={{backgroundImage:`url(${this.state.images[0]})`}}/>
                     </div>
@@ -161,10 +162,13 @@ export default class PetDetail extends Component {
                         </div>
                     </div>
                 </div>
+
                 {trimmedArray.length!==0  && trimmedArray!==null &&
                     <ImageSlider images={trimmedArray}/>
                 }
                 <QASection pet={this.state.id}/>
+                </div>
+
             </div>
         )
     }

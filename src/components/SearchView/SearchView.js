@@ -108,7 +108,7 @@ export default class SearchView extends Component {
         });
 
         LOGIN_TOKEN = window.localStorage.getItem('token');
-        if (LOGIN_TOKEN !== undefined) {
+        if (LOGIN_TOKEN !== null) {
           getUserInfo(LOGIN_TOKEN).then(
             resData => {
               this.setState({
