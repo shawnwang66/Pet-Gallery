@@ -102,16 +102,21 @@
     }
 
     &:hover {
-      transform: translateY(25px) scale(1.4);
+      transform: scale(1.2);
       
       .nav-avatar-mask {
         opacity: 1;
         transition: .3s;
       }
+
+      #sign-out {
+        background-color: rgb(203, 72, 72);
+        opacity: 1;
+      }
     }
 
     &:active {
-      transform: translateY(25px) scale(1.2);
+      transform: scale(1.05);
     }
   }
 

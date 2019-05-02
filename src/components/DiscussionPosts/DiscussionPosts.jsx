@@ -16,8 +16,6 @@ class DiscussionPosts extends Component {
 
         this.userName = "";
         this.password = "";
-
-        // this.submitLoginInfo = this.submitLoginInfo.bind(this);
     }
 
     componentDidMount() {
@@ -28,11 +26,11 @@ class DiscussionPosts extends Component {
         axios
             .get(`${API_URL}question/user/${this.state.uid}`, config)
             .then((res) => {
+                console.log(res);
                 const questions = res.data.data;
-                questions.forEach((q) => {
-                    this.setState({
-                        questions: this.state.questions.concat([q])
-                    });
+                console.log(questions);
+                this.setState({
+                    questions: questions
                 });
             })
             .catch((err) => {
@@ -44,7 +42,11 @@ class DiscussionPosts extends Component {
     render() {
         return(
             <div className='posts-wrapper'>
-                {
+                {   this.state.questions ? 
+                    <DiscussionPost question={0}></DiscussionPost>
+                :   this.state.questions.length() === 0 ? 
+                    <DiscussionPost question={0}></DiscussionPost>
+                :
                     this.state.questions.map((q, idx) => <DiscussionPost key={idx} question={q}></DiscussionPost>
                     )
                 }

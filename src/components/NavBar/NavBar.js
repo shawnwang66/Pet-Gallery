@@ -24,6 +24,7 @@ export default class NavBar extends Component{
             isSearching: false,
         };
         this.usrAvatar = window.localStorage.getItem('avatar');
+        this.usrID = window.localStorage.getItem('uid');
 
         this.handleScroll = this.handleScroll.bind(this);
         this.focusHandler = this.focusHandler.bind(this);
@@ -118,7 +119,7 @@ export default class NavBar extends Component{
                     {
                         window.localStorage.getItem('token') ? 
                         <div className='nav-item-right-img'>
-                                <Link to={'/profile'} style={{opacity:navOpacity}}>
+                                <Link to={`/profile/${this.usrID}`} style={{opacity:navOpacity}}>
                                     <div className='nav-item-avatar' style={
                                         { 
                                             opacity: 1,
@@ -185,7 +186,7 @@ export default class NavBar extends Component{
                     {
                         window.localStorage.getItem('token') ? 
                             <div className='nav-item-right-img'>
-                                <Link to={'/profile'} >
+                                <Link to={`/profile/${this.usrID}`} >
                                     <div className='nav-item-avatar' style={
                                         { 
                                             opacity: 1,
