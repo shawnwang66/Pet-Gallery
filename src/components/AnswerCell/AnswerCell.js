@@ -4,7 +4,7 @@ import axios from 'axios'
 import Avatar from "@material-ui/core/Avatar";
 import { Divider, Icon } from 'semantic-ui-react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import {upvoteAnswer, undoUpvoteAnswer, undoUpvoteQuestion, upvoteQuestion, getUserInfo} from "../../utils/APIHelpers";
 
 
 const API = 'http://pet-gallery.herokuapp.com/api';
@@ -17,17 +17,49 @@ export default class AnswerCell extends React.Component {
       upvoted: false,
       upvoteCount: 0,
       content: '',
+      userName:'',
+      userImageURL:'',
       user:null,
+      answerId:''
     };
     this.toggleUpvote = this.toggleUpvote.bind(this);
   }
 
+  componentDidMount() {
+    this.updateContent(this.props);
+  }
 
+  componentWillReceiveProps(nextProps, nextContext) {
+    this.updateContent(nextProps);
+  }
+
+  updateContent(input){
+    const answer = input.answer;
+    const uid = window.localStorage.getItem('uid');
+    this.setState({
+      answerId:answer._id,
+      content:answer.content,
+      upvoteCount:answer.upvotedBy.length,
+    });
+    const token = window.localStorage.getItem('uid');
+    this.setState({
+      upvoted: answer.upvotedBy.indexOf(token)!==-1
+    });
+    axios.get(API + '/user/' + answer.author)
+        .then(data => {
+          data = data.data.data[0];
+          this.setState({userName: data.name, userImageURL: data.imageURL});
+        })
+        .catch(e => {});
+  }
 
   toggleUpvote() {
     let upvoteChange = 1;
     if (this.state.upvoted) {
       upvoteChange = -1;
+      undoUpvoteAnswer(this.state.answerId);
+    } else {
+      upvoteAnswer(this.state.answerId);
     }
     this.setState({
       upvoted: !this.state.upvoted,
@@ -46,10 +78,10 @@ export default class AnswerCell extends React.Component {
               <Avatar alt={'test name'} src={this.state.userImageURL} className='avatar' />
           }
           <div className={'answer-poster-name'}>
-            Test User
+            {this.state.userName}
           </div>
           <div className={'answer-entry'}>
-            Answer AnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswerAnswer
+            {this.state.content}
           </div>
         </div>
         {

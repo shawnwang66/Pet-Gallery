@@ -39,7 +39,6 @@ export default class QASection extends React.Component {
         axios.get(API+'/question/pet/'+pet)
             .then(result=>{
                 const data = result.data.data;
-                console.log('data=', data);
                 this.setState({questions: data});
             })
     }
@@ -72,7 +71,6 @@ export default class QASection extends React.Component {
                     userText:'',
                     dialog:true
                 }, () => {
-                  console.log(this.state.questions)
                   this.forceUpdate()
                 })
             })

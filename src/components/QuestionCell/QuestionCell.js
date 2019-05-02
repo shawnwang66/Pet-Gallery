@@ -2,12 +2,13 @@ import React from 'react'
 import './QuestionCell.style.scss'
 import axios from 'axios'
 import TextField from '@material-ui/core/TextField'
-import {upvoteQuestion, undoUpvoteQuestion} from "../../utils/APIHelpers";
+import {upvoteQuestion, undoUpvoteQuestion, getUserInfo} from "../../utils/APIHelpers";
 import Avatar from "@material-ui/core/Avatar";
 import { Divider, Icon } from 'semantic-ui-react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AnimateHeight from 'react-animate-height';
 import AnswerCell from '../AnswerCell/AnswerCell';
+import anonymous from "../../assets/anonymous.png";
 
 
 const API = 'http://pet-gallery.herokuapp.com/api';
@@ -26,14 +27,25 @@ export default class QuestionCell extends React.Component {
       authorID: '',
       showAnswer:'0',
       questionID: '',
+      answers:[],
+      user:null,
+      userText:''
     };
     this.toggleUpvote = this.toggleUpvote.bind(this);
     this.commentButtonOnClick = this.commentButtonOnClick.bind(this);
     this.updateContent = this.updateContent.bind(this);
     this.showAnswer = this.showAnswer.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.submitAnswer = this.submitAnswer.bind(this);
   }
 
   componentDidMount() {
+    getUserInfo(localStorage.getItem('token'))
+        .then(data => this.setState({
+          user:data,
+        }))
+        .catch(err=>console.log(err));
+
     this.updateContent(this.props.question);
   }
 
@@ -61,6 +73,12 @@ export default class QuestionCell extends React.Component {
         this.setState({userName: data.name, userImageURL: data.imageURL});
       })
       .catch(e => {});
+    axios.get(API+'/answer/question/'+inputQuestion._id)
+        .then(data=>{
+          this.setState({
+            answers:data.data.data
+          })
+        })
   }
 
   toggleUpvote() {
@@ -78,17 +96,59 @@ export default class QuestionCell extends React.Component {
   }
 
   showAnswer(){
-    this.setState({
-      showAnswer:'auto'
-    })
+    if (this.state.showAnswer==='0'){
+      this.setState({
+        showAnswer:'auto'
+      })
+    }
+    else{
+      this.setState({
+        showAnswer:'0'
+      })
+    }
+
   }
 
   commentButtonOnClick() {
     this.setState({commentExpanded: !this.state.commentExpanded});
   }
 
+  async submitAnswer(){
+    let token = await window.localStorage.getItem('token');
+    let config = {
+      headers: {'Authorization': "bearer " + token},
+    };
+    let data = {
+      'question': this.state.questionID,
+      'content':this.state.userText,
+      'author':this.state.user._id,
+    };
+
+    axios.post(API+'/answer/', data, config)
+        .then(res=>{
+          this.setState({
+            answers:[...this.state.answers,res.data.data],
+            userText:'',
+          }, () => {
+            this.forceUpdate()
+          })
+        })
+        .catch(err=>console.log(err))
+  }
+
+  handleChange = (event) =>{
+    this.setState({
+      userText:event.target.value
+    })
+  };
+
   render() {
-    console.log(this.props.question);
+
+    let answerList = this.state.answers.map((item) => {
+      return (<AnswerCell
+          answer={item}
+      />);
+    });
     return (
       <div>
         <div className={'question-inner-container'}>
@@ -127,7 +187,48 @@ export default class QuestionCell extends React.Component {
             duration={ 500 }
             height={ this.state.showAnswer }
         >
-          <AnswerCell answers={this.props.question.answers}/>
+          {answerList}
+          <div className='answer-section'>
+            {this.state.user ?
+                <Avatar alt={this.state.user.name} src={this.state.user.imageURL} className='avatar' />:
+                <Avatar alt='Anonymous' src={anonymous} className='avatar' />
+            }
+            {this.state.user ?
+                <TextField
+                    value={this.state.userText}
+                    label="Answer this question"
+                    placeholder="Type your answer here..."
+                    multiline={true}
+                    margin="normal"
+                    variant="outlined"
+                    rows={4}
+                    onChange={this.handleChange}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    className='comment'
+
+                />:
+                <TextField
+                    value={this.state.userText}
+                    label="Answer this question"
+                    placeholder="You have to login to answer a question"
+                    multiline={true}
+                    margin="normal"
+                    variant="outlined"
+                    fullWidth={true}
+                    disabled={true}
+                    rows={4}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    className='comment'
+                />
+            }
+            {this.state.user &&
+            <button className='submit-answer pink' onClick={this.submitAnswer}>Submit</button>
+            }
+          </div>
         </AnimateHeight>
       </div>
     )
