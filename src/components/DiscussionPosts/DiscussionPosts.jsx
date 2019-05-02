@@ -42,7 +42,7 @@ class DiscussionPosts extends Component {
     render() {
         return(
             <div className='posts-wrapper'>
-            {this.state.questionRetrieved ? 
+            {this.state.questionRetrieved ?
                 !this.state.questions || this.state.questions.length === 0 ?
                     <DiscussionPost question={0}></DiscussionPost>
                 :
