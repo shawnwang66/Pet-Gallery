@@ -25,7 +25,7 @@ import Grow from '@material-ui/core/Grow';
  * https://material-ui.com/lab/slider/
  * https://www.npmjs.com/package/rc-slider
  */
-const API_URL = 'http://pet-gallery.herokuapp.com/api';
+const API_URL = 'https://cors-anywhere.herokuapp.com/http://pet-gallery.herokuapp.com/api';
 let LOGIN_TOKEN = undefined;
 
 const categoryOptions = ['Cat', 'Dog'];

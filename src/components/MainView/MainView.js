@@ -12,7 +12,7 @@ import {getUserInfo} from "../../utils/APIHelpers";
  * We are using react-masonry-component to handle this layout
  * reference: https://www.npmjs.com/package/react-masonry-component
  */
-const API_URL = 'http://pet-gallery.herokuapp.com/api';
+const API_URL = 'https://cors-anywhere.herokuapp.com/http://pet-gallery.herokuapp.com/api';
 let LOGIN_TOKEN = undefined;
 
 export default class MainView extends Component {
