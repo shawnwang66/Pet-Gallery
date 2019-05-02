@@ -9,6 +9,10 @@ const AVATAR_PH =
 const API_URL = "http://pet-gallery.herokuapp.com/api/";
 const TITLE = "Welcome";
 
+/**
+ * reference: https://stackoverflow.com/questions/7460272/getting-image-dimensions-using-javascript-file-api
+ */
+
 class Register extends Component {
 	constructor() {
 		super();
@@ -164,8 +168,6 @@ class Register extends Component {
 			else {
 				const form = new FormData();
 				form.append("avatar", imgFile);
-				console.log(imgFile);
-				
 
 				this.setState({ isUploading: true });
 				axios
