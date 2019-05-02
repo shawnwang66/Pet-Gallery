@@ -18,7 +18,7 @@ export default class ImageCell extends Component {
     super(props);
     this.state = {
       name: 'Test',
-      imageURL: 'https://imaggites.unsplash.com/photo-1512546148165-e50d714a565a',
+      imageURL: '',
       location: undefined,
       id: '',
       isFavorite: false,
