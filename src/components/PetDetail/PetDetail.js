@@ -37,6 +37,7 @@ export default class PetDetail extends Component {
     }
 
     componentDidMount() {
+        window.localStorage.setItem('previousPage','/pet/'+this.props.match.params.id);
         window.scrollTo(0,0);
         getUserInfo(localStorage.getItem('token'))
             .then(data => this.setState({
