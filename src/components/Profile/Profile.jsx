@@ -66,11 +66,17 @@ class Profile extends Component{
                 let sum = 0;
                 let postsNum = resData.petsCreated.length;
 
-               if (postsNum > 50)
+                if (postsNum >=1)
+                    sum = 1;
+                if (postsNum >=2)
+                   sum = 2;
+                if (postsNum >= 4)
+                   sum = 3;
+                if (postsNum >= 6)
+                   sum = 4;
+                if (postsNum >= 8)
                    sum = 5;
-               else{
-                   sum = Math.round(postsNum / 10);
-               }
+
                 // update state
                 this.setState({
                     id: resData._id,
@@ -97,11 +103,16 @@ class Profile extends Component{
                 let sum = 0;
                 let postsNum = resData.petsCreated.length;
 
-                if (postsNum > 50)
+                if (postsNum >=1)
+                    sum = 1;
+                if (postsNum >=2)
+                    sum = 2;
+                if (postsNum >= 4)
+                    sum = 3;
+                if (postsNum >= 6)
+                    sum = 4;
+                if (postsNum >= 8)
                     sum = 5;
-                else{
-                    sum = Math.round(postsNum / 10);
-                }
 
                 // update state
                 this.setState({
