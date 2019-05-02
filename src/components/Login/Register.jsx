@@ -5,7 +5,7 @@ import { Link, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AVATAR_PH =
-	"http://icons.iconarchive.com/icons/webalys/kameleon.pics/128/Wooden-Horse-icon.png";
+	"https://cdn3.iconfinder.com/data/icons/avatars-9/145/Avatar_Cat-512.png";
 const API_URL = "http://pet-gallery.herokuapp.com/api/";
 const TITLE = "Welcome";
 
