@@ -6,15 +6,19 @@ import ImageCell from '../ImageCell/ImageCell';
 import axios from 'axios';
 import {getUserInfo} from "../../utils/APIHelpers";
 import Pagination from "material-ui-flat-pagination";
+import queryString from "querystring";
+import {Link} from "react-router-dom";
 
 /**
  * Renders a our MainView in a printerest-like layout
  * We are request a list of pet from our backend and displaying it using the Masonry component
  * We are using react-masonry-component to handle this layout
  * reference: https://www.npmjs.com/package/react-masonry-component
+ * https://stackoverflow.com/questions/45585542/detecting-when-user-scrolls-to-bottom-of-div-with-react-js
  */
 const API_URL = 'http://pet-gallery.herokuapp.com/api';
 let LOGIN_TOKEN = undefined;
+const PAGE_LIMIT = 420;
 
 export default class MainView extends Component {
   constructor(props) {
@@ -23,28 +27,65 @@ export default class MainView extends Component {
       favoritedPets: [],
       data: [],
       currentPage: 0,
-    }
+      pageCount: 1,
+    };
+
+    this.requestDataForPage = this.requestDataForPage.bind(this);
+    this.updateDataForPage = this.updateDataForPage.bind(this);
+
   }
 
   componentDidMount() {
-    axios.get(API_URL + '/pets')
-      .then( res => {
-        this.setState({
-          data: res.data.data
-        });
-        LOGIN_TOKEN = window.localStorage.getItem('token');
-        if (LOGIN_TOKEN !== undefined) {
-          getUserInfo(LOGIN_TOKEN).then(
-            resData => {
-              this.setState({
-                favoritedPets: resData.favoritedPets
-              });
-            }
-          ).catch(e => {});
-        }
-      })
-      .catch( e => {})
+    this.requestDataForPage(this.props);
   }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    this.requestDataForPage(nextProps)
+  }
+
+  requestDataForPage(inputProps) {
+    console.log('request new stuff!');
+    try {
+      let thisPage = queryString.parse(inputProps.location.search)['?page'];
+      if (thisPage===undefined) {
+        thisPage = 0;
+      } else {
+        thisPage = parseInt(thisPage);
+        if (isNaN(thisPage)) {
+          thisPage = 0;
+        }
+      }
+      let offset = thisPage * PAGE_LIMIT;
+      axios.get(API_URL + '/pets' + '?limit=' + PAGE_LIMIT + '&skip=' + offset)
+        .then( res => {
+          let pageNum = Math.ceil(res.data.count/PAGE_LIMIT);
+          this.setState({
+            data: res.data.data,
+            pageCount: pageNum,
+
+          });
+          LOGIN_TOKEN = window.localStorage.getItem('token');
+          if (LOGIN_TOKEN !== null) {
+            getUserInfo(LOGIN_TOKEN).then(
+              resData => {
+                this.setState({
+                  favoritedPets: resData.favoritedPets
+                });
+              }
+            ).catch(e => {});
+          }
+        })
+        .catch( e => {})
+    } catch {
+
+    }
+  }
+
+  updateDataForPage() {
+    this.props.history.push('/?page=' + this.state.currentPage);
+  }
+
+
 
   render() {
     let petDivs = this.state.data.map( (item, idx)=> {
@@ -63,6 +104,7 @@ export default class MainView extends Component {
       }
       return(null);
     });
+    let thisRef = this;
     return(
         <div>
           <NavBar expanded={true}/>
@@ -74,18 +116,6 @@ export default class MainView extends Component {
               >
                 {petDivs}
               </Masonry>
-              <div className={'page-selector-container-outer'}>
-                <div className={'page-selector-container-inner'}>
-                  <Pagination
-                    className={'page-selector'}
-                    limit={1}
-                    total={10}
-                    offset={this.state.currentPage}
-                    size='large'
-                    onClick={(e, offset) => { console.log(offset)}}
-                  />
-                </div>
-              </div>
             </div>
           </div>
         </div>);
