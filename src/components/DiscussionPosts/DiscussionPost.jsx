@@ -12,13 +12,15 @@ class DiscussionPost extends Component {
 			this.state = {
 				question: null,
 				date: null,
+				pet: null,
 				upvote: []
 			};
 		else
 			this.state = {
 				question: this.props.question.content,
 				date: this.props.question.dateCreated,
-				upvote: this.props.question.upvotedBy.length
+				upvote: this.props.question.upvotedBy.length,
+				pet: this.props.question.pet
 			};
 		this.extractDate = this.extractDate.bind(this);
 	}
@@ -40,7 +42,7 @@ class DiscussionPost extends Component {
 		return (
 			<div className='discus-wrapper'>
 			{this.state.question ?
-				<div className="discus-root">
+				<Link to={{pathname: `/pet/${this.state.pet}`}} className="discus-root">
 					<div className="upvote-wrapper">
 						<FontAwesomeIcon className="upvote-icon" icon="caret-up" />
 						<p>{this.state.upvote}</p>
@@ -52,7 +54,7 @@ class DiscussionPost extends Component {
 						<p id="formatted">{this.extractDate(this.state.date).formatted}</p>
 						<p id="raw">{this.extractDate(this.state.date).raw}</p>
 					</div>
-				</div>
+				</Link>
 				: 
 				<div className='no-question'>No discussions found</div>
 			}

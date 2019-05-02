@@ -12,7 +12,8 @@ class Login extends Component {
 		this.state = {
 			disableSubmit: true,
 			errorHappened: false,
-			redirect: false
+			redirect: false,
+			redirectURL:'/'
 		};
 
 		this.userName = "";
@@ -42,6 +43,13 @@ class Login extends Component {
 			disableSubmit: this.userName === "" || this.password === "",
 			errorHappened: false
 		});
+	}
+
+	componentDidMount() {
+		const redirect = window.localStorage.getItem('previousPage');
+		this.setState({
+			redirectURL:redirect?redirect:'/'
+		})
 	}
 
 	submitLoginInfo() {
@@ -87,9 +95,11 @@ class Login extends Component {
 	}
 
 	render() {
+
+
 		return (
 			<div className="cp-root">
-				{this.state.redirect ? <Redirect to="/" /> : []}
+				{this.state.redirect ? <Redirect to={this.state.redirectURL} /> : []}
 				<div className="wrapper form">
 					<p className="app-title">{APP_NAME}</p>
 					<div className="input-wrapper">
