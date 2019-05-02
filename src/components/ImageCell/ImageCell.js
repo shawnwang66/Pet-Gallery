@@ -22,8 +22,9 @@ export default class ImageCell extends Component {
       imageURL: 'https://images.unsplash.com/photo-1512546148165-e50d714a565a',
       location: 'Champaign, IL',
       id: '',
-      isFavorite: false
-    }
+      isFavorite: false,
+      loggedIn: false,
+    };
 
     this.favoriteButtonOnClick = this.favoriteButtonOnClick.bind(this);
     this.infoButtonOnClick = this.infoButtonOnClick.bind(this);
@@ -46,7 +47,9 @@ export default class ImageCell extends Component {
       imageURL: props.imageURL,
       location: props.location,
       id: props.id,
-      isFavorite: props.isFavorite
+      isFavorite: props.isFavorite,
+      loggedIn: localStorage.getItem('token')!==null
+
     });
   }
 
@@ -89,9 +92,11 @@ export default class ImageCell extends Component {
           </div>
         </div>
         <div className={'button-container'}>
-          {this.state.isFavorite?
+          {this.state.loggedIn?
+            this.state.isFavorite?
             <Icon className={'heart-icon'} name="heart" size='large' onClick={this.favoriteButtonOnClick} color={'red'}/>:
-            <Icon className={'heart-icon'} name="heart outline" size='large' onClick={this.favoriteButtonOnClick}/>
+            <Icon className={'heart-icon'} name="heart outline" size='large' onClick={this.favoriteButtonOnClick}/> :
+            <Icon className={'heart-icon'} disabled name="heart outline" size='large'/>
           }
           <Icon className={'info-icon'} name="ellipsis horizontal" size='large' onClick={this.infoButtonOnClick}/>
         </div>
