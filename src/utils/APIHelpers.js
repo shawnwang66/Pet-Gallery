@@ -76,3 +76,33 @@ export async function undoUpvoteQuestion(id) {
 
 }
 
+export async function upvoteAnswer(id) {
+  let token = await window.localStorage.getItem('token');
+
+  let config = {
+    headers: {'Authorization': "bearer " + token}
+  };
+
+  let data = {
+    'id': id
+  };
+
+  return axios.post(API_URL + 'upvotea', data, config)
+      .then((response)=>{
+      })
+      .catch();
+}
+
+export async function undoUpvoteAnswer(id) {
+  let token = await window.localStorage.getItem('token');
+  let config = {
+    headers: {'Authorization': "bearer " + token},
+    data: {'id': id}
+  };
+
+  return axios.delete(API_URL + 'upvotea', config)
+      .then((response)=>{
+      })
+      .catch();
+
+}

@@ -16,6 +16,7 @@
     "npm": "^6.9.0",
     "rc-slider": "^8.6.9",
     "react": "^16.8.6",
+    "react-animate-height": "^2.0.8",
     "react-coverflow": "^0.2.20",
     "react-dom": "^16.8.6",
     "react-masonry-component": "^6.2.1",

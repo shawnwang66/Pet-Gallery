@@ -39,7 +39,6 @@ export default class QASection extends React.Component {
         axios.get(API+'/question/pet/'+pet)
             .then(result=>{
                 const data = result.data.data;
-                console.log('data=', data);
                 this.setState({questions: data});
             })
     }
@@ -72,7 +71,6 @@ export default class QASection extends React.Component {
                     userText:'',
                     dialog:true
                 }, () => {
-                  console.log(this.state.questions)
                   this.forceUpdate()
                 })
             })
@@ -115,6 +113,7 @@ export default class QASection extends React.Component {
                             multiline={true}
                             margin="normal"
                             variant="outlined"
+                            fullWidth={true}
                             disabled={true}
                             rows={4}
                             InputLabelProps={{
@@ -125,7 +124,6 @@ export default class QASection extends React.Component {
                     }
 
                 </div>
-
                 {this.state.user &&
                 <button className='submit pink' onClick={this.submitQuestion}>Submit</button>
                 }
