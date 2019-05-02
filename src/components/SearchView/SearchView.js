@@ -33,7 +33,7 @@ const categoryOptions = ['Cat', 'Dog'];
 const catBreedOptions = ['Siamese', 'Persian', 'Maine Coon','Ragdoll', 'Bengal', 'Abyssinian','Birman',
   'Oriental Shorthair', 'Sphynx', 'Devon Rex','Himalayan',  'American Shorthair'];
 
-const dogBreedOptions = ['Retrievers','German Shepherd Dogs','American Bobtail Cat', 'French Bulldogs',
+const dogBreedOptions = ['Retrievers','German Shepherd Dogs','American Bobtail Dog', 'French Bulldogs',
   'Bulldogs', 'Beagles', 'Poodles', 'Rottweilers', 'German Shorthaired', 'Yorkshire Terriers', 'Boxers', 'Dachshunds'];
 
 const catYears = ['Kitten', 'Young', 'Adult', 'Senior'];

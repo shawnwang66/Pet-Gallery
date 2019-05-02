@@ -39,7 +39,7 @@ class ProfilePosts extends Component{
             energyLevel : [ 'low', 'medium', 'high' ],
             catBreed : ['Siamese', 'Persian', 'Maine Coon','Ragdoll', 'Bengal', 'Abyssinian','Birman',
                 'Oriental Shorthair', 'Sphynx', 'Devon Rex','Himalayan',  'American Shorthair'],
-            dogBreed: ['Retrievers','German Shepherd Dogs','American Bobtail Cat', 'French Bulldogs',
+            dogBreed: ['Retrievers','German Shepherd Dogs','American Bobtail Dog', 'French Bulldogs',
                 'Bulldogs', 'Beagles', 'Poodles', 'Rottweilers', 'German Shorthaired', 'Yorkshire Terriers', 'Boxers', 'Dachshunds'],
             genderSelection: ['Male','Female'],
             userId : this.props.userId,
