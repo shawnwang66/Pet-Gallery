@@ -21,6 +21,12 @@ class Login extends Component {
 		this.submitLoginInfo = this.submitLoginInfo.bind(this);
 	}
 
+	componentDidMount() {
+		if (localStorage.getItem('token')!==null) {
+			this.props.history.push('/profile/' + window.localStorage.getItem('uid'));
+		}
+	}
+
 	onInputChanged(e) {
 		const inputName = e.target.name;
 		switch (inputName) {
@@ -52,7 +58,7 @@ class Login extends Component {
 				window.localStorage.setItem("username", this.userName);
 
 				axios
-					.get(`${API_URL}user`, 
+					.get(`${API_URL}user`,
 						{
 							headers: { 'Authorization': `bearer ${token}` }
 						})
