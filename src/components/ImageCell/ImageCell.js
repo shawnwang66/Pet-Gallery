@@ -3,7 +3,6 @@ import "./ImageCell.style.scss";
 import { Icon } from 'semantic-ui-react'
 import {addPetToFavorite, removePetFromFavorite} from "../../utils/APIHelpers";
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 /**
  * Renders a our MainView in a printerest-like layout
@@ -50,20 +49,8 @@ export default class ImageCell extends Component {
       isFavorite: props.isFavorite,
       loggedIn: localStorage.getItem('token')!==null,
       ownerID: props.ownerID,
+      location: props.location,
     });
-    if(this.state.location === undefined) {
-      // we need to request owner
-      axios.get(API_URL + '/user/' + props.ownerID)
-        .then(res => {
-          try {
-            let thisLocation = res.data.data[0].location;
-            this.setState({location: thisLocation})
-          } catch {
-
-          }
-        })
-        .catch(e=>{});
-    }
   }
 
   favoriteButtonOnClick() {
@@ -101,7 +88,7 @@ export default class ImageCell extends Component {
             {this.state.name}
           </div>
           <div className={'location-container'}>
-            {(this.state.location!==undefined)?this.state.location:''}
+            {(this.state.location!==undefined)?this.state.location:'Unknown Location'}
           </div>
         </div>
         <div className={'button-container'}>
