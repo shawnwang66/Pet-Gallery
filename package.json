@@ -1,7 +1,8 @@
 {
   "name": "pet-gallery",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://codywang1029.github.io/Pet-Gallery/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
@@ -10,6 +11,7 @@
     "@material-ui/icons": "^3.0.2",
     "@material-ui/lab": "^3.0.0-alpha.30",
     "axios": "^0.18.0",
+    "gh-pages": "^2.0.1",
     "history": "^4.9.0",
     "i": "^0.3.6",
     "node-sass": "^4.11.0",
@@ -36,7 +38,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
