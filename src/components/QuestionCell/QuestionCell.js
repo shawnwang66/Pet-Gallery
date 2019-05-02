@@ -160,6 +160,7 @@ export default class QuestionCell extends React.Component {
           <Divider/>
           {
             (this.state.userImageURL==='')?
+
               <Avatar alt={'test name'} className='avatar' /> :
                 <Link to={{ pathname: '/profile/'+this.state.authorID}}>
                   <Avatar alt= {this.state.userName} src={this.state.userImageURL} className='avatar' />

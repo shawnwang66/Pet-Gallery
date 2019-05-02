@@ -23,10 +23,15 @@ class Login extends Component {
 	}
 
 	componentDidMount() {
+
 		const redirect = window.localStorage.getItem('previousPage');
 		this.setState({
 			redirectURL:redirect?redirect:'/'
 		})
+
+		if (localStorage.getItem('token')!==null) {
+			this.props.history.push('/profile/' + window.localStorage.getItem('uid'));
+		}
 	}
 
 	onInputChanged(e) {
@@ -89,6 +94,8 @@ class Login extends Component {
 	}
 
 	render() {
+
+
 		return (
 			<div className="cp-root">
 				{this.state.redirect ? <Redirect to={this.state.redirectURL} /> : []}

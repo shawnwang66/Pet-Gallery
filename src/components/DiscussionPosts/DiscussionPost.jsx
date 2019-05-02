@@ -6,21 +6,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class DiscussionPost extends Component {
 	constructor(props) {
-        super(props);
-        
-        if (this.props.question === 0)
-            this.state = {
-                question: [],
-                date: [],
-                upvote: []
-            };
-        else 
-            this.state = {
-                question: this.props.question.content,
-                date: this.props.question.dateCreated,
-                upvote: this.props.question.upvote.length()
-            };
+		super(props);
 
+		if (this.props.question === 0)
+			this.state = {
+				question: null,
+				date: null,
+				pet: null,
+				upvote: []
+			};
+		else
+			this.state = {
+				question: this.props.question.content,
+				date: this.props.question.dateCreated,
+				upvote: this.props.question.upvotedBy.length,
+				pet: this.props.question.pet
+			};
 		this.extractDate = this.extractDate.bind(this);
 	}
 
@@ -39,32 +40,26 @@ class DiscussionPost extends Component {
 
 	render() {
 		return (
-			<div className="discus-root">
-				{this.state.question !== 0 ? (
+			<div className='discus-wrapper'>
+			{this.state.question ?
+				<Link to={{pathname: `/pet/${this.state.pet}`}} className="discus-root">
 					<div className="upvote-wrapper">
 						<FontAwesomeIcon className="upvote-icon" icon="caret-up" />
 						<p>{this.state.upvote}</p>
 					</div>
-				) : (
-					[]
-				)}
-
-				<div className="question-txt">
-					{this.state.question !== 0 ? (
+					<div className="question-txt">
 						<p>{this.state.question}</p>
-					) : (
-						<p>No Questions Found</p>
-					)}
-				</div>
-				{this.extractDate(this.state.date) === "" ? (
-					[]
-				) : (
+					</div>
 					<div className="post-time">
 						<p id="formatted">{this.extractDate(this.state.date).formatted}</p>
 						<p id="raw">{this.extractDate(this.state.date).raw}</p>
 					</div>
-				)}
+				</Link>
+				: 
+				<div className='no-question'>No discussions found</div>
+			}
 			</div>
+			
 		);
 	}
 }

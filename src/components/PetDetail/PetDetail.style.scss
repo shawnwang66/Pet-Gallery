@@ -7,6 +7,13 @@
   flex-direction: column;
 }
 
+.detail-main-container {
+  height: auto;
+  min-height: 100vh;
+  background-color: $content-background;
+
+}
+
 .main-info{
   display: flex;
   flex-direction: row;
@@ -46,7 +53,7 @@
     flex-grow: 1;
     text-align: right;
     padding-right: 200px;
-    img{
+    div{
       height: 230pt;
       width: 230pt;
       border-radius: 50%;
