@@ -34,6 +34,9 @@ export default class AnswerCell extends React.Component {
   }
 
   updateContent(input){
+    if (this.state.answerId!=='') {
+      return;
+    }
     const answer = input.answer;
     const uid = window.localStorage.getItem('uid');
     this.setState({
