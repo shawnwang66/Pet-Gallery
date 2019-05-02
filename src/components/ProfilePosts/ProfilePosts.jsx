@@ -206,6 +206,7 @@ class ProfilePosts extends Component{
                 //         </Fab>
                 //     </div>
                 // this.setState({gridItems:grid})
+                this.setState({gridItems:[]});
                 return;
             }
 
