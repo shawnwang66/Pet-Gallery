@@ -195,6 +195,7 @@ class Profile extends Component{
             backgroundSize: "cover",
             backgroundPosition: "center",
             position: "absolute",
+            borderRadius: "100%",
             width: "100%",
             height: "100%"
         }
