@@ -20,6 +20,7 @@ class Profile extends Component{
             id: '',
             name: "",
             location: "",
+            contact: "",
             ratings: 0,
             image: "",
             posts:[],
@@ -85,7 +86,8 @@ class Profile extends Component{
                     ratings: isNaN(sum)? 0:sum,
                     image: resData.imageURL,
                     posts: resData.petsCreated,
-                    featured: resData.favoritedPets
+                    featured: resData.favoritedPets,
+                    contact: resData.email
                 });
 
                 return resData;
@@ -114,6 +116,8 @@ class Profile extends Component{
                 if (postsNum >= 8)
                     sum = 5;
 
+
+                console.log(resData)
                 // update state
                 this.setState({
                     id: resData._id,
@@ -122,6 +126,7 @@ class Profile extends Component{
                     ratings: isNaN(sum)? 0:sum,
                     image: resData.imageURL,
                     posts: resData.petsCreated,
+                    contact: resData.email,
                     // featured: resData.favoritedPets
                 });
 
@@ -218,6 +223,7 @@ class Profile extends Component{
                     <div className={styles.description}>
                         <h1>{this.state.name}</h1>
                         <h2>{this.state.location}</h2>
+                        <h3>{this.state.contact}</h3>
                         <div className={styles.ratings}>
                             <ReactStars
                                 value={this.state.ratings}
