@@ -65,6 +65,7 @@ export default class MainView extends Component {
           isFavorite={this.state.favoritedPets.includes(item._id)}
           isLoggedIn={LOGIN_TOKEN!==undefined}
           ownerID={item.owner}
+          location={item.location}
         />);
       }
       return(null);
