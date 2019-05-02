@@ -73,11 +73,11 @@ class Profile extends Component{
                }
                 // update state
                 this.setState({
-                    id: resData._id, 
-                    name:resData.name, 
-                    location: resData.location, 
+                    id: resData._id,
+                    name:resData.name,
+                    location: resData.location,
                     ratings: isNaN(sum)? 0:sum,
-                    image: resData.imageURL, 
+                    image: resData.imageURL,
                     posts: resData.petsCreated,
                     featured: resData.favoritedPets
                 });
@@ -167,7 +167,7 @@ class Profile extends Component{
 
     componentDidMount() {
         window.localStorage.setItem('baseURL', API_URL);
-
+        window.localStorage.setItem('previousPage','/profile/'+this.props.match.params.id);
         let token;
         let uid;
 
