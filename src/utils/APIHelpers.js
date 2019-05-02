@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = "http://pet-gallery.herokuapp.com/api/";
+const API_URL = "https://cors-anywhere.herokuapp.com/http://pet-gallery.herokuapp.com/api/";
 
 export function getUserInfo(token) {
   // get user info

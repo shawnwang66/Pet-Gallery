@@ -19,7 +19,7 @@ import axios from "axios/index";
 import Button from '@material-ui/core/Button/index';
 import InputAdornment from "@material-ui/core/InputAdornment";
 
-const API_URL = "http://pet-gallery.herokuapp.com/api/";
+const API_URL = "https://cors-anywhere.herokuapp.com/http://pet-gallery.herokuapp.com/api/";
 
 // const API_URL = "http://localhost:4000/api/";
 
