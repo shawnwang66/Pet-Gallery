@@ -28,8 +28,8 @@ export default class ImageSlider extends React.Component {
     render() {
         let trimmed = [...this.state.images];
         trimmed.shift();
-        const images = trimmed.map(item=>
-            <img src={item} />
+        const images = trimmed.map((item, idx)=>
+            <img src={item} key={idx} />
         );
 
         return (

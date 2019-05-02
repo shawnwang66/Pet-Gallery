@@ -51,6 +51,17 @@
   user-select: none;
 }
 
+.answer-upvote-disabled {
+  font-size: 13px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  top: 0px;
+  right: -68px;
+}
+
 .answer-upvote:focus {outline:0;}
 
 .answer-upvote:hover {

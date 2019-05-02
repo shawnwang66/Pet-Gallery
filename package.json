@@ -1,7 +1,8 @@
 {
-  "name": "cs498-final-project",
+  "name": "pet-gallery",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://codywang1029.github.io/pet-gallery",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
@@ -33,6 +34,8 @@
     "timeago.js": "^4.0.0-beta.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

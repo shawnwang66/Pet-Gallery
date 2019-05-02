@@ -20,7 +20,8 @@ export default class AnswerCell extends React.Component {
       userName:'',
       userImageURL:'',
       user:null,
-      answerId:''
+      answerId:'',
+      loggedIn: false,
     };
     this.toggleUpvote = this.toggleUpvote.bind(this);
   }
@@ -34,6 +35,10 @@ export default class AnswerCell extends React.Component {
   }
 
   updateContent(input){
+    if (this.state.answerId!=='') {
+      return;
+    }
+    this.setState({loggedIn: localStorage.getItem('token')!==null})
     const answer = input.answer;
     const uid = window.localStorage.getItem('uid');
     this.setState({
@@ -85,11 +90,15 @@ export default class AnswerCell extends React.Component {
           </div>
         </div>
         {
-          this.state.upvoted?
-            <div className={'answer-upvoted'} onClick={this.toggleUpvote}>
-              ▲ {this.state.upvoteCount}
-            </div> :
-            <div className={'answer-upvote'} onClick={this.toggleUpvote}>
+          this.state.loggedIn?
+            this.state.upvoted?
+              <div className={'answer-upvoted'} onClick={this.toggleUpvote}>
+                ▲ {this.state.upvoteCount}
+              </div> :
+              <div className={'answer-upvote'} onClick={this.toggleUpvote}>
+                ▲ {this.state.upvoteCount}
+              </div>:
+            <div className={'answer-upvote-disabled'}>
               ▲ {this.state.upvoteCount}
             </div>
         }

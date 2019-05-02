@@ -26,9 +26,7 @@ class DiscussionPosts extends Component {
         axios
             .get(`${API_URL}question/user/${this.state.uid}`, config)
             .then((res) => {
-                console.log(res);
                 const questions = res.data.data;
-                console.log(questions);
                 this.setState({
                     questions: questions
                 });
@@ -37,14 +35,14 @@ class DiscussionPosts extends Component {
                 console.log(err);
             });
     }
-    
-    
+
+
     render() {
         return(
             <div className='posts-wrapper'>
-                {   this.state.questions ? 
+                {   this.state.questions ?
                     <DiscussionPost question={0}></DiscussionPost>
-                :   this.state.questions.length() === 0 ? 
+                :   this.state.questions.length() === 0 ?
                     <DiscussionPost question={0}></DiscussionPost>
                 :
                     this.state.questions.map((q, idx) => <DiscussionPost key={idx} question={q}></DiscussionPost>

@@ -29,7 +29,9 @@ export default class QuestionCell extends React.Component {
       questionID: '',
       answers:[],
       user:null,
-      userText:''
+      userText:'',
+      loggedIn: false,
+
     };
     this.toggleUpvote = this.toggleUpvote.bind(this);
     this.commentButtonOnClick = this.commentButtonOnClick.bind(this);
@@ -58,6 +60,7 @@ export default class QuestionCell extends React.Component {
       content: inputQuestion.content,
       upvoteCount: inputQuestion.upvotedBy.length,
       questionID: inputQuestion._id,
+      loggedIn: localStorage.getItem('token')!==null
     });
     const token = window.localStorage.getItem('uid');
     this.setState({
@@ -144,9 +147,10 @@ export default class QuestionCell extends React.Component {
 
   render() {
 
-    let answerList = this.state.answers.map((item) => {
+    let answerList = this.state.answers.map((item, idx) => {
       return (<AnswerCell
           answer={item}
+          key={idx}
       />);
     });
     return (
@@ -166,11 +170,15 @@ export default class QuestionCell extends React.Component {
           </div>
         </div>
         {
-          this.state.upvoted?
-            <div className={'upvoted'} onClick={this.toggleUpvote}>
-              ▲ {this.state.upvoteCount}
-            </div> :
-            <div className={'upvote'} onClick={this.toggleUpvote}>
+          this.state.loggedIn?
+            this.state.upvoted?
+              <div className={'upvoted'} onClick={this.toggleUpvote}>
+                ▲ {this.state.upvoteCount}
+              </div> :
+              <div className={'upvote'} onClick={this.toggleUpvote}>
+                ▲ {this.state.upvoteCount}
+              </div> :
+            <div className={'upvote-disabled'}>
               ▲ {this.state.upvoteCount}
             </div>
         }
