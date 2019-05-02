@@ -1,10 +1,10 @@
 self.__precacheManifest = [
   {
-    "revision": "e8c322de9658cbeb8a774b6624167c2c",
-    "url": "/Pet-Gallery/static/media/brand-icons.e8c322de.woff2"
+    "revision": "faff92145777a3cbaf8e7367b4807987",
+    "url": "/Pet-Gallery/static/media/icons.faff9214.woff"
   },
   {
-    "revision": "054773616f208381794f",
+    "revision": "02328a8ebf65063202d2",
     "url": "/Pet-Gallery/static/css/main.6d50bf6a.chunk.css"
   },
   {
@@ -24,12 +24,12 @@ self.__precacheManifest = [
     "url": "/Pet-Gallery/static/media/flags.9c74e172.png"
   },
   {
-    "revision": "ef60a4f6c25ef7f39f2d25a748dbecfe",
-    "url": "/Pet-Gallery/static/media/outline-icons.ef60a4f6.woff"
-  },
-  {
     "revision": "cd6c777f1945164224dee082abaea03a",
     "url": "/Pet-Gallery/static/media/outline-icons.cd6c777f.woff2"
+  },
+  {
+    "revision": "ef60a4f6c25ef7f39f2d25a748dbecfe",
+    "url": "/Pet-Gallery/static/media/outline-icons.ef60a4f6.woff"
   },
   {
     "revision": "701ae6abd4719e9c2ada3535a497b341",
@@ -44,12 +44,12 @@ self.__precacheManifest = [
     "url": "/Pet-Gallery/static/media/icons.0ab54153.woff2"
   },
   {
-    "revision": "054773616f208381794f",
-    "url": "/Pet-Gallery/static/js/main.ca9a3a44.chunk.js"
+    "revision": "02328a8ebf65063202d2",
+    "url": "/Pet-Gallery/static/js/main.a862d6f9.chunk.js"
   },
   {
-    "revision": "faff92145777a3cbaf8e7367b4807987",
-    "url": "/Pet-Gallery/static/media/icons.faff9214.woff"
+    "revision": "e8c322de9658cbeb8a774b6624167c2c",
+    "url": "/Pet-Gallery/static/media/brand-icons.e8c322de.woff2"
   },
   {
     "revision": "a046592bac8f2fd96e994733faf3858c",
@@ -84,7 +84,7 @@ self.__precacheManifest = [
     "url": "/Pet-Gallery/static/css/2.4b2a9b61.chunk.css"
   },
   {
-    "revision": "541c9f01cba2552102bb963ef4944c41",
+    "revision": "999528623e8e9119b4a916419e838c7b",
     "url": "/Pet-Gallery/index.html"
   }
 ];
