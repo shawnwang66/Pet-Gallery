@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch,HashRouter, Router} from 'react-router-dom'
 import './App.scss';
-
 import Profile from './components/Profile/Profile';
 import Login from './components/Login/Login';
 import Register from './components/Login/Register';

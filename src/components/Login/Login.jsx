@@ -12,13 +12,21 @@ class Login extends Component {
 		this.state = {
 			disableSubmit: true,
 			errorHappened: false,
-			redirect: false
+			redirect: false,
+			redirectURL:'/'
 		};
 
 		this.userName = "";
 		this.password = "";
 		this.onInputChanged = this.onInputChanged.bind(this);
 		this.submitLoginInfo = this.submitLoginInfo.bind(this);
+	}
+
+	componentDidMount() {
+		const redirect = window.localStorage.getItem('previousPage');
+		this.setState({
+			redirectURL:redirect?redirect:'/'
+		})
 	}
 
 	onInputChanged(e) {
@@ -52,7 +60,7 @@ class Login extends Component {
 				window.localStorage.setItem("username", this.userName);
 
 				axios
-					.get(`${API_URL}user`, 
+					.get(`${API_URL}user`,
 						{
 							headers: { 'Authorization': `bearer ${token}` }
 						})
@@ -83,7 +91,7 @@ class Login extends Component {
 	render() {
 		return (
 			<div className="cp-root">
-				{this.state.redirect ? <Redirect to="/" /> : []}
+				{this.state.redirect ? <Redirect to={this.state.redirectURL} /> : []}
 				<div className="wrapper form">
 					<p className="app-title">{APP_NAME}</p>
 					<div className="input-wrapper">

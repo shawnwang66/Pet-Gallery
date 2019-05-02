@@ -5,6 +5,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { Divider, Icon } from 'semantic-ui-react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {upvoteAnswer, undoUpvoteAnswer, undoUpvoteQuestion, upvoteQuestion, getUserInfo} from "../../utils/APIHelpers";
+import {Link} from "react-router-dom";
 
 
 const API = 'http://pet-gallery.herokuapp.com/api';
@@ -22,6 +23,7 @@ export default class AnswerCell extends React.Component {
       user:null,
       answerId:'',
       loggedIn: false,
+      authorID:''
     };
     this.toggleUpvote = this.toggleUpvote.bind(this);
   }
@@ -53,7 +55,7 @@ export default class AnswerCell extends React.Component {
     axios.get(API + '/user/' + answer.author)
         .then(data => {
           data = data.data.data[0];
-          this.setState({userName: data.name, userImageURL: data.imageURL});
+          this.setState({userName: data.name, userImageURL: data.imageURL, authorID: data._id});
         })
         .catch(e => {});
   }
@@ -80,7 +82,9 @@ export default class AnswerCell extends React.Component {
           {
             (this.state.userImageURL==='')?
               <Avatar alt={'test name'} className='avatar' /> :
-              <Avatar alt={'test name'} src={this.state.userImageURL} className='avatar' />
+                <Link to={{ pathname: '/profile/'+this.state.authorID}}>
+                  <Avatar alt= {this.state.userName} src={this.state.userImageURL} className='avatar' />
+                </Link>
           }
           <div className={'answer-poster-name'}>
             {this.state.userName}

@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AnimateHeight from 'react-animate-height';
 import AnswerCell from '../AnswerCell/AnswerCell';
 import anonymous from "../../assets/anonymous.png";
+import {Link} from "react-router-dom";
 
 
 const API = 'http://pet-gallery.herokuapp.com/api';
@@ -160,7 +161,9 @@ export default class QuestionCell extends React.Component {
           {
             (this.state.userImageURL==='')?
               <Avatar alt={'test name'} className='avatar' /> :
-              <Avatar alt={'test name'} src={this.state.userImageURL} className='avatar' />
+                <Link to={{ pathname: '/profile/'+this.state.authorID}}>
+                  <Avatar alt= {this.state.userName} src={this.state.userImageURL} className='avatar' />
+                </Link>
           }
           <div className={'question-poster-name'}>
             {this.state.userName}
