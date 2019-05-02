@@ -71,15 +71,14 @@ $time: 0.3s;
         }
 
         &:hover {
-            cursor: pointer;
-            box-shadow: 0px 7px 10px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.2);
             transition: $time;
             transform: scale(1.1);
 
-            .avatar-mask {
-                opacity: 1;
-                transition: $time;
-            }
+            // .avatar-mask {
+            //     opacity: 1;
+            //     transition: $time;
+            // }
         }
 
         &:active {
