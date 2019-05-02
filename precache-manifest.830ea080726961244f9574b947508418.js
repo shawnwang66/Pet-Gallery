@@ -4,8 +4,8 @@ self.__precacheManifest = [
     "url": "/pet-gallery/static/media/icons.faff9214.woff"
   },
   {
-    "revision": "8f4fbd79f8af5da74b5f",
-    "url": "/pet-gallery/static/css/main.fa364942.chunk.css"
+    "revision": "3f47b2f51089789a734b",
+    "url": "/pet-gallery/static/css/main.6d50bf6a.chunk.css"
   },
   {
     "revision": "4915727ea9613824c029",
@@ -16,8 +16,8 @@ self.__precacheManifest = [
     "url": "/pet-gallery/static/media/brand-icons.a1a749e8.svg"
   },
   {
-    "revision": "e5704af02ba4c1e4f0be",
-    "url": "/pet-gallery/static/js/2.09f971fd.chunk.js"
+    "revision": "5d95aa7e351a4c31764d",
+    "url": "/pet-gallery/static/js/2.d8299edb.chunk.js"
   },
   {
     "revision": "9c74e172f87984c48ddf5c8108cabe67",
@@ -44,8 +44,8 @@ self.__precacheManifest = [
     "url": "/pet-gallery/static/media/icons.0ab54153.woff2"
   },
   {
-    "revision": "8f4fbd79f8af5da74b5f",
-    "url": "/pet-gallery/static/js/main.5e387daf.chunk.js"
+    "revision": "3f47b2f51089789a734b",
+    "url": "/pet-gallery/static/js/main.1bb9560a.chunk.js"
   },
   {
     "revision": "e8c322de9658cbeb8a774b6624167c2c",
@@ -60,12 +60,12 @@ self.__precacheManifest = [
     "url": "/pet-gallery/static/media/icons.b87b9ba5.ttf"
   },
   {
-    "revision": "8e3c7f5520f5ae906c6cf6d7f3ddcd19",
-    "url": "/pet-gallery/static/media/icons.8e3c7f55.eot"
-  },
-  {
     "revision": "13db00b7a34fee4d819ab7f9838cc428",
     "url": "/pet-gallery/static/media/brand-icons.13db00b7.eot"
+  },
+  {
+    "revision": "8e3c7f5520f5ae906c6cf6d7f3ddcd19",
+    "url": "/pet-gallery/static/media/icons.8e3c7f55.eot"
   },
   {
     "revision": "c5ebe0b32dc1b5cc449a76c4204d13bb",
@@ -80,11 +80,11 @@ self.__precacheManifest = [
     "url": "/pet-gallery/static/media/icons.962a1bf3.svg"
   },
   {
-    "revision": "e5704af02ba4c1e4f0be",
-    "url": "/pet-gallery/static/css/2.02f90bae.chunk.css"
+    "revision": "5d95aa7e351a4c31764d",
+    "url": "/pet-gallery/static/css/2.747146e3.chunk.css"
   },
   {
-    "revision": "24bde7eebe0c7426f15bf18d5bfe3bcd",
+    "revision": "4b44914208f125ac8118a8cd2fd54adc",
     "url": "/pet-gallery/index.html"
   }
 ];
