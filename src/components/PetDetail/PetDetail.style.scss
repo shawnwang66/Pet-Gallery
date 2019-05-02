@@ -7,6 +7,13 @@
   flex-direction: column;
 }
 
+.detail-main-container {
+  height: auto;
+  min-height: 100vh;
+  background-color: $content-background;
+
+}
+
 .main-info{
   display: flex;
   flex-direction: row;

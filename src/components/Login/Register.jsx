@@ -165,6 +165,7 @@ class Register extends Component {
 				const form = new FormData();
 				form.append("avatar", imgFile);
 				console.log(imgFile);
+				
 
 				this.setState({ isUploading: true });
 				axios
