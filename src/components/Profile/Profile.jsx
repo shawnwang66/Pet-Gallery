@@ -166,6 +166,7 @@ class Profile extends Component{
 
 
     componentDidMount() {
+        window.scrollTo(0,0);
         window.localStorage.setItem('baseURL', API_URL);
         window.localStorage.setItem('previousPage','/profile/'+this.props.match.params.id);
         let token;
