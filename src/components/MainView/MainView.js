@@ -61,10 +61,10 @@ export default class MainView extends Component {
           key={idx}
           name={item.name}
           imageURL={item.imageURLs[0]}
-          location={'Champaign, IL'}
           id={item._id}
           isFavorite={this.state.favoritedPets.includes(item._id)}
           isLoggedIn={LOGIN_TOKEN!==undefined}
+          ownerID={item.owner}
         />);
       }
       return(null);
