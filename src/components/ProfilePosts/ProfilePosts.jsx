@@ -199,13 +199,14 @@ class ProfilePosts extends Component{
         else if (inputProps.userId !== "" && inputProps.userId !== null && inputProps.isFeatured){
 
             if (inputProps.posts === undefined || inputProps.posts === null || inputProps.posts.length === 0) {
-                const grid =
-                    <div className={styles.potsNew}>
-                        <Fab size="large" color="primary" aria-label="Add">
-                            Empty
-                        </Fab>
-                    </div>
-                this.setState({gridItems:grid})
+                // const grid =
+                //     <div className={styles.potsNew}>
+                //         <Fab size="large" color="primary" aria-label="Add">
+                //             Empty
+                //         </Fab>
+                //     </div>
+                // this.setState({gridItems:grid})
+                this.setState({gridItems:[]});
                 return;
             }
 
