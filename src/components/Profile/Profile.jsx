@@ -192,7 +192,10 @@ class Profile extends Component{
             backgroundImage: `url(${this.state.image})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
-            backgroundPosition: "center"
+            backgroundPosition: "center",
+            position: "absolute",
+            width: "100%",
+            height: "100%"
         }
 
         return(
@@ -216,7 +219,7 @@ class Profile extends Component{
                     { this.state.queryId === window.localStorage.getItem('uid')?
                         <label htmlFor="inputImage">
                             <div className={styles.imgContainer}>
-                                <img style={Avatar} onClick={this.handleClickOpen('changeAvatar')}/>
+                                <div style={Avatar} onClick={this.handleClickOpen('changeAvatar')}/>
                                 <Button variant={"contained"} component={"span"} color="secondary"
                                         className={styles.editSpan}>
                                     Edit
@@ -225,7 +228,7 @@ class Profile extends Component{
                         </label>
                         :
                         <div className={styles.imgContainer}>
-                            <img style={Avatar} onClick={this.handleClickOpen('changeAvatar')}/>
+                            <div style={Avatar} onClick={this.handleClickOpen('changeAvatar')}/>
                         </div>
 
                     }

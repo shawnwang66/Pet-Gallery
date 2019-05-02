@@ -65,22 +65,13 @@ body{
     .editSpan{
       opacity: 1;
     }
-    img{
+    div {
       filter: brightness(0.9);
       -webkit-filter: brightness(0.78);
       transform: scale(1.05);
       transition: 0.2s;
     }
   }
-  img{
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
-    position: absolute;
-  }
-
-
-
 }
 
 .buttonGroup{
