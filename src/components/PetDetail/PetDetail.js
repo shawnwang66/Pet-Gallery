@@ -128,7 +128,7 @@ export default class PetDetail extends Component {
                 <div className={'detail-main-container'}>
                     <div className="main-info">
                     <div className='img-container'>
-                        <img style={{backgroundImage:`url(${this.state.images[0]})`}}/>
+                        <div style={{backgroundImage:`url(${this.state.images[0]})`}}/>
                     </div>
                     <div className='description'>
                         <h1>{this.state.name}</h1>
