@@ -12,6 +12,7 @@
     "axios": "^0.18.0",
     "history": "^4.9.0",
     "i": "^0.3.6",
+    "material-ui-flat-pagination": "^3.2.0",
     "node-sass": "^4.11.0",
     "npm": "^6.9.0",
     "rc-slider": "^8.6.9",

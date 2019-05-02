@@ -5,6 +5,7 @@ import Masonry from 'react-masonry-component';
 import ImageCell from '../ImageCell/ImageCell';
 import axios from 'axios';
 import {getUserInfo} from "../../utils/APIHelpers";
+import Pagination from "material-ui-flat-pagination";
 
 /**
  * Renders a our MainView in a printerest-like layout
@@ -21,18 +22,11 @@ export default class MainView extends Component {
     this.state = {
       favoritedPets: [],
       data: [],
-      searchMode: false,
-      displayBreedPicker: false,
+      currentPage: 0,
     }
   }
 
   componentDidMount() {
-    setTimeout(function() {
-      this.setState({searchMode: true})
-    }.bind(this), 1000);
-    setTimeout(function() {
-      this.setState({displayBreedPicker: true})
-    }.bind(this), 2000);
     axios.get(API_URL + '/pets')
       .then( res => {
         this.setState({
@@ -80,6 +74,18 @@ export default class MainView extends Component {
               >
                 {petDivs}
               </Masonry>
+              <div className={'page-selector-container-outer'}>
+                <div className={'page-selector-container-inner'}>
+                  <Pagination
+                    className={'page-selector'}
+                    limit={1}
+                    total={10}
+                    offset={this.state.currentPage}
+                    size='large'
+                    onClick={(e, offset) => { console.log(offset)}}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>);
