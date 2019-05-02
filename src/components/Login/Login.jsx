@@ -3,7 +3,7 @@ import "./Login.style.scss";
 import axios from "axios/index";
 import { Link, Redirect } from "react-router-dom";
 
-const API_URL = "https://cors-anywhere.herokuapp.com/http://pet-gallery.herokuapp.com/api/";
+const API_URL = "http://pet-gallery.herokuapp.com/api/";
 const APP_NAME = "Pet Gallery";
 
 class Login extends Component {

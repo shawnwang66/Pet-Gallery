@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
  * reference: https://www.npmjs.com/package/react-masonry-component
  * https://www.w3schools.com/howto/howto_css_image_overlay.asp
  */
-const API_URL = 'https://cors-anywhere.herokuapp.com/http://pet-gallery.herokuapp.com/api';
+const API_URL = 'http://pet-gallery.herokuapp.com/api';
 
 export default class ImageCell extends Component {
   constructor(props) {

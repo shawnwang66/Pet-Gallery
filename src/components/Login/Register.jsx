@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AVATAR_PH =
 	"http://icons.iconarchive.com/icons/webalys/kameleon.pics/128/Wooden-Horse-icon.png";
-const API_URL = "https://cors-anywhere.herokuapp.com/http://pet-gallery.herokuapp.com/api/";
+const API_URL = "http://pet-gallery.herokuapp.com/api/";
 const TITLE = "Welcome";
 
 /**

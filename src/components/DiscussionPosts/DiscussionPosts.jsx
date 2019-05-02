@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './DiscussionPosts.style.scss'
 import axios from "axios/index";
 import DiscussionPost from '../DiscussionPosts/DiscussionPost'
-const API_URL = "https://cors-anywhere.herokuapp.com/http://pet-gallery.herokuapp.com/api/";
+const API_URL = "http://pet-gallery.herokuapp.com/api/";
 
 class DiscussionPosts extends Component {
 
