@@ -153,10 +153,10 @@ export default class PetDetail extends Component {
                         </div>
                         <Divider horizontal className='divider'>Owner's Note</Divider>
                         <div className='owner-note'>
-                            {this.state.owner &&
+                            {this.state.owner?
                             <Link to={{ pathname: '/profile/'+this.state.owner._id }}>
                                 <Avatar alt={this.state.owner.name} src={this.state.owner.imageURL} className='avatar' />
-                            </Link>
+                            </Link>:null
                                 }
                             {this.state.description ? this.state.description: <span style={{color:'#c2c2c2', fontSize:'16px'}}>This user has left no description for the pet.</span>}
                         </div>

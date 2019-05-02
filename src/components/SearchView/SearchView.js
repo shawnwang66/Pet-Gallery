@@ -193,7 +193,7 @@ export default class SearchView extends Component {
     let petDivs = this.state.data.map( (item, idx)=> {
       // we have to filter out some data first
       // we also need to save the location info for the pet
-      if (item.age > 0) {
+      if (item.age >= 0) {
         return(<ImageCell
           key={idx}
           name={item.name}
