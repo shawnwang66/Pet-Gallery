@@ -6,7 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { Card, Image , Grid} from 'semantic-ui-react'
+import { Card, Image , Grid, Loader} from 'semantic-ui-react'
 import Masonry from 'react-masonry-component';
 
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -53,6 +53,8 @@ class ProfilePosts extends Component{
             inputDescription: '',
             inputPrice: '',
             inputImg:[],
+            isUploading: false,
+            uploaded: false,
 
         }
 
@@ -63,6 +65,7 @@ class ProfilePosts extends Component{
 
     handleClickOpen = name => event => {
         this.setState({ [name]: true });
+        this.setState({uploaded: false});
     };
 
     handleClose = name => event =>{
@@ -93,12 +96,16 @@ class ProfilePosts extends Component{
             bodyFormData.append('petInputImage', file);
         }
 
+       this.setState({isUploading: true});
+
          axios.post(API_URL + 'image/upload/multiple', bodyFormData,
             { headers: {'Content-Type': 'multipart/form-data' , 'Authorization': "bearer " + token }})
             .then((respnose)=>{
                 let addImgs = respnose.data.img;
                 this.setState({inputImg:addImgs});
+                this.setState({isUploading: false, uploaded: true});
             })
+           .catch(e=>{this.setState({isUploading: false});})
     }
 
     submitForm(){
@@ -133,18 +140,14 @@ class ProfilePosts extends Component{
                 price: this.state.inputPrice
         }
 
-
         axios.post(url+'pets',data)
             .then((response)=>{
-                console.log("------posted")
-                console.log(response)
                 if (response.status === 200) {
                     this.setState({submittedSuccess: true});
                 }
             }).catch((e)=>{
             this.setState({submittedFailed:true});
         });
-
         // this.setState(this.state)
         this.handleClose('diagOpen')
         // window.location.reload();
@@ -513,20 +516,41 @@ class ProfilePosts extends Component{
 
                     </DialogContent>
                     <DialogActions>
-                        <label htmlFor={"petInputImage"}>
-                            <Button  size="large" component="span" color="primary" >
-                                UPLOAD Images
+                          {
+                            this.state.isUploading?
+                              <Button  disabled size="large" component="span" color="primary" >
+
+                                <Loader active size={"small"}/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <CloudUploadIcon  className={styles.icon} />
-                            </Button>
-                        </label>
+                              </Button> :
+                              this.state.uploaded?
+                                <Button  disabled size="large" component="span" color="primary" >
+                                  Uploaded
+                                  <CloudUploadIcon  className={styles.icon} />
+                                </Button> :
+                                <label htmlFor={"petInputImage"}>
+                                  <Button  size="large" component="span" color="primary" >
+                                    UPLOAD Images
+                                    <CloudUploadIcon  className={styles.icon} />
+                                  </Button>
+                                </label>
+                          }
 
                         <input id={'petInputImage'} type='file' name='image' multiple className={styles.inputButton}
                             onChange={this.updateImageMultiple}
                         />
 
-                        <Button onClick={this.submitForm} color="secondary">
+                      {
+                        this.state.isUploading?
+                          <Button onClick={this.submitForm} color="secondary" disabled>
                             Submit
-                        </Button>
+                          </Button>:
+                          <Button onClick={this.submitForm} color="secondary">
+                            Submit
+                          </Button>
+                      }
+
                         <Button onClick={this.handleClose('diagOpen')} color="primary">
                             Cancel
                         </Button>
